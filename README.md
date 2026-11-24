@@ -1,8 +1,8 @@
 # AdPulse — Sponsored Catalog Ranker, GSP Budget Pacer & Off-Policy Evaluator
 
-> **Live AWS Endpoint (`us-west-2` Lambda Function URL):** _Pending deployment (`adpulse.aws_lambda_handler.handler`)_  
-> **Health Check:** `GET /api/health`  
-> **Live API Call:** `POST /api/run` (`{"mode": "demo-all"}` | `ranker` | `pacing` | `ope` | `diagnostics` | `rank-query`)
+> **Live AWS Endpoint (`us-west-2` Lambda Function URL):** [https://rggupypb65mdvo3uld5vfebzwy0hppos.lambda-url.us-west-2.on.aws/](https://rggupypb65mdvo3uld5vfebzwy0hppos.lambda-url.us-west-2.on.aws/)  
+> **Health Check:** `https://rggupypb65mdvo3uld5vfebzwy0hppos.lambda-url.us-west-2.on.aws/api/health`  
+> **Live API Call:** `curl -s -X POST https://rggupypb65mdvo3uld5vfebzwy0hppos.lambda-url.us-west-2.on.aws/api/run -H 'Content-Type: application/json' -d '{}'`
 
 **AdPulse** is a zero-dependency Python 3.12+ sponsored-search ranking, auction pacing, off-policy evaluation, and seller diagnostics engine built strictly on the Python standard library. It pairs two-stage structured catalog retrieval and Empirical-Bayes calibrated eCPM scoring with a Generalized Second-Price (GSP) / Lagrangian PID budget pacer, a Doubly-Robust off-policy policy evaluator with paired bootstrap confidence intervals, and an SQLite-backed seller diagnostic engine that enforces target ACOS ceilings.
 
