@@ -1,10 +1,10 @@
-# AdPulse — Sponsored Catalog Ranker, GSP Budget Pacer & Off-Policy Evaluator
+# AdPulse — Sponsored Product Ranker, Hourly Budget Pacer & Seller Diagnostics
 
-> **Live AWS Endpoint (`us-west-2` Lambda Function URL):** [https://rggupypb65mdvo3uld5vfebzwy0hppos.lambda-url.us-west-2.on.aws/](https://rggupypb65mdvo3uld5vfebzwy0hppos.lambda-url.us-west-2.on.aws/)  
+> **Live Demo:** [https://rggupypb65mdvo3uld5vfebzwy0hppos.lambda-url.us-west-2.on.aws/](https://rggupypb65mdvo3uld5vfebzwy0hppos.lambda-url.us-west-2.on.aws/)  
 > **Health Check:** `https://rggupypb65mdvo3uld5vfebzwy0hppos.lambda-url.us-west-2.on.aws/api/health`  
 > **Live API Call:** `curl -s -X POST https://rggupypb65mdvo3uld5vfebzwy0hppos.lambda-url.us-west-2.on.aws/api/run -H 'Content-Type: application/json' -d '{}'`
 
-**AdPulse** is a zero-dependency Python 3.12+ sponsored-search ranking, auction pacing, off-policy evaluation, and seller diagnostics engine built strictly on the Python standard library. It pairs two-stage structured catalog retrieval and Empirical-Bayes calibrated eCPM scoring with a Generalized Second-Price (GSP) / Lagrangian PID budget pacer, a Doubly-Robust off-policy policy evaluator with paired bootstrap confidence intervals, and an SQLite-backed seller diagnostic engine that enforces target ACOS ceilings.
+**AdPulse** ranks sponsored product ads, paces daily seller ad budgets across 24-hour traffic curves, evaluates bidding changes offline on historical logs, and diagnoses why seller campaigns lose impressions — preventing out-of-stock or overpriced ads from surfacing in search, stopping seller budgets from burning out before evening conversion peaks, and keeping bid recommendations below each seller's profitable ACOS cap.
 
 ---
 
@@ -43,7 +43,7 @@
    - Ingests per-auction win/loss telemetry into an in-memory SQLite table (`auction_telemetry`) and classifies campaigns across `OUT_OF_STOCK_SUPPRESSED`, `MISSING_CATALOG_ATTRIBUTES`, `BUDGET_EXHAUSTED_EARLY`, `LOW_QUERY_RELEVANCE`, and `BID_BELOW_CLEARING_FLOOR`.
    - Enforces `recommended_bid <= price * calibrated_cvr * min(target_acos, gross_margin)`, holding bids flat on out-of-stock SKUs and recommending detail-page CVR / attribute fixes whenever clearing floors exceed profitable ACOS caps.
 
-5. **CLI & Zero-Dependency AWS Lambda Handler (`adpulse/cli.py`, `adpulse/aws_lambda_handler.py`)**  
+5. **CLI & HTTP / Lambda Handler (`adpulse/cli.py`, `adpulse/aws_lambda_handler.py`)**  
    - Exposes JSON telemetry over CLI (`--mode demo-all | ranker | pacing | ope | diagnostics`) and an AWS Lambda Function URL v2.0 / local HTTP server handler (`GET /api/health`, `POST /api/run`).
 
 ---
