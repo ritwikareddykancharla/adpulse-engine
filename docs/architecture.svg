@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 640" width="100%" height="auto" style="background:#ffffff; font-family: Virgil, Caveat, 'Segoe Print', 'Bradley Hand', 'Chalkboard SE', 'Comic Sans MS', cursive, sans-serif;">
+<defs>
+  <style>@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap");</style>
+  <pattern id="excali-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+    <circle cx="2" cy="2" r="1" fill="#e5e7eb" />
+  </pattern>
+</defs>
+<rect width="1180" height="640" fill="#ffffff" />
+<rect width="1180" height="640" fill="url(#excali-grid)" />
+<text x="36" y="42" font-size="24" font-weight="700" fill="#1e1e1e">AdPulse — Sponsored Catalog Ranker, GSP Budget Pacer &amp; Off-Policy Eval</text>
+<text x="36" y="66" font-family="'JetBrains Mono', monospace" font-size="12.5" fill="#495057">Excalidraw Architecture • Two-Stage eCPM Ranker (0.27ms p50) + PID Pacer (+86.3% ROAS) + Doubly-Robust OPE (-66.0% RMSE)</text>
+
+<rect x="30" y="90" width="350" height="515" rx="10" ry="10" fill="#f8f9fa" stroke="none" />
+<rect x="30" y="90" width="350" height="515" rx="10" ry="10" fill="none" stroke="#495057" stroke-width="1.8" stroke-dasharray="8 6" />
+<text x="46" y="114" font-size="14.5" font-weight="700" fill="#495057">1. Two-Stage Catalog Retrieval &amp; Ranker</text>
+
+<rect x="420" y="90" width="340" height="515" rx="10" ry="10" fill="#fff9db" stroke="none" />
+<rect x="420" y="90" width="340" height="515" rx="10" ry="10" fill="none" stroke="#e67700" stroke-width="1.8" stroke-dasharray="8 6" />
+<text x="436" y="114" font-size="14.5" font-weight="700" fill="#e67700">2. GSP Auction &amp; Lagrangian PID Pacer</text>
+
+<rect x="800" y="90" width="350" height="515" rx="10" ry="10" fill="#f3f0ff" stroke="none" />
+<rect x="800" y="90" width="350" height="515" rx="10" ry="10" fill="none" stroke="#5f3dc4" stroke-width="1.8" stroke-dasharray="8 6" />
+<text x="816" y="114" font-size="14.5" font-weight="700" fill="#5f3dc4">3. Off-Policy Eval &amp; Seller Diagnostics</text>
+<rect x="55" y="136" width="300" height="68" rx="10" ry="10" fill="#ffc9c9" stroke="none" />
+<path d="M 65.31 134.96 Q 204.51 135.39 345.52 136.39 Q 355 136 355.86 145.09 Q 354.83 168.97 354.38 194.01 Q 355 204 343.96 203.34 Q 205.33 204.1 64.38 204.2 Q 55 204 55.68 192.91 Q 55.67 170.44 54.65 145.24 Q 55 136 66.01 135.64 Z" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
+<path d="M 64.1 135.11 Q 205.76 136.23 345.68 136.51 Q 355 136 355.08 147.04 Q 354.73 170.11 355.72 194.26 Q 355 204 345.8 204.17 Q 205.45 203.0 64.4 203.54 Q 55 204 54.08 193.41 Q 54.12 169.51 55.3 145.7 Q 55 136 64.71 135.36 Z" fill="none" stroke="#1e1e1e" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" opacity="0.65" />
+<text x="205.0" y="156.0" text-anchor="middle" font-family="Virgil, Caveat, 'Segoe Print', 'Comic Sans MS', cursive, sans-serif" font-size="15" font-weight="700" fill="#1e1e1e">Shopper Query &amp; Catalog Index</text>
+<text x="205.0" y="174.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">500 Amazon SKUs • 120 intent queries</text>
+<text x="205.0" y="192.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">Price cap + brand &amp; attribute intent</text>
+<rect x="55" y="238" width="300" height="86" rx="10" ry="10" fill="#a5d8ff" stroke="none" />
+<path d="M 64.49 238.96 Q 205.33 238.24 344.28 238.5 Q 355 238 354.26 247.73 Q 356.08 281.31 355.13 314.41 Q 355 324 345.75 324.61 Q 204.4 322.97 64.59 323.49 Q 55 324 54.36 314.97 Q 55.83 280.59 55.34 247.77 Q 55 238 65.91 237.91 Z" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
+<path d="M 64.48 237.44 Q 205.14 237.48 345.19 238.88 Q 355 238 354.78 247.38 Q 356.09 281.02 354.1 313.0 Q 355 324 344.14 324.28 Q 205.64 323.83 64.04 323.74 Q 55 324 56.09 314.06 Q 56.04 281.79 53.93 248.49 Q 55 238 65.4 238.08 Z" fill="none" stroke="#1e1e1e" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" opacity="0.65" />
+<text x="205.0" y="258.0" text-anchor="middle" font-family="Virgil, Caveat, 'Segoe Print', 'Comic Sans MS', cursive, sans-serif" font-size="15" font-weight="700" fill="#1e1e1e">Stage 1: Structured Filter Gate</text>
+<text x="205.0" y="276.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• Inverted index + IDF posting scan</text>
+<text x="205.0" y="294.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• Suppresses OOS (0.0% vs 15.3%)</text>
+<text x="205.0" y="312.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• Enforces price cap (0.0% violation)</text>
+<rect x="55" y="358" width="300" height="88" rx="10" ry="10" fill="#d0bfff" stroke="none" />
+<path d="M 64.49 358.31 Q 204.15 357.86 344.9 359.0 Q 355 358 355.83 367.48 Q 355.0 401.29 355.91 436.82 Q 355 446 344.56 446.31 Q 205.24 445.24 65.58 446.09 Q 55 446 55.61 436.07 Q 53.9 401.61 53.94 368.94 Q 55 358 65.83 358.73 Z" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
+<path d="M 64.58 357.03 Q 205.83 358.98 344.09 357.97 Q 355 358 354.05 368.57 Q 355.58 401.18 354.95 436.11 Q 355 446 344.48 446.82 Q 204.83 445.37 65.09 446.51 Q 55 446 54.34 435.59 Q 56.09 402.33 54.86 368.04 Q 55 358 64.17 357.39 Z" fill="none" stroke="#1e1e1e" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" opacity="0.65" />
+<text x="205.0" y="379.0" text-anchor="middle" font-family="Virgil, Caveat, 'Segoe Print', 'Comic Sans MS', cursive, sans-serif" font-size="15" font-weight="700" fill="#1e1e1e">Stage 2: Calibrated eCPM Ranker</text>
+<text x="205.0" y="397.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• Empirical-Bayes Beta pCTR &amp; pCVR</text>
+<text x="205.0" y="415.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• bid * pCTR * pCVR + rel_bonus</text>
+<text x="205.0" y="433.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• +332.9% Recall@3 • 0.27ms p50</text>
+<rect x="55" y="480" width="300" height="74" rx="10" ry="10" fill="#b2f2bb" stroke="none" />
+<path d="M 64.64 480.19 Q 204.41 479.38 344.06 480.29 Q 355 480 354.4 490.89 Q 355.79 516.06 354.42 544.37 Q 355 554 344.37 553.19 Q 205.96 554.16 64.94 554.63 Q 55 554 55.68 543.32 Q 54.11 516.85 54.83 489.93 Q 55 480 65.5 480.38 Z" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
+<path d="M 66.07 479.12 Q 204.79 479.65 345.8 479.45 Q 355 480 354.32 489.89 Q 354.83 516.51 354.45 544.93 Q 355 554 344.87 554.79 Q 205.11 553.01 66.1 554.74 Q 55 554 56.03 544.94 Q 55.77 516.27 54.97 489.37 Q 55 480 64.78 479.03 Z" fill="none" stroke="#1e1e1e" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" opacity="0.65" />
+<text x="205.0" y="503.0" text-anchor="middle" font-family="Virgil, Caveat, 'Segoe Print', 'Comic Sans MS', cursive, sans-serif" font-size="15" font-weight="700" fill="#1e1e1e">Top-K Eligible Ad Candidates</text>
+<text x="205.0" y="521.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• Calibrated quality q_i + base bid</text>
+<text x="205.0" y="539.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• 0.43ms p99 retrieval + scoring</text>
+<rect x="445" y="145" width="290" height="98" rx="10" ry="10" fill="#ffec99" stroke="none" />
+<path d="M 454.73 146.07 Q 589.48 145.62 724.9 144.83 Q 735 145 736.01 156.09 Q 735.12 194.48 734.24 232.55 Q 735 243 726.03 243.17 Q 590.09 243.55 454.03 243.19 Q 445 243 445.01 233.78 Q 444.25 195.01 444.08 154.31 Q 445 145 455.21 145.39 Z" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
+<path d="M 454.42 144.16 Q 590.86 144.44 725.21 145.26 Q 735 145 734.82 155.18 Q 735.05 194.96 734.35 233.48 Q 735 243 724.43 242.77 Q 590.38 242.56 454.6 243.55 Q 445 243 444.06 232.91 Q 446.1 195.09 444.06 154.37 Q 445 145 454.48 145.95 Z" fill="none" stroke="#1e1e1e" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" opacity="0.65" />
+<text x="590.0" y="171.0" text-anchor="middle" font-family="Virgil, Caveat, 'Segoe Print', 'Comic Sans MS', cursive, sans-serif" font-size="15" font-weight="700" fill="#1e1e1e">Lagrangian PID Bid-Shading</text>
+<text x="590.0" y="189.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• effective_bid = base_bid * lambda_t</text>
+<text x="590.0" y="207.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• Tracks 24h conversion spend curve</text>
+<text x="590.0" y="225.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• Enforces campaign ROAS floor</text>
+<rect x="445" y="280" width="290" height="106" rx="10" ry="10" fill="#ffd8a8" stroke="none" />
+<path d="M 455.84 280.83 Q 589.71 279.25 725.73 280.45 Q 735 280 735.25 291.07 Q 735.34 331.92 735.7 375.56 Q 735 386 725.36 386.97 Q 589.2 385.15 454.14 386.12 Q 445 386 444.5 376.23 Q 445.48 332.35 445.3 289.48 Q 445 280 454.97 280.89 Z" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
+<path d="M 455.76 279.1 Q 589.83 279.51 723.91 280.6 Q 735 280 735.3 289.48 Q 735.53 333.11 734.84 374.92 Q 735 386 724.07 386.84 Q 590.89 386.1 455.74 386.18 Q 445 386 444.23 375.18 Q 444.58 333.88 445.65 290.79 Q 445 280 455.88 279.36 Z" fill="none" stroke="#1e1e1e" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" opacity="0.65" />
+<text x="590.0" y="310.0" text-anchor="middle" font-family="Virgil, Caveat, 'Segoe Print', 'Comic Sans MS', cursive, sans-serif" font-size="15" font-weight="700" fill="#1e1e1e">GSP / Second-Price Clearing</text>
+<text x="590.0" y="328.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• 6,000 auctions • 40 ad campaigns</text>
+<text x="590.0" y="346.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• Slot CPC = max(r, next_score / q_i)</text>
+<text x="590.0" y="364.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• 0 budget cap violations (89.0% util)</text>
+<rect x="445" y="424" width="290" height="100" rx="10" ry="10" fill="#b2f2bb" stroke="none" />
+<path d="M 454.45 423.13 Q 590.62 424.85 724.79 424.27 Q 735 424 734.24 434.95 Q 735.8 475.05 735.68 514.84 Q 735 524 723.95 524.52 Q 589.63 524.95 455.66 524.8 Q 445 524 445.68 513.49 Q 445.63 473.14 445.82 434.79 Q 445 424 454.39 424.7 Z" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
+<path d="M 454.91 423.57 Q 590.65 423.4 723.95 423.32 Q 735 424 734.62 434.8 Q 736.03 473.51 735.31 513.78 Q 735 524 726.06 524.08 Q 590.97 523.15 456.03 523.29 Q 445 524 446.02 513.48 Q 444.14 473.86 445.5 433.59 Q 445 424 455.23 424.03 Z" fill="none" stroke="#1e1e1e" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" opacity="0.65" />
+<text x="590.0" y="451.0" text-anchor="middle" font-family="Virgil, Caveat, 'Segoe Print', 'Comic Sans MS', cursive, sans-serif" font-size="15" font-weight="700" fill="#1e1e1e">24h Paced Auction Telemetry</text>
+<text x="590.0" y="469.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• Early depletion: 55.0% → 0.0%</text>
+<text x="590.0" y="487.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• ROAS: 5.01x → 9.33x (+86.3% lift)</text>
+<text x="590.0" y="505.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• +68.0% conversions over 24h</text>
+<rect x="825" y="145" width="300" height="102" rx="10" ry="10" fill="#a5d8ff" stroke="none" />
+<path d="M 834.75 145.17 Q 974.46 145.46 1113.9 145.94 Q 1125 145 1125.08 155.48 Q 1125.53 196.38 1124.7 236.05 Q 1125 247 1115.36 246.63 Q 974.59 247.77 835.48 246.56 Q 825 247 824.58 236.8 Q 824.79 195.55 824.18 154.82 Q 825 145 835.97 145.39 Z" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
+<path d="M 835.89 145.25 Q 974.56 145.11 1113.9 144.53 Q 1125 145 1124.85 155.18 Q 1125.34 195.92 1124.87 236.37 Q 1125 247 1114.94 247.88 Q 975.65 246.27 834.09 247.03 Q 825 247 825.29 236.64 Q 825.7 196.55 825.38 154.39 Q 825 145 834.34 143.95 Z" fill="none" stroke="#1e1e1e" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" opacity="0.65" />
+<text x="975.0" y="173.0" text-anchor="middle" font-family="Virgil, Caveat, 'Segoe Print', 'Comic Sans MS', cursive, sans-serif" font-size="15" font-weight="700" fill="#1e1e1e">Doubly-Robust Off-Policy Eval</text>
+<text x="975.0" y="191.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• Naive IPS vs Clipped IPS vs DR</text>
+<text x="975.0" y="209.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• Paired bootstrap 95% CIs (240x)</text>
+<text x="975.0" y="227.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• -66.0% RMSE vs Naive IPS</text>
+<rect x="825" y="284" width="300" height="102" rx="10" ry="10" fill="#ffc9c9" stroke="none" />
+<path d="M 834.44 283.95 Q 975.77 283.06 1114.81 284.29 Q 1125 284 1124.33 294.43 Q 1124.99 334.44 1125.34 374.91 Q 1125 386 1115.55 386.59 Q 974.13 385.84 834.29 387.01 Q 825 386 825.04 375.01 Q 824.45 335.77 824.9 294.66 Q 825 284 835.37 285.07 Z" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
+<path d="M 835.21 284.99 Q 975.86 284.25 1115.48 284.01 Q 1125 284 1125.73 294.11 Q 1125.87 335.54 1124.94 375.47 Q 1125 386 1114.44 386.3 Q 975.58 386.05 835.28 385.5 Q 825 386 824.07 375.53 Q 824.5 334.6 825.09 293.2 Q 825 284 834.41 284.43 Z" fill="none" stroke="#1e1e1e" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" opacity="0.65" />
+<text x="975.0" y="312.0" text-anchor="middle" font-family="Virgil, Caveat, 'Segoe Print', 'Comic Sans MS', cursive, sans-serif" font-size="15" font-weight="700" fill="#1e1e1e">SQLite Seller Diagnostics</text>
+<text x="975.0" y="330.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• 5 loss codes (OOS, Budget, Attr, Bid)</text>
+<text x="975.0" y="348.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• Capped &lt;= price * CVR * target_ACOS</text>
+<text x="975.0" y="366.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• 100% accuracy &amp; 100% ACOS safety</text>
+<rect x="825" y="423" width="300" height="102" rx="10" ry="10" fill="#d0bfff" stroke="none" />
+<path d="M 835.45 422.04 Q 974.8 423.09 1114.81 422.36 Q 1125 423 1124.82 433.89 Q 1125.18 474.43 1125.78 515.58 Q 1125 525 1114.74 523.91 Q 974.67 525.56 835.78 526.0 Q 825 525 824.82 515.54 Q 825.1 474.23 824.39 432.38 Q 825 423 834.86 421.96 Z" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
+<path d="M 834.64 423.39 Q 974.79 422.26 1114.93 422.18 Q 1125 423 1125.27 431.96 Q 1124.77 474.14 1123.96 515.31 Q 1125 525 1114.2 524.92 Q 974.01 524.73 834.37 524.62 Q 825 525 825.57 514.73 Q 825.55 474.73 824.45 432.08 Q 825 423 833.94 423.09 Z" fill="none" stroke="#1e1e1e" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" opacity="0.65" />
+<text x="975.0" y="451.0" text-anchor="middle" font-family="Virgil, Caveat, 'Segoe Print', 'Comic Sans MS', cursive, sans-serif" font-size="15" font-weight="700" fill="#1e1e1e">CLI &amp; AWS Lambda Runtime</text>
+<text x="975.0" y="469.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• Zero-dep Python stdlib (us-west-2)</text>
+<text x="975.0" y="487.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• CLI: ranker | pacing | ope | diag</text>
+<text x="975.0" y="505.0" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11.8" font-weight="500" fill="#343a40">• Reproducible JSON benchmark suite</text>
+<path d="M 205.0 204.0 Q 207.0 221.0 205.0 238.0" fill="none" stroke="#1e1e1e" stroke-width="2.1" stroke-linecap="round" />
+<path d="M 205.50 203.85 Q 207.6 220.5 205.0 238.0" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-linecap="round" opacity="0.6" />
+<path d="M 201.4 227.5 L 205.0 238.0 L 210.9 228.6" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="154.6" y="210.0" width="102.8" height="18" rx="4" fill="#ffffff" opacity="0.93" />
+<text x="206.0" y="223.0" text-anchor="middle" font-family="Virgil, Caveat, 'Comic Sans MS', cursive, sans-serif" font-size="12.5" font-weight="600" fill="#1e1e1e">Posting Scan</text>
+<path d="M 205.0 324.0 Q 203.0 341.0 205.0 358.0" fill="none" stroke="#1e1e1e" stroke-width="2.1" stroke-linecap="round" />
+<path d="M 205.15 324.28 Q 203.6 340.5 205.0 358.0" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-linecap="round" opacity="0.6" />
+<path d="M 199.1 348.6 L 205.0 358.0 L 208.6 347.5" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="152.6" y="330.0" width="102.8" height="18" rx="4" fill="#ffffff" opacity="0.93" />
+<text x="204.0" y="343.0" text-anchor="middle" font-family="Virgil, Caveat, 'Comic Sans MS', cursive, sans-serif" font-size="12.5" font-weight="600" fill="#1e1e1e">Top-40 Valid</text>
+<path d="M 205.0 446.0 Q 206.0 463.0 205.0 480.0" fill="none" stroke="#1e1e1e" stroke-width="2.1" stroke-linecap="round" />
+<path d="M 205.15 446.25 Q 206.6 462.5 205.0 480.0" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-linecap="round" opacity="0.6" />
+<path d="M 200.8 469.7 L 205.0 480.0 L 210.4 470.3" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="161.5" y="452.0" width="88.0" height="18" rx="4" fill="#ffffff" opacity="0.93" />
+<text x="205.5" y="465.0" text-anchor="middle" font-family="Virgil, Caveat, 'Comic Sans MS', cursive, sans-serif" font-size="12.5" font-weight="600" fill="#1e1e1e">Score eCPM</text>
+<path d="M 355.0 517.0 Q 400.0 430.0 445.0 340.0" fill="none" stroke="#1e1e1e" stroke-width="2.1" stroke-linecap="round" />
+<path d="M 355.45 516.70 Q 400.6 429.5 445.0 340.0" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-linecap="round" opacity="0.6" />
+<path d="M 444.8 351.1 L 445.0 340.0 L 436.2 346.8" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="363.4" y="418.2" width="73.2" height="18" rx="4" fill="#ffffff" opacity="0.93" />
+<text x="400.0" y="431.2" text-anchor="middle" font-family="Virgil, Caveat, 'Comic Sans MS', cursive, sans-serif" font-size="12.5" font-weight="600" fill="#1e1e1e">Ad Slate</text>
+<path d="M 590.0 243.0 Q 592.0 261.0 590.0 280.0" fill="none" stroke="#1e1e1e" stroke-width="2.1" stroke-linecap="round" />
+<path d="M 589.52 242.65 Q 592.6 260.5 590.0 280.0" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-linecap="round" opacity="0.6" />
+<path d="M 586.3 269.6 L 590.0 280.0 L 595.8 270.6" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="550.7" y="250.2" width="80.6" height="18" rx="4" fill="#ffffff" opacity="0.93" />
+<text x="591.0" y="263.2" text-anchor="middle" font-family="Virgil, Caveat, 'Comic Sans MS', cursive, sans-serif" font-size="12.5" font-weight="600" fill="#1e1e1e">Shade Bid</text>
+<path d="M 590.0 386.0 Q 588.0 405.0 590.0 424.0" fill="none" stroke="#1e1e1e" stroke-width="2.1" stroke-linecap="round" />
+<path d="M 589.63 386.17 Q 588.6 404.5 590.0 424.0" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-linecap="round" opacity="0.6" />
+<path d="M 584.2 414.6 L 590.0 424.0 L 593.7 413.6" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="545.0" y="394.0" width="88.0" height="18" rx="4" fill="#ffffff" opacity="0.93" />
+<text x="589.0" y="407.0" text-anchor="middle" font-family="Virgil, Caveat, 'Comic Sans MS', cursive, sans-serif" font-size="12.5" font-weight="600" fill="#1e1e1e">Clear Slot</text>
+<path d="M 735.0 320.0 Q 780.0 250.0 825.0 196.0" fill="none" stroke="#1e1e1e" stroke-width="2.1" stroke-linecap="round" />
+<path d="M 735.06 319.72 Q 780.6 249.5 825.0 196.0" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-linecap="round" opacity="0.6" />
+<path d="M 822.3 206.8 L 825.0 196.0 L 814.9 200.6" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="728.6" y="243.0" width="102.8" height="18" rx="4" fill="#ffffff" opacity="0.93" />
+<text x="780.0" y="256.0" text-anchor="middle" font-family="Virgil, Caveat, 'Comic Sans MS', cursive, sans-serif" font-size="12.5" font-weight="600" fill="#1e1e1e">Propensities</text>
+<path d="M 735.0 474.0 Q 780.0 412.0 825.0 342.0" fill="none" stroke="#1e1e1e" stroke-width="2.1" stroke-linecap="round" stroke-dasharray="7 5" />
+<path d="M 735.20 474.27 Q 780.6 411.5 825.0 342.0" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-linecap="round" opacity="0.6" stroke-dasharray="7 5" />
+<path d="M 823.6 353.0 L 825.0 342.0 L 815.6 347.8" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="739.7" y="399.0" width="80.6" height="18" rx="4" fill="#ffffff" opacity="0.93" />
+<text x="780.0" y="412.0" text-anchor="middle" font-family="Virgil, Caveat, 'Comic Sans MS', cursive, sans-serif" font-size="12.5" font-weight="600" fill="#1e1e1e">Loss Logs</text>
+<path d="M 975.0 247.0 Q 973.0 265.0 975.0 284.0" fill="none" stroke="#1e1e1e" stroke-width="2.1" stroke-linecap="round" />
+<path d="M 974.67 247.11 Q 973.6 264.5 975.0 284.0" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-linecap="round" opacity="0.6" />
+<path d="M 969.2 274.6 L 975.0 284.0 L 978.7 273.6" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="933.7" y="254.2" width="80.6" height="18" rx="4" fill="#ffffff" opacity="0.93" />
+<text x="974.0" y="267.2" text-anchor="middle" font-family="Virgil, Caveat, 'Comic Sans MS', cursive, sans-serif" font-size="12.5" font-weight="600" fill="#1e1e1e">Policy CI</text>
+<path d="M 975.0 386.0 Q 977.0 404.0 975.0 423.0" fill="none" stroke="#1e1e1e" stroke-width="2.1" stroke-linecap="round" />
+<path d="M 975.25 385.61 Q 977.6 403.5 975.0 423.0" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-linecap="round" opacity="0.6" />
+<path d="M 971.3 412.6 L 975.0 423.0 L 980.8 413.6" fill="none" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="928.3" y="393.2" width="95.4" height="18" rx="4" fill="#ffffff" opacity="0.93" />
+<text x="976.0" y="406.2" text-anchor="middle" font-family="Virgil, Caveat, 'Comic Sans MS', cursive, sans-serif" font-size="12.5" font-weight="600" fill="#1e1e1e">JSON Report</text>
+</svg>

@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adpulse-engine"
+version = "0.1.0"
+description = "AdPulse: Two-Stage Sponsored Catalog Ranker, GSP + Lagrangian PID Budget Pacer, Doubly-Robust Off-Policy Evaluator, and ACOS-Bounded Seller Diagnostics"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Ritwika Kancharla" }
+]
+keywords = [
+    "sponsored-products",
+    "ad-auction",
+    "gsp",
+    "budget-pacing",
+    "pid-controller",
+    "off-policy-evaluation",
+    "doubly-robust",
+    "catalog-retrieval",
+    "aws-lambda"
+]
+dependencies = []
+
+[project.scripts]
+adpulse = "adpulse.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["adpulse*"]

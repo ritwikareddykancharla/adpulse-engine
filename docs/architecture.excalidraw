@@ -1,0 +1,108 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://github.com/ritwikareddykancharla/adpulse-engine",
+  "elements": [
+    {
+      "type": "text",
+      "id": "title-1",
+      "x": 36,
+      "y": 24,
+      "text": "AdPulse \u2014 Sponsored Catalog Ranker, GSP Budget Pacer & Off-Policy Eval"
+    },
+    {
+      "type": "rectangle",
+      "id": "query-1",
+      "x": 55,
+      "y": 136,
+      "width": 300,
+      "height": 68,
+      "backgroundColor": "#ffc9c9"
+    },
+    {
+      "type": "rectangle",
+      "id": "stage1-1",
+      "x": 55,
+      "y": 238,
+      "width": 300,
+      "height": 86,
+      "backgroundColor": "#a5d8ff"
+    },
+    {
+      "type": "rectangle",
+      "id": "stage2-1",
+      "x": 55,
+      "y": 358,
+      "width": 300,
+      "height": 88,
+      "backgroundColor": "#d0bfff"
+    },
+    {
+      "type": "rectangle",
+      "id": "slate-1",
+      "x": 55,
+      "y": 480,
+      "width": 300,
+      "height": 74,
+      "backgroundColor": "#b2f2bb"
+    },
+    {
+      "type": "rectangle",
+      "id": "pid-1",
+      "x": 445,
+      "y": 145,
+      "width": 290,
+      "height": 98,
+      "backgroundColor": "#ffec99"
+    },
+    {
+      "type": "rectangle",
+      "id": "gsp-1",
+      "x": 445,
+      "y": 280,
+      "width": 290,
+      "height": 106,
+      "backgroundColor": "#ffd8a8"
+    },
+    {
+      "type": "rectangle",
+      "id": "yield-1",
+      "x": 445,
+      "y": 424,
+      "width": 290,
+      "height": 100,
+      "backgroundColor": "#b2f2bb"
+    },
+    {
+      "type": "rectangle",
+      "id": "ope-1",
+      "x": 825,
+      "y": 145,
+      "width": 300,
+      "height": 102,
+      "backgroundColor": "#a5d8ff"
+    },
+    {
+      "type": "rectangle",
+      "id": "diag-1",
+      "x": 825,
+      "y": 284,
+      "width": 300,
+      "height": 102,
+      "backgroundColor": "#ffc9c9"
+    },
+    {
+      "type": "rectangle",
+      "id": "runtime-1",
+      "x": 825,
+      "y": 423,
+      "width": 300,
+      "height": 102,
+      "backgroundColor": "#d0bfff"
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "gridSize": 24
+  }
+}

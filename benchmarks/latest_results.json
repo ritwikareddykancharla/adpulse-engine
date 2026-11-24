@@ -1,0 +1,291 @@
+{
+  "engine": "AdPulse",
+  "version": "0.1.0",
+  "python_version": "3.14.6",
+  "seed": 42,
+  "benchmark_wall_time_ms": 2497.87,
+  "headline_metrics": {
+    "top3_recall_baseline": 0.1861,
+    "top3_recall_two_stage": 0.8056,
+    "top3_recall_lift_pct": 332.89,
+    "ndcg_at_3_baseline": 0.202,
+    "ndcg_at_3_two_stage": 0.8331,
+    "ndcg_lift_pct": 312.43,
+    "expected_conversions_lift_pct": 980.53,
+    "oos_impression_rate_baseline_pct": 15.28,
+    "oos_impression_rate_two_stage_pct": 0.0,
+    "price_cap_violation_baseline_pct": 59.72,
+    "price_cap_violation_two_stage_pct": 0.0,
+    "ranker_p50_ms": 0.266,
+    "ranker_p99_ms": 0.43,
+    "early_depletion_unpaced_pct": 55.0,
+    "early_depletion_paced_pct": 0.0,
+    "early_depletion_reduction_pct": 100.0,
+    "roas_unpaced": 5.009,
+    "roas_paced": 9.332,
+    "roas_lift_pct": 86.3,
+    "pacing_conversions_lift_pct": 68.0,
+    "platform_revenue_change_pct": -7.56,
+    "budget_utilization_pct": 89.01,
+    "budget_cap_violations": 0,
+    "naive_ips_rmse": 0.16606,
+    "clipped_ips_rmse": 0.12175,
+    "doubly_robust_rmse": 0.05641,
+    "clipped_ips_rmse_reduction_pct": 26.68,
+    "dr_rmse_reduction_pct": 66.03,
+    "dr_ci95_coverage_pct": 100.0,
+    "diagnostics_primary_accuracy_pct": 100.0,
+    "diagnostics_acos_compliance_pct": 100.0
+  },
+  "subsystems": {
+    "catalog_ranker": {
+      "catalog_size": 500,
+      "query_count": 120,
+      "baseline": {
+        "ranker_name": "lexical_raw_bid_baseline",
+        "top3_recall": 0.1861,
+        "ndcg_at_3": 0.202,
+        "precision_at_3": 0.1861,
+        "out_of_stock_impression_rate_pct": 15.28,
+        "price_cap_violation_rate_pct": 59.72,
+        "category_mismatch_rate_pct": 0.0,
+        "expected_conversions_per_1k_queries": 1.9,
+        "p50_latency_ms": 0.117,
+        "p95_latency_ms": 0.155,
+        "p99_latency_ms": 0.25
+      },
+      "two_stage": {
+        "ranker_name": "two_stage_calibrated_ecpm",
+        "top3_recall": 0.8056,
+        "ndcg_at_3": 0.8331,
+        "precision_at_3": 0.8056,
+        "out_of_stock_impression_rate_pct": 0.0,
+        "price_cap_violation_rate_pct": 0.0,
+        "category_mismatch_rate_pct": 0.0,
+        "expected_conversions_per_1k_queries": 20.53,
+        "p50_latency_ms": 0.266,
+        "p95_latency_ms": 0.328,
+        "p99_latency_ms": 0.43
+      },
+      "top3_recall_lift_pct": 332.89,
+      "ndcg_lift_pct": 312.43,
+      "expected_conversions_lift_pct": 980.53
+    },
+    "auction_pacer": {
+      "num_campaigns": 40,
+      "num_auctions": 6000,
+      "unpaced_greedy": {
+        "policy_name": "unpaced_greedy_bidding",
+        "total_auctions": 6000,
+        "total_impressions": 8097,
+        "total_clicks": 687,
+        "total_conversions": 75,
+        "total_spend": 1416.14,
+        "total_attributed_sales": 7093.41,
+        "platform_clearing_revenue": 1416.14,
+        "advertiser_roas": 5.009,
+        "mean_clearing_cpc": 2.061,
+        "early_depletion_rate_pct": 55.0,
+        "campaigns_depleted_early": 22,
+        "total_campaigns": 40,
+        "budget_utilization_pct": 96.29,
+        "budget_cap_violations": 0,
+        "evening_peak_impression_share_pct": 19.55
+      },
+      "pid_paced": {
+        "policy_name": "pid_bid_shaded_pacer",
+        "total_auctions": 6000,
+        "total_impressions": 11164,
+        "total_clicks": 955,
+        "total_conversions": 126,
+        "total_spend": 1309.03,
+        "total_attributed_sales": 12215.79,
+        "platform_clearing_revenue": 1309.03,
+        "advertiser_roas": 9.332,
+        "mean_clearing_cpc": 1.371,
+        "early_depletion_rate_pct": 0.0,
+        "campaigns_depleted_early": 0,
+        "total_campaigns": 40,
+        "budget_utilization_pct": 89.01,
+        "budget_cap_violations": 0,
+        "evening_peak_impression_share_pct": 33.95
+      },
+      "early_depletion_reduction_pct": 100.0,
+      "roas_lift_pct": 86.3,
+      "conversions_lift_pct": 68.0,
+      "platform_revenue_change_pct": -7.56,
+      "budget_utilization_accuracy_pct": 89.01
+    },
+    "off_policy_eval": {
+      "num_trials": 40,
+      "events_per_trial": 1200,
+      "clip_threshold": 25.0,
+      "oracle_target_policy_value": 2.3142,
+      "oracle_logging_policy_value": 2.18878,
+      "single_trace_demo": {
+        "policy_name": "context_shaded_pid_policy",
+        "sample_size": 1200,
+        "effective_sample_size": 168.63,
+        "max_importance_weight": 26.0,
+        "oracle_ground_truth": 2.314198,
+        "naive_ips": {
+          "estimate": 2.21237,
+          "ci_95_low": 1.89873,
+          "ci_95_high": 2.55923,
+          "bootstrap_std": 0.159921
+        },
+        "clipped_ips": {
+          "estimate": 2.209723,
+          "ci_95_low": 1.89873,
+          "ci_95_high": 2.551355,
+          "bootstrap_std": 0.158785
+        },
+        "doubly_robust": {
+          "estimate": 2.31917,
+          "ci_95_low": 2.188904,
+          "ci_95_high": 2.464451,
+          "bootstrap_std": 0.074259
+        }
+      },
+      "naive_ips_summary": {
+        "estimator_name": "naive_ips",
+        "rmse": 0.16606,
+        "mae": 0.1249,
+        "mean_signed_bias": 0.02651,
+        "ci_95_coverage_pct": 97.5,
+        "mean_ci_width": 0.69805
+      },
+      "clipped_ips_summary": {
+        "estimator_name": "clipped_ips",
+        "rmse": 0.12175,
+        "mae": 0.09437,
+        "mean_signed_bias": -0.0322,
+        "ci_95_coverage_pct": 97.5,
+        "mean_ci_width": 0.58661
+      },
+      "doubly_robust_summary": {
+        "estimator_name": "doubly_robust",
+        "rmse": 0.05641,
+        "mae": 0.04453,
+        "mean_signed_bias": -0.01488,
+        "ci_95_coverage_pct": 100.0,
+        "mean_ci_width": 0.30181
+      },
+      "clipped_ips_rmse_reduction_pct": 26.68,
+      "dr_rmse_reduction_pct": 66.03
+    },
+    "campaign_diagnostics": {
+      "scenarios_evaluated": 40,
+      "primary_issue_accuracy_pct": 100.0,
+      "acos_ceiling_compliance_pct": 100.0,
+      "oos_zero_bid_hike_compliance_pct": 100.0,
+      "issue_distribution": {
+        "OUT_OF_STOCK_SUPPRESSED": 8,
+        "BUDGET_EXHAUSTED_EARLY": 8,
+        "MISSING_CATALOG_ATTRIBUTES": 8,
+        "LOW_QUERY_RELEVANCE": 8,
+        "BID_BELOW_CLEARING_FLOOR": 8
+      },
+      "sample_reports": [
+        {
+          "campaign_id": "CMP-D001",
+          "sku_id": "SKU-D0001",
+          "primary_issue": "OUT_OF_STOCK_SUPPRESSED",
+          "secondary_issues": [],
+          "lost_impression_share_pct": 88.0,
+          "dominant_loss_bucket": "LOST_OOS",
+          "median_clearing_cpc": 2.89,
+          "current_bid": 2.69,
+          "recommended_bid": 2.69,
+          "max_acos_cpc": 3.28,
+          "target_acos": 0.27,
+          "implied_expected_acos": 0.2216,
+          "recommended_daily_budget": 45.3,
+          "enable_pid_pacing": false,
+          "catalog_fixes": [
+            "Restock FBA inventory for SKU-D0001 before resuming bid adjustments."
+          ],
+          "action_summary": "Hold bid at $2.69; SKU is out-of-stock suppressed (88.0% impressions blocked). Replenish inventory first."
+        },
+        {
+          "campaign_id": "CMP-D002",
+          "sku_id": "SKU-D0002",
+          "primary_issue": "BUDGET_EXHAUSTED_EARLY",
+          "secondary_issues": [],
+          "lost_impression_share_pct": 70.0,
+          "dominant_loss_bucket": "LOST_BUDGET",
+          "median_clearing_cpc": 1.68,
+          "current_bid": 2.2,
+          "recommended_bid": 1.8,
+          "max_acos_cpc": 1.91,
+          "target_acos": 0.29,
+          "implied_expected_acos": 0.2734,
+          "recommended_daily_budget": 32.9,
+          "enable_pid_pacing": true,
+          "catalog_fixes": [],
+          "action_summary": "Enable Lagrangian PID bid-shading (base bid $1.80 <= $1.91 ACOS cap) to eliminate 13:00 budget depletion and capture 18:00-22:00 peak CVR."
+        },
+        {
+          "campaign_id": "CMP-D003",
+          "sku_id": "SKU-D0003",
+          "primary_issue": "MISSING_CATALOG_ATTRIBUTES",
+          "secondary_issues": [],
+          "lost_impression_share_pct": 76.0,
+          "dominant_loss_bucket": "LOST_ATTR_FILTER",
+          "median_clearing_cpc": 2.42,
+          "current_bid": 2.27,
+          "recommended_bid": 2.27,
+          "max_acos_cpc": 2.77,
+          "target_acos": 0.27,
+          "implied_expected_acos": 0.221,
+          "recommended_daily_budget": 39.6,
+          "enable_pid_pacing": false,
+          "catalog_fixes": [
+            "Backfill structured catalog attributes [connectivity, material] in Seller Central."
+          ],
+          "action_summary": "Populate missing attributes (connectivity, material) to recover structured filter eligibility while keeping bid <= $2.77 ACOS cap."
+        },
+        {
+          "campaign_id": "CMP-D004",
+          "sku_id": "SKU-D0004",
+          "primary_issue": "LOW_QUERY_RELEVANCE",
+          "secondary_issues": [],
+          "lost_impression_share_pct": 80.0,
+          "dominant_loss_bucket": "LOST_LOW_RELEVANCE",
+          "median_clearing_cpc": 2.82,
+          "current_bid": 2.6,
+          "recommended_bid": 2.34,
+          "max_acos_cpc": 3.17,
+          "target_acos": 0.22,
+          "implied_expected_acos": 0.1625,
+          "recommended_daily_budget": 37.37,
+          "enable_pid_pacing": false,
+          "catalog_fixes": [
+            "Add negative exact/phrase keywords for non-converting broad terms and align product_type title tokens."
+          ],
+          "action_summary": "Prune low-overlap broad queries (avg overlap 0.20) and cap CPC bid at $2.34 (ACOS ceiling $3.17)."
+        },
+        {
+          "campaign_id": "CMP-D005",
+          "sku_id": "SKU-D0005",
+          "primary_issue": "BID_BELOW_CLEARING_FLOOR",
+          "secondary_issues": [],
+          "lost_impression_share_pct": 78.0,
+          "dominant_loss_bucket": "LOST_BID_FLOOR",
+          "median_clearing_cpc": 4.03,
+          "current_bid": 2.33,
+          "recommended_bid": 3.41,
+          "max_acos_cpc": 3.41,
+          "target_acos": 0.29,
+          "implied_expected_acos": 0.29,
+          "recommended_daily_budget": 51.56,
+          "enable_pid_pacing": false,
+          "catalog_fixes": [
+            "Clearing CPC exceeds ACOS ceiling; improve detail-page CVR (images/A+ content) instead of overbidding."
+          ],
+          "action_summary": "Cap bid at $3.41 (ACOS ceiling) rather than chasing $4.03 clearing floor; lift SKU CVR to unlock higher profitable CPC headroom."
+        }
+      ]
+    }
+  }
+}
