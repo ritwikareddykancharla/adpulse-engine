@@ -6,6 +6,9 @@ Usage:
     python3 -m adpulse.cli --mode pacing
     python3 -m adpulse.cli --mode ope
     python3 -m adpulse.cli --mode diagnostics
+    python3 -m adpulse.cli --mode cax
+    python3 -m adpulse.cli --mode offsearch
+    python3 -m adpulse.cli --mode pal
 """
 
 from __future__ import annotations
@@ -19,7 +22,12 @@ from typing import Any, Dict, Sequence, Tuple
 from . import __version__
 from .auction_pacer import run_pacing_benchmark
 from .campaign_diagnostics import run_diagnostics_benchmark
-from .catalog_ranker import run_ranker_benchmark
+from .catalog_ranker import generate_synthetic_catalog_and_queries, run_ranker_benchmark
+from .cax_offsearch_pal import (
+    run_cax_benchmark,
+    run_offsearch_benchmark,
+    run_pal_and_ha_benchmark,
+)
 from .off_policy_eval import run_ope_benchmark
 
 
@@ -29,6 +37,9 @@ SUPPORTED_MODES: Tuple[str, ...] = (
     "pacing",
     "ope",
     "diagnostics",
+    "cax",
+    "offsearch",
+    "pal",
 )
 
 
@@ -52,6 +63,16 @@ def execute_cli_mode(mode: str = "demo-all", seed: int = 42) -> Dict[str, Any]:
     if mode in ("demo-all", "diagnostics"):
         data["diagnostics"] = run_diagnostics_benchmark(seed=seed).to_dict()
 
+    if mode in ("demo-all", "cax"):
+        base_cat, _ = generate_synthetic_catalog_and_queries(num_skus=500, num_queries=120, seed=seed)
+        data["cax"] = run_cax_benchmark(base_cat, seed=seed).to_dict()
+
+    if mode in ("demo-all", "offsearch"):
+        data["offsearch"] = run_offsearch_benchmark(seed=seed).to_dict()
+
+    if mode in ("demo-all", "pal"):
+        data["pal"] = run_pal_and_ha_benchmark(seed=seed).to_dict()
+
     wall_ms = round((time.perf_counter() - t0) * 1000.0, 3)
     return {
         "engine": "AdPulse",
@@ -66,7 +87,7 @@ def execute_cli_mode(mode: str = "demo-all", seed: int = 42) -> Dict[str, Any]:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="adpulse",
-        description="AdPulse — Sponsored Catalog Ranker, GSP + PID Budget Pacer, Doubly-Robust OPE & Seller Diagnostics",
+        description="AdPulse v2 - Sponsored Catalog Ranker, CAX, Off-Search PDP, PAL Calibration, GSP Pacer & OPE",
     )
     parser.add_argument(
         "--mode",

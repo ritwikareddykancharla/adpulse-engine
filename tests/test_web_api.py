@@ -7,6 +7,7 @@ import os
 import unittest
 from unittest.mock import patch
 
+from adpulse.server import lambda_handler as server_lambda_handler
 from adpulse.web_api import lambda_handler
 
 
@@ -106,6 +107,96 @@ class TestAdPulseWebApi(unittest.TestCase):
             cop_body["diagnostic"]["recommended_bid"],
             cop_body["diagnostic"]["max_acos_cpc"] + 1e-6,
         )
+
+    def test_v2_cax_offsearch_and_pal_endpoints(self) -> None:
+        with patch.dict(os.environ, {"ADPULSE_OFFLINE_LLM": "1"}):
+            cax_resp = server_lambda_handler(
+                {
+                    "httpMethod": "POST",
+                    "rawPath": "/api/cax/recommend",
+                    "body": json.dumps(
+                        {
+                            "turns": [
+                                "wireless running earbuds",
+                                "need ipx7 waterproof under $140",
+                            ],
+                            "tau_rel": 0.58,
+                        }
+                    ),
+                }
+            )
+            self.assertEqual(cax_resp["statusCode"], 200)
+            cax_body = json.loads(cax_resp["body"])
+            self.assertFalse(cax_body["suppress_ad"])
+            self.assertGreaterEqual(len(cax_body["winning_ads"]), 1)
+
+            cax_sup = server_lambda_handler(
+                {
+                    "httpMethod": "POST",
+                    "rawPath": "/api/cax/recommend",
+                    "body": json.dumps(
+                        {
+                            "turns": ["how do I factory reset bluetooth pairing when one earbud blinks red?"],
+                            "tau_rel": 0.58,
+                        }
+                    ),
+                }
+            )
+            self.assertEqual(cax_sup["statusCode"], 200)
+            self.assertTrue(json.loads(cax_sup["body"])["suppress_ad"])
+
+        pdp_resp = server_lambda_handler(
+            {
+                "httpMethod": "POST",
+                "rawPath": "/api/offsearch/pdp",
+                "body": json.dumps(
+                    {
+                        "anchor_id": "ANCHOR-CAM-4K",
+                        "shopper_stage": "homepage_post_purchase",
+                    }
+                ),
+            }
+        )
+        self.assertEqual(pdp_resp["statusCode"], 200)
+        pdp_body = json.loads(pdp_resp["body"])
+        self.assertGreater(pdp_body["cuped_experiment"]["variance_reduction_pct"], 40.0)
+        for ad in pdp_body["carousel_ads"]:
+            self.assertEqual(ad["relationship"], "complement")
+
+        pal_resp = server_lambda_handler(
+            {
+                "httpMethod": "POST",
+                "rawPath": "/api/pal/calibrate",
+                "body": json.dumps({"drift_mode": "none", "n_cells": 8, "shard_k": 2}),
+            }
+        )
+        self.assertEqual(pal_resp["statusCode"], 200)
+        pal_body = json.loads(pal_resp["body"])
+        self.assertEqual(pal_body["shuffle_sharding"]["virtual_shards"], 28)
+        self.assertAlmostEqual(
+            pal_body["shuffle_sharding"]["shuffle_sharding_blast_radius_pct"], 3.57, places=2
+        )
+
+    def test_ui_and_readme_strict_guardrails(self) -> None:
+        from pathlib import Path
+
+        root = Path(__file__).resolve().parent.parent
+        html_text = (root / "web" / "index.html").read_text(encoding="utf-8")
+        readme_text = (root / "README.md").read_text(encoding="utf-8")
+
+        for fname, text in (("web/index.html", html_text), ("README.md", readme_text)):
+            self.assertNotIn("—", text, f"Em-dash found in {fname}")
+            self.assertNotIn("\\u2014", text, f"Escaped em-dash found in {fname}")
+            self.assertNotIn("&mdash;", text, f"HTML em-dash found in {fname}")
+            self.assertNotIn("localStorage", text, f"localStorage found in {fname}")
+            self.assertNotIn("sessionStorage", text, f"sessionStorage found in {fname}")
+            for banned in ("in plain english", "under the hood", "stdlib", "zero-dependency"):
+                self.assertNotIn(banned, text.lower(), f"Banned phrase '{banned}' in {fname}")
+            self.assertNotRegex(text.lower(), r"why\s+\w+\s+fails", f"Banned 'Why X Fails' in {fname}")
+
+        self.assertIn("/api/cax/recommend", html_text)
+        self.assertIn("/api/offsearch/pdp", html_text)
+        self.assertIn("/api/pal/calibrate", html_text)
 
 
 if __name__ == "__main__":

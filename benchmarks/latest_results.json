@@ -1,9 +1,9 @@
 {
   "engine": "AdPulse",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "python_version": "3.14.6",
   "seed": 42,
-  "benchmark_wall_time_ms": 2497.87,
+  "benchmark_wall_time_ms": 2508.69,
   "headline_metrics": {
     "top3_recall_baseline": 0.1861,
     "top3_recall_two_stage": 0.8056,
@@ -16,8 +16,8 @@
     "oos_impression_rate_two_stage_pct": 0.0,
     "price_cap_violation_baseline_pct": 59.72,
     "price_cap_violation_two_stage_pct": 0.0,
-    "ranker_p50_ms": 0.266,
-    "ranker_p99_ms": 0.43,
+    "ranker_p50_ms": 0.158,
+    "ranker_p99_ms": 0.217,
     "early_depletion_unpaced_pct": 55.0,
     "early_depletion_paced_pct": 0.0,
     "early_depletion_reduction_pct": 100.0,
@@ -35,7 +35,29 @@
     "dr_rmse_reduction_pct": 66.03,
     "dr_ci95_coverage_pct": 100.0,
     "diagnostics_primary_accuracy_pct": 100.0,
-    "diagnostics_acos_compliance_pct": 100.0
+    "diagnostics_acos_compliance_pct": 100.0,
+    "cax_unfloored_pollution_pct": 100.0,
+    "cax_floored_pollution_pct": 0.0,
+    "cax_constraint_satisfaction_pct": 100.0,
+    "cax_policy_pass_rate_pct": 100.0,
+    "cax_linucb_lift_pct": 61.06,
+    "offsearch_naive_redundant_pct": 100.0,
+    "offsearch_graph_redundant_pct": 0.0,
+    "offsearch_naive_incompat_pct": 100.0,
+    "offsearch_graph_incompat_pct": 0.0,
+    "cuped_theta": 0.8107,
+    "cuped_variance_reduction_pct": 58.27,
+    "cuped_rpm_lift_pct": 6.41,
+    "pal_naive_logloss": 0.4975,
+    "pal_isotonic_logloss": 0.46454,
+    "pal_naive_rig_pct": 1.48,
+    "pal_isotonic_rig_pct": 8.01,
+    "pal_naive_ece": 0.04103,
+    "pal_isotonic_ece": 0.01788,
+    "pal_naive_copc": 1.1844,
+    "pal_isotonic_copc": 1.0016,
+    "shuffle_virtual_shards": 28,
+    "shuffle_blast_radius_pct": 3.57
   },
   "subsystems": {
     "catalog_ranker": {
@@ -50,9 +72,9 @@
         "price_cap_violation_rate_pct": 59.72,
         "category_mismatch_rate_pct": 0.0,
         "expected_conversions_per_1k_queries": 1.9,
-        "p50_latency_ms": 0.117,
-        "p95_latency_ms": 0.155,
-        "p99_latency_ms": 0.25
+        "p50_latency_ms": 0.072,
+        "p95_latency_ms": 0.093,
+        "p99_latency_ms": 0.111
       },
       "two_stage": {
         "ranker_name": "two_stage_calibrated_ecpm",
@@ -63,9 +85,9 @@
         "price_cap_violation_rate_pct": 0.0,
         "category_mismatch_rate_pct": 0.0,
         "expected_conversions_per_1k_queries": 20.53,
-        "p50_latency_ms": 0.266,
-        "p95_latency_ms": 0.328,
-        "p99_latency_ms": 0.43
+        "p50_latency_ms": 0.158,
+        "p95_latency_ms": 0.187,
+        "p99_latency_ms": 0.217
       },
       "top3_recall_lift_pct": 332.89,
       "ndcg_lift_pct": 312.43,
@@ -286,6 +308,46 @@
           "action_summary": "Cap bid at $3.41 (ACOS ceiling) rather than chasing $4.03 clearing floor; lift SKU CVR to unlock higher profitable CPC headroom."
         }
       ]
+    },
+    "conversational_cax": {
+      "dialogues_evaluated": 60,
+      "commercial_dialogues": 42,
+      "non_commercial_dialogues": 18,
+      "tau_rel": 0.58,
+      "unfloored_pollution_rate_pct": 100.0,
+      "cax_pollution_rate_pct": 0.0,
+      "constraint_satisfaction_pct": 100.0,
+      "ad_policy_pass_rate_pct": 100.0,
+      "linucb_acceptance_lift_pct": 61.06,
+      "p50_auction_ms": 2.932
+    },
+    "offsearch_pdp_cuped": {
+      "sessions_evaluated": 240,
+      "naive_redundant_durable_rate_pct": 100.0,
+      "graph_redundant_durable_rate_pct": 0.0,
+      "naive_incompatible_accessory_rate_pct": 100.0,
+      "graph_incompatible_accessory_rate_pct": 0.0,
+      "cuped_theta": 0.8107,
+      "cuped_variance_reduction_pct": 58.27,
+      "cuped_rpm_lift_pct": 6.41,
+      "cuped_p_value": 3.24e-06
+    },
+    "pal_calibration_shuffle_ha": {
+      "test_impressions": 1200,
+      "naive_log_loss": 0.4975,
+      "pal_platt_log_loss": 0.45824,
+      "pal_isotonic_log_loss": 0.46454,
+      "naive_rig_pct": 1.48,
+      "pal_isotonic_rig_pct": 8.01,
+      "naive_ece": 0.04103,
+      "pal_isotonic_ece": 0.01788,
+      "naive_copc": 1.1844,
+      "pal_isotonic_copc": 1.0016,
+      "n_cells": 8,
+      "shard_k": 2,
+      "virtual_shards": 28,
+      "shared_fleet_blast_radius_pct": 100.0,
+      "shuffle_sharding_blast_radius_pct": 3.57
     }
   }
 }

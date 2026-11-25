@@ -50,6 +50,13 @@ from .catalog_ranker import (
     generate_synthetic_catalog_and_queries,
     tokenize,
 )
+from .cax_offsearch_pal import (
+    CAX_DIALOGUE_PRESETS,
+    ConversationalAdEngine,
+    OffSearchPdpEngine,
+    PALClickCalibrator,
+    ShuffleShardedCellRouter,
+)
 from .cli import SUPPORTED_MODES, execute_cli_mode
 from .off_policy_eval import (
     BID_SHADING_MULTIPLIERS,
@@ -764,20 +771,26 @@ class AdPulseStudioRuntime:
             self.benchmark_cache = {"headline_metrics": {}}
 
         self.curated_seller_campaigns = self._build_curated_seller_campaigns()
+        self.cax_engine = ConversationalAdEngine(
+            self.catalog, featured_meta=self.featured_meta, seed=seed
+        )
+        self.offsearch_engine = OffSearchPdpEngine(seed=seed)
+        self.pal_calibrator = PALClickCalibrator(seed=seed)
+        self.cell_router = ShuffleShardedCellRouter(n_cells=8, shard_k=2)
 
     def _build_curated_seller_campaigns(self) -> List[Dict[str, Any]]:
         """Expose 5 concrete seller campaigns covering all 5 loss modes with Spektr Iceberg context."""
         meta_labels = {
             "CMP-D002": {
                 "seller_name": "Auralis Running Audio",
-                "campaign_title": "Wireless ANC Running Earbuds — Exact & Broad",
+                "campaign_title": "Wireless ANC Running Earbuds - Exact & Broad",
                 "spektr_table": "spektr.ads_lakehouse.hourly_budget_pacing_v2",
                 "negative_keywords": ["wired aux earphones", "kids volume headphones", "replacement silicone tips"],
                 "sample_question": "Why did our ANC earbuds campaign run out of budget at 13:00 before the 18:00-22:00 Prime conversion peak, and what bid + PID pacing curve should we set?",
             },
             "CMP-D001": {
                 "seller_name": "NordWave Acoustics",
-                "campaign_title": "SonicRun Pro Earbuds — Brand Defense",
+                "campaign_title": "SonicRun Pro Earbuds - Brand Defense",
                 "spektr_table": "spektr.catalog.fba_inventory_realtime_iceberg",
                 "negative_keywords": ["refurbished earbuds case"],
                 "sample_question": "Should we raise our CPC bid to recover the 88% lost impression share on SKU-D0001, or is FBA inventory blocking us?",
@@ -791,14 +804,14 @@ class AdPulseStudioRuntime:
             },
             "CMP-D004": {
                 "seller_name": "ErgoLift Seating",
-                "campaign_title": "SpineSync Mesh Office Chair — Broad Discovery",
+                "campaign_title": "SpineSync Mesh Office Chair - Broad Discovery",
                 "spektr_table": "spektr.ads_lakehouse.search_term_overlap_iceberg",
                 "negative_keywords": ["dining chair cushion", "gaming beanbag", "plastic folding chair"],
                 "sample_question": "Which broad search terms are hurting our query relevance score and what ACOS-safe bid cap should we enforce?",
             },
             "CMP-D005": {
                 "seller_name": "KonaMill Coffee",
-                "campaign_title": "64mm Burr Espresso Grinder — Conquesting",
+                "campaign_title": "64mm Burr Espresso Grinder - Conquesting",
                 "spektr_table": "spektr.ads_lakehouse.gsp_clearing_floors_iceberg",
                 "negative_keywords": ["blade spice grinder", "paper coffee filters"],
                 "sample_question": "Median GSP clearing CPC is $4.03 while our target ACOS is 29%. How high can we safely raise our bid without losing money?",
@@ -1124,7 +1137,7 @@ class AdPulseStudioRuntime:
                 "assistant_answer": (
                     f"For **{raw_query}**, top-rated verified pick is the **{top1['brand']}** "
                     f"(${top1['price']:.2f}, {top1['rating']}★ from {top1['reviews']:,} shoppers) featuring "
-                    f"{attr_summary} — verified in-stock for Prime delivery."
+                    f"{attr_summary} - verified in-stock for Prime delivery."
                 ),
                 "sponsored_slot": top1,
                 "why_selected": (
@@ -1134,6 +1147,7 @@ class AdPulseStudioRuntime:
                 ),
             }
 
+        hm_cache = self.benchmark_cache.get("headline_metrics", {})
         return {
             "query": raw_query,
             "resolved_category": q_obj.target_category or "multi_category",
@@ -1148,8 +1162,8 @@ class AdPulseStudioRuntime:
             "target_spend_progress_pct": round(target_frac * 100.0, 1),
             "latency_ms": {
                 "live_wall_ms": wall_ms,
-                "benchmark_p50_ms": 0.266,
-                "benchmark_p99_ms": 0.430,
+                "benchmark_p50_ms": hm_cache.get("ranker_p50_ms", 0.158),
+                "benchmark_p99_ms": hm_cache.get("ranker_p99_ms", 0.217),
             },
             "stage_counts": {
                 "catalog_total": len(self.catalog),
@@ -1511,6 +1525,64 @@ class AdPulseStudioRuntime:
             "llm_telemetry": llm_meta,
         }
 
+    def run_cax_recommendation(
+        self,
+        turns: Optional[Sequence[str]] = None,
+        tau_rel: float = 0.58,
+        caller_type: str = "shopper_search_surface",
+        expert_feedback: Optional[Dict[str, Any]] = None,
+        use_bedrock: bool = True,
+    ) -> Dict[str, Any]:
+        default_turns = list(CAX_DIALOGUE_PRESETS[0]["turns"])
+        clean_turns = [str(t).strip() for t in (turns or default_turns) if str(t).strip()]
+        if not clean_turns:
+            clean_turns = default_turns
+        return self.cax_engine.recommend(
+            turns=clean_turns,
+            tau_rel=tau_rel,
+            caller_type=caller_type,
+            expert_feedback=expert_feedback,
+            bedrock_fn=_call_bedrock_nova if use_bedrock else None,
+        )
+
+    def run_offsearch_pdp(
+        self,
+        anchor_id: str = "ANCHOR-CAM-4K",
+        shopper_stage: str = "homepage_post_purchase",
+        purchased_durable_groups: Optional[Sequence[str]] = None,
+        cuped_sessions_per_arm: int = 600,
+    ) -> Dict[str, Any]:
+        return self.offsearch_engine.recommend_offsearch(
+            anchor_id=anchor_id,
+            shopper_stage=shopper_stage,
+            purchased_durable_groups=purchased_durable_groups,
+            cuped_sessions_per_arm=cuped_sessions_per_arm,
+        )
+
+    def run_pal_and_shuffle_sharding(
+        self,
+        drift_mode: str = "none",
+        n_cells: int = 8,
+        shard_k: int = 2,
+        noisy_tenant_id: str = "ADV-ROGUE-RETRY-STORM",
+        auto_evacuate_quarantine: bool = False,
+    ) -> Dict[str, Any]:
+        pal_eval = self.pal_calibrator.evaluate_all(drift_mode=drift_mode)
+        router = (
+            self.cell_router
+            if (int(n_cells) == 8 and int(shard_k) == 2)
+            else ShuffleShardedCellRouter(n_cells=int(n_cells), shard_k=int(shard_k))
+        )
+        ha_eval = router.simulate_noisy_neighbor(
+            noisy_tenant_id=noisy_tenant_id,
+            num_co_tenants=560,
+            auto_evacuate_quarantine=bool(auto_evacuate_quarantine),
+        )
+        return {
+            "pal_calibration": pal_eval,
+            "shuffle_sharding": ha_eval,
+        }
+
     def get_bootstrap_payload(self) -> Dict[str, Any]:
         default_storefront = self.run_storefront_auction(
             raw_query="wireless anc running earbuds",
@@ -1524,6 +1596,12 @@ class AdPulseStudioRuntime:
             selected_hour=19,
             bid_multiplier="adaptive_pid",
         )
+        default_cax = self.run_cax_recommendation(use_bedrock=False)
+        default_offsearch = self.run_offsearch_pdp(
+            anchor_id="ANCHOR-CAM-4K",
+            shopper_stage="homepage_post_purchase",
+        )
+        default_pal_ha = self.run_pal_and_shuffle_sharding(drift_mode="none")
         return {
             "engine": "AdPulse",
             "version": __version__,
@@ -1534,6 +1612,9 @@ class AdPulseStudioRuntime:
             "default_storefront": default_storefront,
             "default_pacing": default_pacing,
             "seller_campaigns": self.curated_seller_campaigns,
+            "default_cax": default_cax,
+            "default_offsearch": default_offsearch,
+            "default_pal_ha": default_pal_ha,
         }
 
 
@@ -1609,6 +1690,64 @@ def route_api_request(
                 campaign_id=cid,
                 custom_question=question,
                 target_acos_override=acos_override,
+            )
+            res["request_id"] = request_id
+            return 200, res
+
+        if method in ("GET", "POST") and clean_path == "/api/cax/recommend":
+            raw_turns = body.get("turns")
+            if isinstance(raw_turns, str):
+                turns_list: Optional[List[str]] = [t.strip() for t in raw_turns.split("\n") if t.strip()]
+            elif isinstance(raw_turns, list):
+                turns_list = [str(t) for t in raw_turns]
+            elif query.get("q"):
+                turns_list = [query["q"]]
+            else:
+                preset_id = str(body.get("preset_id") or query.get("preset_id") or "")
+                matched_preset = next((p for p in CAX_DIALOGUE_PRESETS if p["id"] == preset_id), None)
+                turns_list = list(matched_preset["turns"]) if matched_preset else None
+
+            tau_val = float(body.get("tau_rel", query.get("tau_rel", 0.58)))
+            caller = str(body.get("caller_type") or query.get("caller_type") or "shopper_search_surface")
+            fb = body.get("expert_feedback") if isinstance(body.get("expert_feedback"), dict) else None
+            use_b = bool(body.get("use_bedrock", method == "POST"))
+            res = STUDIO.run_cax_recommendation(
+                turns=turns_list,
+                tau_rel=tau_val,
+                caller_type=caller,
+                expert_feedback=fb,
+                use_bedrock=use_b,
+            )
+            res["request_id"] = request_id
+            return 200, res
+
+        if method in ("GET", "POST") and clean_path == "/api/offsearch/pdp":
+            anchor_id = str(body.get("anchor_id") or query.get("anchor_id") or "ANCHOR-CAM-4K")
+            stage = str(body.get("shopper_stage") or query.get("shopper_stage") or "homepage_post_purchase")
+            owned = body.get("purchased_durable_groups")
+            owned_seq = [str(x) for x in owned] if isinstance(owned, list) else None
+            sessions_n = int(body.get("cuped_sessions_per_arm", query.get("cuped_sessions_per_arm", 600)))
+            res = STUDIO.run_offsearch_pdp(
+                anchor_id=anchor_id,
+                shopper_stage=stage,
+                purchased_durable_groups=owned_seq,
+                cuped_sessions_per_arm=sessions_n,
+            )
+            res["request_id"] = request_id
+            return 200, res
+
+        if method in ("GET", "POST") and clean_path == "/api/pal/calibrate":
+            drift_mode = str(body.get("drift_mode") or query.get("drift_mode") or "none")
+            n_cells = int(body.get("n_cells", query.get("n_cells", 8)))
+            shard_k = int(body.get("shard_k", query.get("shard_k", 2)))
+            noisy_id = str(body.get("noisy_tenant_id") or query.get("noisy_tenant_id") or "ADV-ROGUE-RETRY-STORM")
+            evacuate = bool(body.get("auto_evacuate_quarantine", False))
+            res = STUDIO.run_pal_and_shuffle_sharding(
+                drift_mode=drift_mode,
+                n_cells=n_cells,
+                shard_k=shard_k,
+                noisy_tenant_id=noisy_id,
+                auto_evacuate_quarantine=evacuate,
             )
             res["request_id"] = request_id
             return 200, res

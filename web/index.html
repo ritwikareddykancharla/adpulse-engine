@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AdPulse — Ranking Sponsored Products, Pacing Daily Ad Budgets, and Testing Bids Offline</title>
-  <meta name="description" content="AdPulse ranks 520 catalog products in 0.43 ms p99 without showing out-of-stock items, paces daily seller budgets across all 24 hours, and tests bid policies offline before deployment." />
+  <title>AdPulse v2: Sponsored Search, Conversational Ads, Off-Search PDP, and Calibrated Auctions</title>
+  <meta name="description" content="AdPulse v2 ranks 520 catalog products in 0.217 ms p99, runs relevance-floored conversational shopping ads, routes off-search PDP complements with CUPED, calibrates PAL click models, and paces 24-hour seller budgets." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&amp;family=Kalam:wght@400;700&amp;family=Martian+Mono:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
@@ -853,9 +853,12 @@
 
     .tab-bar {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.75rem;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.65rem;
       margin-bottom: 1.4rem;
+    }
+    @media (max-width: 1160px) {
+      .tab-bar { grid-template-columns: repeat(3, 1fr); }
     }
 
     @media (max-width: 960px) {
@@ -1166,7 +1169,7 @@
   <header class="topbar">
     <div class="container topbar-inner">
       <a href="#problem-statement" class="brand">
-        <span class="brand-badge">ADPULSE v1.0</span>
+        <span class="brand-badge">ADPULSE v2.0</span>
         <span>AdPulse</span>
       </a>
       <nav class="nav-links" aria-label="Primary Navigation">
@@ -1201,16 +1204,16 @@
   <section class="hero">
     <div class="container">
       <div class="hero-top-row">
-        <div class="eyebrow">Sponsored Search &amp; Ad Auctions · Built for Amazon Ads</div>
+        <div class="eyebrow">Sponsored Search, CAX, Off-Search PDP &amp; PAL Calibration · Amazon Ads v2</div>
         <div class="runtime-pill" id="runtimeModeBadge">
           <span class="pulse-dot"></span>
           <span id="runtimeModeText">Live on AWS · Powered by Amazon Bedrock</span>
         </div>
       </div>
 
-      <h1>AdPulse — Ranking Sponsored Products, Pacing Daily Ad Budgets, and Testing Bids Offline</h1>
+      <h1>AdPulse v2: Sponsored Search, Conversational Ads, Off-Search PDP, and Calibrated Auctions</h1>
       <p class="hero-sub">
-        Sponsored search has to pick relevant ads in under a millisecond without showing out-of-stock items or burning a seller's daily budget before noon. AdPulse ranks 520 products in 0.43 ms, spreads ad spend smoothly across all 24 hours, and tests bid changes offline before risking real money.
+        Ad serving spans search queries, multi-turn conversational shopping, and query-free product detail pages. AdPulse v2 ranks 520 products in 0.158 ms median (0.217 ms p99), blocks irrelevant high-bid conversational ads below a semantic relevance floor, routes compatible accessories on post-purchase surfaces with CUPED A/B testing, calibrates position-debiased PAL click probabilities across C(8, 2) = 28 shuffle-sharded cells, and paces 24-hour budgets.
       </p>
 
       <div class="hero-actions">
@@ -1221,24 +1224,24 @@
 
       <div class="kpi-strip">
         <div class="card kpi-card">
-          <div class="kpi-val">0.266 ms / 0.43 ms</div>
-          <div class="kpi-label">Median / p99 Ad Ranking Speed</div>
-          <div class="kpi-sub">500-product benchmark · 120 searches · 0% out-of-stock or over-cap ads</div>
-        </div>
-        <div class="card kpi-card">
-          <div class="kpi-val">+312.4%</div>
-          <div class="kpi-label">Top-3 Ad Relevance Lift (NDCG@3)</div>
-          <div class="kpi-sub">0.2020 → 0.8331 NDCG@3 · Top-3 recall rose from 18.6% to 80.6% (+332.9%)</div>
+          <div class="kpi-val">0.158 ms / 0.217 ms</div>
+          <div class="kpi-label">Median / p99 Ad Ranking &amp; +312.4% NDCG@3</div>
+          <div class="kpi-sub">0.2020 → 0.8331 NDCG@3 · 0.0% out-of-stock or over-cap ads across 500 SKUs</div>
         </div>
         <div class="card kpi-card">
           <div class="kpi-val">9.33x ROAS (+86.3%)</div>
-          <div class="kpi-label">All-Day Budget Pacing Return</div>
-          <div class="kpi-sub">Up from 5.01x ROAS · +68.0% conversions (75 → 126) · 55.0% → 0.0% early burnout</div>
+          <div class="kpi-label">24h PID Pacing &amp; -66.03% DR OPE Error</div>
+          <div class="kpi-sub">55.0% → 0.0% pre-18:00 burnout · 0.1661 → 0.0564 RMSE (100.0% CI coverage)</div>
         </div>
         <div class="card kpi-card">
-          <div class="kpi-val">-66.03% Error</div>
-          <div class="kpi-label">Offline Bid Testing RMSE Reduction</div>
-          <div class="kpi-sub">0.1661 → 0.0564 RMSE across 40 trials · 100.0% 95% CI coverage</div>
+          <div class="kpi-val">0.0% CAX Leaks</div>
+          <div class="kpi-label">Conversational Floor &amp; Off-Search CUPED</div>
+          <div class="kpi-sub">tau_rel = 0.58 blocks $4.95 distractors · +61.06% LinUCB · -58.27% CUPED var</div>
+        </div>
+        <div class="card kpi-card">
+          <div class="kpi-val">1.0016 COPC · 3.57%</div>
+          <div class="kpi-label">PAL Calibration &amp; C(8, 2) = 28 Sharding</div>
+          <div class="kpi-sub">RIG 1.48% → 8.01% · ECE 0.0410 → 0.0179 · 1/28 blast radius</div>
         </div>
       </div>
 
@@ -1275,7 +1278,7 @@
           Suppose a small running-gear brand sets a <strong>$28/day</strong> ad budget for wireless earbuds. At 7:30 AM, commuters browse on their phones without buying (<code>0.54x</code> baseline conversion intent). An unpaced bidding engine bids full price (<code>$2.15</code>/click) on every morning click and spends the entire $28 budget by <strong>11:00 AM</strong>. When high-intent shoppers arrive at <strong>7:30 PM</strong> (<code>1.78x–1.82x</code> conversion peak), the campaign is inactive. In our 6,000-auction benchmark, <strong>55.0%</strong> (<code>22/40</code>) of small-seller campaigns run out of budget before 6:00 PM.
         </p>
         <p>
-          Ranking ads by raw keyword overlap multiplied by CPC bid also lets out-of-stock warehouse listings (<code>15.28%</code> leak rate) and $269 headphones (<code>59.72%</code> price-cap violations) take top ad slots when a shopper filters under $160. AdPulse applies stock and price filters before ranking in <code>0.266 ms</code> median latency, shades morning bids to lift seller ROAS from <code>5.01x</code> to <code>9.33x</code>, and evaluates new bid rules offline with <code>66.03%</code> lower estimation error before rollout.
+          Ranking ads by raw keyword overlap multiplied by CPC bid also lets out-of-stock warehouse listings (<code>15.28%</code> leak rate) and $269 headphones (<code>59.72%</code> price-cap violations) take top ad slots when a shopper filters under $160. AdPulse applies stock and price filters before ranking in <code>0.158 ms</code> median latency, shades morning bids to lift seller ROAS from <code>5.01x</code> to <code>9.33x</code>, and evaluates new bid rules offline with <code>66.03%</code> lower estimation error before rollout.
         </p>
       </div>
 
@@ -1333,7 +1336,7 @@
             The inverted index pulls matching audio products from the 520-SKU catalog and drops <code>31</code> ineligible listings before scoring: <code>15</code> out-of-stock FBA items (including <code>SKU-0169</code> at a $4.04 bid), <code>13</code> above the $160 cap, and <code>3</code> missing required catalog attributes.
           </div>
           <div class="trace-stage">
-            <strong class="stage-head">Step 2 · Calibrated Ranking (0.266 ms)</strong>
+            <strong class="stage-head">Step 2 · Calibrated Ranking (0.158 ms)</strong>
             The <code>17</code> eligible products are scored with Empirical-Bayes smoothed click and conversion rates adjusted for 19:00 purchase intent. <code>SKU-F101</code> (Auralis AeroFit Pro, $119.99, 4.8★) scores <code>7.49%</code> pCTR and <code>28.98%</code> pCVR, lifting NDCG@3 from <code>0.2020 → 0.8331</code>.
           </div>
           <div class="trace-stage">
@@ -1378,14 +1381,14 @@
       </div>
 
       <div class="arch-viewport" id="archViewport">
-        <svg id="apArchSvg" class="arch-svg" viewBox="0 0 1220 715" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AdPulse System Architecture Diagram">
+        <svg id="apArchSvg" class="arch-svg" viewBox="0 0 1220 835" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AdPulse System Architecture Diagram">
           <defs>
             <pattern id="apDotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
               <circle cx="2" cy="2" r="1" fill="#D4D4D8" />
             </pattern>
           </defs>
-          <rect x="0" y="0" width="1220" height="715" fill="#FFFFFF" />
-          <rect x="0" y="0" width="1220" height="715" fill="url(#apDotGrid)" opacity="0.65" />
+          <rect x="0" y="0" width="1220" height="835" fill="#FFFFFF" />
+          <rect x="0" y="0" width="1220" height="835" fill="url(#apDotGrid)" opacity="0.65" />
 
           <!-- PLANE 1: AWS EDGE DELIVERY -->
           <path d="M 22,18 Q 610,14 1196,19 Q 1200,92 1195,164 Q 608,168 24,163 Q 19,90 22,18 Z" fill="#FAFAFA" stroke="#71717A" stroke-width="1.6" stroke-dasharray="8 6" />
@@ -1442,7 +1445,7 @@
             <path d="M 938,38 L 1182,38 L 1182,136 L 1164,152 L 938,152 Z" fill="#FEF3C7" stroke="#18181B" stroke-width="2" />
             <path d="M 1164,152 L 1164,136 L 1182,136" fill="#FDE68A" stroke="#18181B" stroke-width="1.6" />
             <text x="952" y="64" class="ex-hand" font-size="19" font-weight="700" fill="#92400E">Verified Benchmark Totals</text>
-            <text x="952" y="86" class="ex-hand" font-size="17" font-weight="600" fill="#18181B">• 0.266ms p50 / 0.43ms p99</text>
+            <text x="952" y="86" class="ex-hand" font-size="17" font-weight="600" fill="#18181B">• 0.158ms p50 / 0.217ms p99</text>
             <text x="952" y="107" class="ex-hand" font-size="17" font-weight="600" fill="#18181B">• +312.4% NDCG · +86.3% ROAS</text>
             <text x="952" y="129" class="ex-hand" font-size="17" font-weight="700" fill="#065F46">• -66.03% DR RMSE (100% CI)</text>
           </g>
@@ -1486,7 +1489,7 @@
             <path d="M 901,235 Q 1039,232 1175,236 Q 1177,279 1174,321 Q 1036,325 902,320 Z" fill="none" stroke="#18181B" stroke-width="1" opacity="0.6" />
             <text x="1038" y="259" text-anchor="middle" class="ex-hand" font-size="20" font-weight="700" fill="#5B21B6">Conversational Ad Slot</text>
             <text x="1038" y="281" text-anchor="middle" class="ex-mono" font-size="9.3" font-weight="700" fill="#18181B">Spec-Verified In-Stock Pick</text>
-            <text x="1038" y="302" text-anchor="middle" class="ex-mono" font-size="9.1" fill="#6D28D9">0.266ms p50 / 0.430ms p99</text>
+            <text x="1038" y="302" text-anchor="middle" class="ex-mono" font-size="9.1" fill="#6D28D9">0.158ms p50 / 0.217ms p99</text>
           </g>
 
           <!-- Arrows Plane 2 -> Plane 3 -->
@@ -1496,7 +1499,7 @@
 
           <!-- PLANE 3: GSP CLEARINGHOUSE & 24H LAGRANGIAN PID PACER -->
           <path d="M 22,382 Q 610,378 1196,383 Q 1200,452 1195,522 Q 608,526 24,521 Q 19,451 22,382 Z" fill="#F0FDF4" stroke="#065F46" stroke-width="1.6" stroke-dasharray="8 6" />
-          <text x="36" y="405" class="ex-hand" font-size="21" font-weight="700" fill="#065F46">③ Auction &amp; Budget Control Plane — Lagrangian PID Bid Shader (λ_t) + 3-Slot GSP Clearinghouse</text>
+          <text x="36" y="405" class="ex-hand" font-size="21" font-weight="700" fill="#065F46">③ Auction &amp; Budget Control Plane - Lagrangian PID Bid Shader (λ_t) + 3-Slot GSP Clearinghouse</text>
 
           <g class="ex-node" data-arch-node="ap-pid" tabindex="0">
             <path d="M 40,416 Q 302,412 564,417 Q 568,463 563,508 Q 301,512 41,507 Q 37,462 40,416 Z" fill="#DCFCE7" />
@@ -1553,6 +1556,23 @@
             <rect x="716" y="659" width="422" height="24" fill="#DCFCE7" stroke="#18181B" stroke-width="1.5" />
             <text x="927" y="675" text-anchor="middle" class="ex-mono" font-size="9.4" font-weight="700" fill="#065F46">✓ 40/40 Root-Cause Accuracy · 100.0% ACoS Safe</text>
           </g>
+          <g class="ex-node" data-arch-node="ap-v2-cax" tabindex="0">
+            <path d="M 32,712 Q 418,708 804,713 Q 808,766 803,816 Q 417,820 33,815 Q 29,765 32,712 Z" fill="#E0F2FE" />
+            <path class="ex-stroke-main" d="M 32,712 Q 418,708 804,713 Q 808,766 803,816 Q 417,820 33,815 Q 29,765 32,712 Z" fill="none" stroke="#18181B" stroke-width="2.2" />
+            <text x="418" y="740" text-anchor="middle" class="ex-hand" font-size="21" font-weight="700" fill="#0369A1">⑥ Multi-Turn CAX Floor + Off-Search PDP Compatibility &amp; CUPED</text>
+            <text x="418" y="762" text-anchor="middle" class="ex-mono" font-size="9.4" font-weight="700" fill="#18181B">adpulse/cax_offsearch_pal.py · suppress_ad(rel &lt; tau_rel) + LinUCB + CUPED theta</text>
+            <rect x="92" y="775" width="652" height="24" fill="#FFFFFF" stroke="#18181B" stroke-width="1.5" />
+            <text x="418" y="791" text-anchor="middle" class="ex-mono" font-size="9.2" font-weight="700" fill="#0284C7">✓ 0.0% Support-Turn Leaks · +61.06% LinUCB · -58.27% CUPED Variance</text>
+          </g>
+
+          <g class="ex-node" data-arch-node="ap-v2-pal" tabindex="0">
+            <path d="M 828,712 Q 1009,708 1190,713 Q 1194,766 1189,816 Q 1008,820 829,815 Q 825,765 828,712 Z" fill="#DCFCE7" />
+            <path class="ex-stroke-main" d="M 828,712 Q 1009,708 1190,713 Q 1194,766 1189,816 Q 1008,820 829,815 Q 825,765 828,712 Z" fill="none" stroke="#18181B" stroke-width="2.2" />
+            <text x="1009" y="740" text-anchor="middle" class="ex-hand" font-size="21" font-weight="700" fill="#065F46">⑦ PAL Calibration &amp; Shuffle HA</text>
+            <text x="1009" y="762" text-anchor="middle" class="ex-mono" font-size="9.3" font-weight="700" fill="#18181B">P(seen|pos)P(click|x,seen) · C(8,2)=28</text>
+            <rect x="850" y="775" width="318" height="24" fill="#FFFFFF" stroke="#18181B" stroke-width="1.5" />
+            <text x="1009" y="791" text-anchor="middle" class="ex-mono" font-size="9.2" font-weight="700" fill="#059669">✓ 1.0016 COPC · 8.01% RIG · 3.57% Blast</text>
+          </g>
         </svg>
       </div>
 
@@ -1569,6 +1589,8 @@
           <button type="button" class="arch-node-pill" data-arch-btn="ap-gsp">9. 3-Slot GSP Clearing</button>
           <button type="button" class="arch-node-pill" data-arch-btn="ap-ope">10. Doubly-Robust OPE</button>
           <button type="button" class="arch-node-pill" data-arch-btn="ap-bedrock">11. Bedrock Spektr Copilot</button>
+          <button type="button" class="arch-node-pill" data-arch-btn="ap-v2-cax">12. CAX &amp; Off-Search CUPED</button>
+          <button type="button" class="arch-node-pill" data-arch-btn="ap-v2-pal">13. PAL &amp; C(8,2) Sharding</button>
         </div>
         <div id="archInspectorDetail"></div>
       </div>
@@ -1585,7 +1607,7 @@
           <span class="section-kicker">03 · Implementation</span>
           <h2 class="section-title">Implementation</h2>
           <p class="section-desc">
-            Inverted-index pruning, Empirical-Bayes rate smoothing, 3-slot Generalized Second-Price clearing, PID spend control, and Doubly-Robust bootstrap evaluation are implemented in zero-dependency Python inside <code>adpulse/</code>.
+            Inverted-index pruning, Empirical-Bayes rate smoothing, 3-slot Generalized Second-Price clearing, PID spend control, and Doubly-Robust bootstrap evaluation plus multi-turn CAX relevance gating, Off-Search compatibility graphs, CUPED variance reduction, PAL click calibration, and C(8, 2) shuffle sharding are implemented in Python inside <code>adpulse/</code>.
           </p>
         </div>
       </div>
@@ -1602,7 +1624,7 @@
           <span class="step-badge">CORE EQUATIONS &amp; COMPLEXITY</span>
           <h3>Beta-Binomial Posteriors, Dual Multiplier <code>λ_t</code> &amp; Doubly-Robust Estimators</h3>
           <p>
-            In <code>adpulse/catalog_ranker.py</code>, inverted posting lists retrieve candidate SKUs in <code>O(|q|)</code> and compute <code>p̂_CTR = (clicks + α_0) / (imps + α_0 + β_0)</code> in <code>0.266 ms</code> p50 / <code>0.430 ms</code> p99. In <code>auction_pacer.py</code>, <code>b_eff = b_raw · λ_t</code> clears 3 GSP slots at <code>CPC_k = (S_{k+1} / Q_k) + 0.01</code> while updating <code>λ_{t+1} = clip(λ_t - k_p e_t - k_i ∫e - k_d Δe, 0.12, 1.25)</code>. In <code>off_policy_eval.py</code>, DR evaluates <code>V̂_DR = (1/N) ∑ [ μ̂(x_i, π_e) + min(M, π_e/π_0)(r_i - μ̂(x_i, a_i)) ]</code>.
+            In <code>adpulse/catalog_ranker.py</code>, inverted posting lists retrieve candidate SKUs in <code>O(|q|)</code> and compute <code>p̂_CTR = (clicks + α_0) / (imps + α_0 + β_0)</code> in <code>0.158 ms</code> p50 / <code>0.217 ms</code> p99. In <code>auction_pacer.py</code>, <code>b_eff = b_raw · λ_t</code> clears 3 GSP slots at <code>CPC_k = (S_{k+1} / Q_k) + 0.01</code> while updating <code>λ_{t+1} = clip(λ_t - k_p e_t - k_i ∫e - k_d Δe, 0.12, 1.25)</code>. In <code>off_policy_eval.py</code>, DR evaluates <code>V̂_DR = (1/N) ∑ [ μ̂(x_i, π_e) + min(M, π_e/π_0)(r_i - μ̂(x_i, a_i)) ]</code>.
           </p>
         </div>
       </div>
@@ -1618,10 +1640,10 @@
             <ul class="module-list">
               <li><strong>Sub-Millisecond Pre-Auction Gate:</strong> Tokenized inverted index retrieves matching products and drops out-of-stock FBA listings (<code>15.28% → 0.0%</code>), shopper price-cap violations (<code>59.72% → 0.0%</code>), and incomplete catalog schemas before scoring.</li>
               <li><strong>Empirical-Bayes Rate Calibration:</strong> Shrinks noisy SKU-level CTR and CVR toward category Beta priors adjusted by hourly purchase-intent multipliers (<code>0.52x</code> morning vs <code>1.82x</code> evening).</li>
-              <li><strong>Measured Ranking Lift:</strong> Improves NDCG@3 by <strong>+312.43%</strong> (<code>0.2020 → 0.8331</code>) and Top-3 Recall by <strong>+332.89%</strong> (<code>0.1861 → 0.8056</code>) in <code>0.266 ms</code> p50 / <code>0.430 ms</code> p99.</li>
+              <li><strong>Measured Ranking Lift:</strong> Improves NDCG@3 by <strong>+312.43%</strong> (<code>0.2020 → 0.8331</code>) and Top-3 Recall by <strong>+332.89%</strong> (<code>0.1861 → 0.8056</code>) in <code>0.158 ms</code> p50 / <code>0.217 ms</code> p99.</li>
             </ul>
             <div style="margin-top:auto; padding-top:0.45rem; display:flex; gap:0.4rem; flex-wrap:wrap;">
-              <span class="tag tag-pass">0.266 ms p50 / 0.430 ms p99</span>
+              <span class="tag tag-pass">0.158 ms p50 / 0.217 ms p99</span>
               <span class="tag tag-accent">+312.4% NDCG@3</span>
             </div>
           </div>
@@ -1683,6 +1705,43 @@
             </div>
           </div>
         </div>
+        <div class="module-card">
+          <div class="module-card-head">
+            <span>MODULE 05 · CONVERSATIONAL ADS (CAX) &amp; LINUCB</span>
+            <span style="color:#7DD3FC;">adpulse/cax_offsearch_pal.py · /api/cax/recommend</span>
+          </div>
+          <div class="module-card-body">
+            <h3>Multi-Turn Constraint State, Relevance-Floored GSP &amp; Contextual Bandit</h3>
+            <ul class="module-list">
+              <li><strong>Cumulative Dialogue Tracker &amp; Hard Floor:</strong> Tracks price ceilings, wattage, and waterproof/ergonomic constraints across shopper turns and enforces <code>suppress_ad = True</code> whenever <code>semantic_relevance &lt; tau_rel</code> (<code>0.58</code>), cutting non-commercial/support ad leaks from <code>100.0% → 0.0%</code> even against <code>$4.95</code> CPC bids.</li>
+              <li><strong>Ridge-Regression <code>LinUCB</code> Agent Framing:</strong> Solves <code>UCB_a(x) = θ_a^T x + α √(x^T A_a^-1 x)</code> across 4 conversational framing strategies under scoped caller permissions (<code>policy:feedback</code>), lifting strategist acceptance by <strong>+61.06%</strong>.</li>
+              <li><strong>Amazon Bedrock Grounding &amp; Copy Verifier:</strong> Synthesizes responses on <code>us.amazon.nova-lite-v1:0</code> gated by deterministic price, stock, and banned-claim checks (<code>100.0%</code> policy pass rate).</li>
+            </ul>
+            <div style="margin-top:auto; padding-top:0.45rem; display:flex; gap:0.4rem; flex-wrap:wrap;">
+              <span class="tag tag-pass">0.0% Irrelevant Ad Leaks</span>
+              <span class="tag tag-blue">+61.06% LinUCB Lift</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-card-head">
+            <span>MODULE 06 · OFF-SEARCH PDP, CUPED, PAL &amp; SHUFFLE HA</span>
+            <span style="color:#86EFAC;">adpulse/cax_offsearch_pal.py · /api/offsearch/pdp · /api/pal/calibrate</span>
+          </div>
+          <div class="module-card-body">
+            <h3>Substitute/Complement Graph, CUPED A/B, PAL Calibration &amp; C(8, 2) Cells</h3>
+            <ul class="module-list">
+              <li><strong>Query-Free Off-Search &amp; <code>CUPED</code>:</strong> Suppresses already-purchased durables on Homepage (<code>100.0% → 0.0%</code>), prunes incompatible accessories (<code>58mm</code> vs <code>67mm</code> thread, <code>CFexpress-B</code> vs <code>SDXC</code>), and applies <code>Y_cuped = Y - θ(X_pre - E[X_pre])</code> (<code>θ = 0.8107</code>) for <strong>-58.27%</strong> A/B variance.</li>
+              <li><strong>Position-Bias-Aware Learning (<code>PAL</code>):</strong> Factorizes <code>P(click | x, pos) = P(seen | pos) · P(click | x, seen)</code> with Platt and PAV Isotonic calibration, improving <code>COPC = sum(pred)/sum(clicks)</code> from <code>1.1844 → 1.0016</code>, <code>RIG</code> from <code>1.48% → 8.01%</code>, and <code>ECE</code> from <code>0.0410 → 0.0179</code>.</li>
+              <li><strong>Multi-AZ Shuffle Sharding (<code>N=8, k=2</code>):</strong> Assigns each tenant 2 of 8 AZ cells via HMAC-SHA256 (<code>C(8, 2) = 28</code> virtual shards), shrinking noisy-neighbor retry-storm blast radius from <code>100.0%</code> down to <strong>3.57%</strong> (<code>1/28</code>).</li>
+            </ul>
+            <div style="margin-top:auto; padding-top:0.45rem; display:flex; gap:0.4rem; flex-wrap:wrap;">
+              <span class="tag tag-pass">1.0016 COPC · 8.01% RIG</span>
+              <span class="tag tag-accent">3.57% Blast (C(8,2)=28)</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1714,7 +1773,7 @@
           <span class="step-badge">LATENCY BUDGET &amp; BIAS-VARIANCE</span>
           <h3>Sub-0.5 ms Two-Stage Ranking and Doubly-Robust Variance Reduction</h3>
           <p>
-            Scoring all 500 SKUs with a neural cross-encoder exceeds sub-millisecond ad-serving budgets; Stage-1 inverted-index pruning plus Top-40 Empirical-Bayes reranking reaches <code>0.8331</code> NDCG@3 at <code>0.266 ms</code> p50 / <code>0.430 ms</code> p99 (just <code>+0.18 ms</code> above lexical baseline). For offline policy gating, Doubly-Robust estimation remains consistent if either the propensity model <code>π_0</code> or reward model <code>μ̂</code> is well-specified, cutting bootstrap standard error from <code>±0.160</code> to <code>±0.074</code>.
+            Scoring all 500 SKUs with a neural cross-encoder exceeds sub-millisecond ad-serving budgets; Stage-1 inverted-index pruning plus Top-40 Empirical-Bayes reranking reaches <code>0.8331</code> NDCG@3 at <code>0.158 ms</code> p50 / <code>0.217 ms</code> p99. For offline policy gating, Doubly-Robust estimation remains consistent if either the propensity model <code>π_0</code> or reward model <code>μ̂</code> is well-specified, cutting bootstrap standard error from <code>±0.160</code> to <code>±0.074</code>.
           </p>
         </div>
       </div>
@@ -1734,7 +1793,7 @@
               <td><strong>Catalog Retrieval &amp; Filtering</strong></td>
               <td><code>Lexical × RawBid</code> post-filtering (<code>15.28%</code> OOS &amp; <code>59.72%</code> price-cap leaks, <code>0.2020</code> NDCG@3)</td>
               <td>Full-catalog neural cross-encoder on every query (<code>15–40 ms</code> p99 CPU tail latency)</td>
-              <td class="winner-col"><strong>Stage-1 Hard Index Pruning + Top-40 Empirical-Bayes eCPM</strong> (<code>0.0%</code> leaks, <code>0.8331</code> NDCG@3, <code>0.430 ms</code> p99)</td>
+              <td class="winner-col"><strong>Stage-1 Hard Index Pruning + Top-40 Empirical-Bayes eCPM</strong> (<code>0.0%</code> leaks, <code>0.8331</code> NDCG@3, <code>0.217 ms</code> p99)</td>
             </tr>
             <tr>
               <td><strong>24-Hour Budget Pacing</strong></td>
@@ -1753,6 +1812,18 @@
               <td>Unconstrained LLM advice (suggests unprofitable CPCs or raises bids on OOS items)</td>
               <td>Static canned text (cannot tailor lakehouse SQL to seller questions)</td>
               <td class="winner-col"><strong>Deterministic <code>max_acos_cpc</code> Clamp + Amazon Bedrock</strong> (<code>40/40</code> root-cause accuracy, <code>100.0%</code> ACoS compliance)</td>
+            </tr>
+            <tr>
+              <td><strong>Conversational Ad Gating (<code>CAX</code>)</strong></td>
+              <td>Unfloored GSP inserts <code>$4.95</code> ads on troubleshooting turns (<code>100.0%</code> pollution)</td>
+              <td>Blocking all ads in chat (forfeits high-intent multi-turn commercial queries)</td>
+              <td class="winner-col"><strong>Semantic Floor <code>tau_rel = 0.58</code> + <code>LinUCB</code> + Policy Gate</strong> (<code>0.0%</code> support leaks, <code>+61.06%</code> expert lift)</td>
+            </tr>
+            <tr>
+              <td><strong>Off-Search, <code>PAL</code> &amp; Multi-AZ Isolation</strong></td>
+              <td>Co-view repeats bought durables; position-blind <code>COPC = 1.1844</code>; <code>100%</code> fleet blast</td>
+              <td>Dedicated single-tenant clusters (prohibitive idle compute cost)</td>
+              <td class="winner-col"><strong>Compat Graph + <code>CUPED</code> (<code>-58.27%</code> var) + <code>PAL</code> Isotonic (<code>1.0016</code> COPC) + <code>C(8,2)=28</code> Shards (<code>3.57%</code> blast)</strong></td>
             </tr>
           </tbody>
         </table>
@@ -1802,7 +1873,7 @@
       <button type="button" class="tab-btn active" role="tab" aria-selected="true" data-tab="storefront-gsp" onclick="switchTab('storefront-gsp')">
         <span class="tab-btn-eyebrow">01 · Catalog &amp; Auction</span>
         <span class="tab-btn-title">Search Products &amp; Clear Auction</span>
-        <span class="tab-btn-metric">520 SKUs · 0.266 ms p50 · 0% OOS</span>
+        <span class="tab-btn-metric">520 SKUs · 0.158 ms p50 · 0% OOS</span>
       </button>
       <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="pid-pacer" onclick="switchTab('pid-pacer')">
         <span class="tab-btn-eyebrow">02 · Budget Pacing</span>
@@ -1819,6 +1890,11 @@
         <span class="tab-btn-title">Diagnose Lost Ads With Bedrock</span>
         <span class="tab-btn-metric">Profit-Safe Bid Cap · Iceberg SQL</span>
       </button>
+      <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="cax-offsearch-pal" onclick="switchTab('cax-offsearch-pal')">
+        <span class="tab-btn-eyebrow">05 · CAX, Off-Search &amp; PAL</span>
+        <span class="tab-btn-title">Conversational, PDP &amp; PAL Lab</span>
+        <span class="tab-btn-metric">tau_rel · CUPED · 1.0016 COPC · 3.57%</span>
+      </button>
     </div>
 
     <!-- ================================================================== -->
@@ -1832,7 +1908,7 @@
             Pick a shopper query and price ceiling to run <code>POST /api/storefront/search</code> across 520 products. Drag the hour slider to <code>19:00</code> and switch between <strong>PID Paced</strong> and <strong>Greedy Unpaced</strong> to compare active campaigns and inspect blocked out-of-stock or over-cap items on the right.
           </p>
         </div>
-        <span class="tag tag-accent" id="storeLatencyTag">0.266ms p50 · 0.430ms p99</span>
+        <span class="tag tag-accent" id="storeLatencyTag">0.158ms p50 · 0.217ms p99</span>
       </div>
 
       <!-- Search & Auction Control Strip -->
@@ -2116,6 +2192,166 @@
         </div>
       </div>
     </section>
+
+    <!-- ================================================================== -->
+    <!-- TAB 5: CONVERSATIONAL ADS (CAX), OFF-SEARCH PDP & PAL CALIBRATION  -->
+    <!-- ================================================================== -->
+    <section id="panel-cax-offsearch-pal" class="tab-panel" role="tabpanel">
+      <div class="sim-header">
+        <div>
+          <h2 class="sim-title">Conversational Shopping (CAX), Off-Search PDP Compatibility &amp; PAL Calibration</h2>
+          <p class="sim-desc">
+            Test multi-turn conversational ad suppression and Bedrock grounding (<code>POST /api/cax/recommend</code>), query-free PDP vs. post-purchase Homepage accessory routing with CUPED variance reduction (<code>POST /api/offsearch/pdp</code>), and Position-Bias-Aware Learning calibration paired with <code>C(8, 2) = 28</code> multi-AZ shuffle sharding (<code>POST /api/pal/calibrate</code>).
+          </p>
+        </div>
+        <span class="tag tag-accent">3 Live v2 Endpoints · Bedrock Nova</span>
+      </div>
+
+      <!-- SUB-LAB A: SPONSORED CONVERSATIONAL SHOPPING (CAX) + LINUCB -->
+      <div class="card" style="margin-bottom:1.3rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:0.7rem; flex-wrap:wrap; margin-bottom:0.8rem;">
+          <div>
+            <span class="step-badge" style="margin-bottom:0.25rem;">A · SPONSORED CONVERSATIONAL SHOPPING (CAX) &amp; LINUCB FRAMING</span>
+            <h3 style="font-size:1.12rem; font-weight:800;">Multi-Turn Constraint Tracker + Relevance Floor (<code>tau_rel</code>) + Amazon Bedrock</h3>
+          </div>
+          <span class="tag tag-pass" id="caxPolicyBadge">100% AD POLICY VERIFIED</span>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; gap:0.45rem; margin-bottom:0.85rem;" id="caxPresetBtns">
+          <button type="button" class="btn btn-accent" data-cax-preset="marathon_earbuds">3-Turn Marathon Earbuds ($140 Cap)</button>
+          <button type="button" class="btn btn-danger" data-cax-preset="troubleshooting_suppress">Support Turn (Suppresses $4.95 Ad)</button>
+          <button type="button" class="btn btn-secondary" data-cax-preset="macbook_monitor">2-Turn MacBook 90W 4K Monitor</button>
+          <button type="button" class="btn btn-secondary" data-cax-preset="espresso_barista">2-Turn Quiet Burr Grinder</button>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <div class="control-label">
+              <label for="caxTurnsInput">Multi-Turn Shopper Dialogue (One turn per line)</label>
+              <span class="mono" style="font-size:0.69rem; color:var(--ink-muted);">Cumulative constraints extracted</span>
+            </div>
+            <textarea id="caxTurnsInput" rows="4">wireless running earbuds
+I wear glasses and sweat heavily, need IPX7 waterproof under $140
+compare battery life and wind mic on the best options</textarea>
+
+            <div style="display:grid; grid-template-columns:1.1fr 0.9fr; gap:0.8rem; margin-top:0.75rem; align-items:end;">
+              <div>
+                <div class="control-label">
+                  <span>Relevance Floor (<code>tau_rel</code>)</span>
+                  <span class="mono tag tag-accent" id="caxTauBadge">0.58</span>
+                </div>
+                <input type="range" id="caxTauSlider" min="0.15" max="0.85" step="0.01" value="0.58" style="margin-bottom:0;" />
+              </div>
+              <div>
+                <div class="control-label"><label for="caxCallerSelect">Caller Permission Scope</label></div>
+                <select id="caxCallerSelect">
+                  <option value="shopper_search_surface" selected>shopper_search_surface</option>
+                  <option value="ads_applied_scientist">ads_applied_scientist (RL Feedback)</option>
+                  <option value="delegated_agency_bid_only">delegated_agency_bid_only</option>
+                  <option value="3p_seller">3p_seller</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-wrap:wrap; gap:0.55rem; margin-top:0.85rem;">
+              <button type="button" class="btn btn-accent" id="btnRunCaxLive">⚡ Run CAX Auction + Bedrock (/api/cax/recommend)</button>
+              <button type="button" class="btn btn-secondary" id="btnSendLinUcbFeedback">👍 Send +1.0 Expert Reward to LinUCB</button>
+            </div>
+          </div>
+
+          <div>
+            <div id="caxVerdictBanner" class="verdict-banner verdict-allow"></div>
+            <div id="caxConstraintPills" style="display:flex; flex-wrap:wrap; gap:0.35rem; margin-bottom:0.7rem;"></div>
+            <div style="border:2px solid var(--border); background:var(--bg-paper); padding:0.85rem 0.95rem; font-size:0.87rem; line-height:1.65; margin-bottom:0.8rem;" id="caxAssistantBox"></div>
+            <div id="caxSlotsAndSuppressedWrap"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-LAB B: QUERY-FREE OFF-SEARCH PDP/HOMEPAGE + CUPED -->
+      <div class="card" style="margin-bottom:1.3rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:0.7rem; flex-wrap:wrap; margin-bottom:0.8rem;">
+          <div>
+            <span class="step-badge" style="margin-bottom:0.25rem;">B · QUERY-FREE OFF-SEARCH (PDP &amp; HOMEPAGE) + CUPED EXPERIMENTATION</span>
+            <h3 style="font-size:1.12rem; font-weight:800;">Substitute vs. Complement Compatibility Graph &amp; Variance-Reduced A/B Testing</h3>
+          </div>
+          <span class="tag tag-purple" id="cupedVarTag">-58.27% CUPED VARIANCE</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1.1fr 1.2fr auto; gap:0.8rem; align-items:end; margin-bottom:1rem;">
+          <div>
+            <div class="control-label"><label for="offsearchAnchorSelect">Anchor Product Context (Zero Search Query)</label></div>
+            <select id="offsearchAnchorSelect">
+              <option value="ANCHOR-CAM-4K" selected>AlphaPro A7C Mirrorless 4K Camera (67mm Kit · $849)</option>
+              <option value="ANCHOR-ESP-58">CasaVero Dual-Boiler 58mm Espresso Machine ($599)</option>
+              <option value="ANCHOR-MBP-14">ProBook 14-Inch Laptop (Thunderbolt 4 / 96W · $1,599)</option>
+            </select>
+          </div>
+          <div>
+            <div class="control-label"><span>Shopper Journey Stage</span></div>
+            <div style="display:flex; flex-wrap:wrap; gap:0.4rem;" id="offsearchStageBtns">
+              <button type="button" class="btn btn-accent" data-os-stage="homepage_post_purchase">Homepage Post-Purchase</button>
+              <button type="button" class="btn btn-secondary" data-os-stage="cart_checkout">In-Cart / Checkout</button>
+              <button type="button" class="btn btn-secondary" data-os-stage="pdp_browsing">PDP Pre-Purchase</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-obsidian" id="btnRunOffsearchLive">⚡ Route Off-Search (/api/offsearch/pdp)</button>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <div class="control-label">
+              <span id="offsearchPolicyHeader">Cleared 3-Slot Off-Search Carousel</span>
+              <span class="tag tag-pass">0% Incompatible / Redundant</span>
+            </div>
+            <div id="offsearchCarouselWrap"></div>
+          </div>
+          <div>
+            <div class="control-label">
+              <span>Hard-Pruned Incompatible &amp; Already-Purchased Durables</span>
+              <span class="tag tag-fail" id="offsearchPrunedCount">0 Blocked</span>
+            </div>
+            <div id="offsearchPrunedWrap" style="display:flex; flex-direction:column; gap:0.45rem; margin-bottom:0.9rem;"></div>
+            <div id="cupedSummaryCard" style="border:2px solid var(--border); background:var(--bg-subtle); padding:0.8rem 0.95rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-LAB C: PAL pCTR CALIBRATION & MULTI-AZ SHUFFLE SHARDING -->
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:0.7rem; flex-wrap:wrap; margin-bottom:0.8rem;">
+          <div>
+            <span class="step-badge" style="margin-bottom:0.25rem;">C · PAL pCTR CALIBRATION &amp; C(8, 2) = 28 SHUFFLE-SHARDED ROUTER</span>
+            <h3 style="font-size:1.12rem; font-weight:800;"><code>P(click | x, pos) = P(seen | pos) · P(click | x, seen)</code> &amp; Noisy-Neighbor Isolation</h3>
+          </div>
+          <div style="display:flex; gap:0.45rem; flex-wrap:wrap;">
+            <button type="button" class="btn btn-accent" id="btnPalSteady" onclick="runPalLive('none', false)">Steady Traffic</button>
+            <button type="button" class="btn btn-secondary" id="btnPalDrift" onclick="runPalLive('flash_sale_surge', false)">Flash-Sale Drift + Recalibrate</button>
+            <button type="button" class="btn btn-secondary" id="btnPalEvacuate" onclick="runPalLive('none', true)">Quarantine Rogue Tenant (0% Blast)</button>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <div class="control-label">
+              <span>10-Bin Reliability Calibration Curve (Predicted vs. Empirical CTR)</span>
+              <span class="mono" style="font-size:0.68rem;">Crimson = Naive · Emerald = PAL + Isotonic</span>
+            </div>
+            <div class="svg-frame" id="palReliabilitySvg"></div>
+            <div class="table-wrap" style="margin-top:0.75rem;" id="palMetricsTableWrap"></div>
+          </div>
+
+          <div>
+            <div class="control-label">
+              <span>8-Cell Multi-AZ Shuffle Sharding (<code>C(8, 2) = 28</code> Virtual Shards)</span>
+              <span class="tag tag-pass" id="shuffleBlastBadge">3.57% Blast Radius (vs 100% Shared)</span>
+            </div>
+            <div id="shuffleCellsGrid" style="display:grid; grid-template-columns:repeat(2, 1fr); gap:0.55rem; margin-top:0.45rem; margin-bottom:0.8rem;"></div>
+            <div id="shuffleMathCallout" style="border:2px solid var(--border); background:var(--bg-paper); padding:0.8rem 0.95rem; font-size:0.84rem; line-height:1.62;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- =================================================================== -->
@@ -2128,7 +2364,7 @@
           <span class="section-kicker">06 · Benchmarks</span>
           <h2 class="section-title">Benchmarks</h2>
           <p class="section-desc">
-            Generated by <code>PYTHONPATH=. python3 benchmarks/run_benchmarks.py</code> into <code>benchmarks/latest_results.json</code> (deterministic <code>seed=42</code>, <code>2,497.87 ms</code> total wall time across 500 products, 120 queries, 6,000 sequential auctions, 48,000 logged OPE events, and 40 seller diagnostic cases).
+            Generated by <code>PYTHONPATH=. python3 benchmarks/run_benchmarks.py</code> into <code>benchmarks/latest_results.json</code> (deterministic <code>seed=42</code>, <code>2508.69 ms</code> total wall time across 500 products, 120 search queries, 6,000 sequential GSP auctions, 48,000 logged OPE events, 40 seller diagnostics, 60 multi-turn CAX dialogues, 240 Off-Search PDP/Homepage sessions, 1,200 CUPED A/B sessions, and 1,200 held-out PAL impressions across 28 virtual shards).
           </p>
         </div>
         <span class="tag tag-pass">Verified JSON Output</span>
@@ -2139,7 +2375,7 @@
           <span class="step-badge">SHOPPER &amp; SELLER OUTCOMES</span>
           <h3>Higher Relevance, Zero Noon Burnout, and Safer Offline Bid Rollouts</h3>
           <p>
-            Shoppers see relevant, in-stock items under their price cap (<code>0.8331</code> vs <code>0.2020</code> NDCG@3, <code>0.0%</code> out-of-stock or over-cap leaks) in <strong>0.266 ms</strong> median latency. Small sellers stop running out of budget before noon (<code>55.0% → 0.0%</code> early burnout) and lift return on ad spend from <code>5.01x</code> to <strong>9.33x</strong> (<code>75 → 126</code> conversions). Offline policy evaluation cuts estimation error by <strong>66.03%</strong> (<code>0.1661 → 0.0564</code> RMSE) with <strong>100.0%</strong> 95% confidence interval coverage.
+            Shoppers see relevant, in-stock items under their price cap (<code>0.8331</code> vs <code>0.2020</code> NDCG@3, <code>0.0%</code> out-of-stock or over-cap leaks) in <strong>0.158 ms</strong> median latency. Small sellers stop running out of budget before noon (<code>55.0% → 0.0%</code> early burnout) and lift return on ad spend from <code>5.01x</code> to <strong>9.33x</strong> (<code>75 → 126</code> conversions). Offline policy evaluation cuts estimation error by <strong>66.03%</strong> (<code>0.1661 → 0.0564</code> RMSE) with <strong>100.0%</strong> 95% confidence interval coverage.
           </p>
         </div>
         <div class="spec-card">
@@ -2169,14 +2405,14 @@
                 <td class="mono">0.2020 (Lexical × RawBid)</td>
                 <td class="mono" style="color:var(--pass); font-weight:700;">0.8331 (Two-Stage eCPM)</td>
                 <td class="mono" style="color:var(--pass);">+312.43% NDCG@3 (+332.89% Recall)</td>
-                <td><span class="tag tag-pass">0.266ms p50 · 0.430ms p99</span></td>
+                <td><span class="tag tag-pass">0.158ms p50 · 0.217ms p99</span></td>
               </tr>
               <tr>
                 <td><strong>Expected Conversions per 1k Queries</strong></td>
                 <td class="mono">1.90 conv / 1k queries (0.1861 Recall@3)</td>
                 <td class="mono" style="color:var(--pass); font-weight:700;">20.53 conv / 1k queries (0.8056 Recall@3)</td>
                 <td class="mono" style="color:var(--pass);">+980.53% Expected Conversions</td>
-                <td><span class="tag tag-pass">0.328ms p95 LATENCY</span></td>
+                <td><span class="tag tag-pass">0.187ms p95 LATENCY</span></td>
               </tr>
               <tr>
                 <td><strong>Out-of-Stock &amp; Price-Cap Violations</strong></td>
@@ -2199,12 +2435,33 @@
                 <td class="mono" style="color:var(--pass);">-66.03% RMSE vs Naive IPS (-26.68% Clipped)</td>
                 <td><span class="tag tag-pass">100.0% 95% CI COVERAGE</span></td>
               </tr>
-              <tr style="background:var(--pass-soft); font-weight:700;">
+              <tr>
                 <td><strong>Spektr Seller Diagnostics &amp; Bedrock Copilot</strong></td>
                 <td class="mono">Unbounded Heuristic Bid Advice</td>
                 <td class="mono" style="color:var(--pass);">40/40 (100.0%) Root-Cause Accuracy</td>
                 <td class="mono" style="color:var(--pass);">100.0% ACoS Cap &amp; 100.0% OOS Hold Safe</td>
                 <td><span class="tag tag-pass">RECOMMENDED &lt;= MAX_ACOS_CPC ★</span></td>
+              </tr>
+              <tr>
+                <td><strong>Conversational Ads (CAX) &amp; LinUCB (60 Dialogues)</strong></td>
+                <td class="mono" style="color:var(--fail);">100.0% Support-Turn Ad Leaks · Uniform Arms</td>
+                <td class="mono" style="color:var(--pass); font-weight:700;">0.0% Ad Leaks (tau_rel = 0.58) · 100.0% Policy Safe</td>
+                <td class="mono" style="color:var(--pass);">-100.0% Irrelevant Leaks · +61.06% LinUCB Lift</td>
+                <td><span class="tag tag-pass">2.932ms p50 AUCTION</span></td>
+              </tr>
+              <tr>
+                <td><strong>Off-Search PDP/Homepage &amp; CUPED A/B (1,200 Sessions)</strong></td>
+                <td class="mono" style="color:var(--fail);">100.0% Redundant · 100.0% Incompat</td>
+                <td class="mono" style="color:var(--pass); font-weight:700;">0.0% Redundant · 0.0% Incompat (theta = 0.8107)</td>
+                <td class="mono" style="color:var(--pass);">-58.27% CUPED Variance · +6.41% RPM Lift</td>
+                <td><span class="tag tag-pass">p = 3.24e-06</span></td>
+              </tr>
+              <tr style="background:var(--pass-soft); font-weight:700;">
+                <td><strong>PAL pCTR Calibration &amp; C(8, 2) = 28 Shuffle Sharding</strong></td>
+                <td class="mono" style="color:var(--fail);">COPC 1.1844 · RIG 1.48% · ECE 0.0410 · 100% Blast</td>
+                <td class="mono" style="color:var(--pass);">COPC 1.0016 · RIG 8.01% · ECE 0.0179 · 3.57% Blast</td>
+                <td class="mono" style="color:var(--pass);">LogLoss 0.4975 → 0.4645 · 27/28 Healthy Shards</td>
+                <td><span class="tag tag-pass">1/28 SHARD ISOLATION ★</span></td>
               </tr>
             </tbody>
           </table>
@@ -2213,7 +2470,7 @@
 
       <footer class="footer">
         <div>
-          <strong>AdPulse</strong> — Ranking Sponsored Products, Pacing Daily Ad Budgets, and Testing Bids Offline · Live on AWS &amp; Amazon Bedrock
+          <strong>AdPulse</strong> - Ranking Sponsored Products, Pacing Daily Ad Budgets, and Testing Bids Offline · Live on AWS &amp; Amazon Bedrock
         </div>
         <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
           <a href="#architecture" style="color:var(--ink); font-weight:700;">Architecture ↑</a>
@@ -2229,8 +2486,8 @@
     (function() {
       "use strict";
 
-      const SEED = {"engine":"AdPulse","version":"0.1.0","bedrock_model":"us.amazon.nova-lite-v1:0","delivery":"cloudfront-s3-oac","headline_metrics":{"top3_recall_baseline":0.1861,"top3_recall_two_stage":0.8056,"top3_recall_lift_pct":332.89,"ndcg_at_3_baseline":0.202,"ndcg_at_3_two_stage":0.8331,"ndcg_lift_pct":312.43,"expected_conversions_lift_pct":980.53,"oos_impression_rate_baseline_pct":15.28,"oos_impression_rate_two_stage_pct":0.0,"price_cap_violation_baseline_pct":59.72,"price_cap_violation_two_stage_pct":0.0,"ranker_p50_ms":0.266,"ranker_p99_ms":0.43,"early_depletion_unpaced_pct":55.0,"early_depletion_paced_pct":0.0,"early_depletion_reduction_pct":100.0,"roas_unpaced":5.009,"roas_paced":9.332,"roas_lift_pct":86.3,"pacing_conversions_lift_pct":68.0,"platform_revenue_change_pct":-7.56,"budget_utilization_pct":89.01,"budget_cap_violations":0,"naive_ips_rmse":0.16606,"clipped_ips_rmse":0.12175,"doubly_robust_rmse":0.05641,"clipped_ips_rmse_reduction_pct":26.68,"dr_rmse_reduction_pct":66.03,"dr_ci95_coverage_pct":100.0,"diagnostics_primary_accuracy_pct":100.0,"diagnostics_acos_compliance_pct":100.0},"featured_queries":[{"id":"earbuds","query":"wireless anc running earbuds","label":"Wireless ANC Running Earbuds","category":"electronics_audio","product_type":"earbuds","default_price_cap":160.0,"conversational_prompt":"Best sweatproof wireless ANC earbuds for marathon training under $160?"},{"id":"monitor","query":"4k usb-c monitor macbook","label":"4K USB-C Monitor MacBook","category":"home_office","product_type":"monitor","default_price_cap":340.0,"conversational_prompt":"Which 27-inch 4K USB-C PD monitor charges a MacBook Pro with one cable?"},{"id":"chair","query":"ergonomic mesh office chair","label":"Ergonomic Mesh Office Chair","category":"home_office","product_type":"chair","default_price_cap":280.0,"conversational_prompt":"Recommend a breathable mesh lumbar office chair for 8-hour coding sessions."},{"id":"espresso","query":"espresso grinder burr","label":"Espresso Grinder Burr","category":"kitchen_appliances","product_type":"espresso","default_price_cap":260.0,"conversational_prompt":"Quiet stainless conical burr espresso grinder with low retention for home baristas?"}],"default_storefront":{"query":"wireless anc running earbuds","resolved_category":"electronics_audio","shopper_price_cap":160.0,"hour":19,"hour_label":"19:00","is_prime_evening_peak":true,"hourly_cvr_multiplier":1.78,"daily_budget":28.0,"pacing_mode":"pid_paced","pid_lambda_t":0.673,"target_spend_progress_pct":70.4,"latency_ms":{"live_wall_ms":1.048,"benchmark_p50_ms":0.266,"benchmark_p99_ms":0.43},"stage_counts":{"catalog_total":520,"filtered_before_auction":31,"stage2_reranked":17,"slots_cleared":3},"winning_ads":[{"slot_number":1,"sku_id":"SKU-F101","campaign_id":"CMP-002","seller_id":"SLR-AURALIS","title":"Auralis AeroFit Pro Wireless ANC Running Earbuds IPX7 Earhooks Bluetooth 5.3","brand":"Auralis","category":"electronics_audio","product_type":"earbuds","price":119.99,"rating":4.8,"reviews":3420,"badge":"Best Seller in Running Audio","highlights":["42dB Adaptive ANC + Transparency","IPX7 SweatShield + LockWing","9h Earbud / 36h USB-C Case"],"attributes":{"connectivity":"bluetooth_5_3","feature":"anc","color":"matte_black"},"base_bid":2.15,"effective_bid":1.45,"lambda_multiplier":0.673,"clearing_cpc":1.01,"cpc_savings_vs_raw_bid_pct":53.1,"p_ctr_pct":7.49,"p_cvr_pct":28.98,"ecpm_usd":75.46,"rank_score":0.13692,"expected_roas":34.49},{"slot_number":2,"sku_id":"SKU-F102","campaign_id":"CMP-005","seller_id":"SLR-SOUNDCOREX","title":"SoundCoreX StrideBuds S3 Bluetooth Noise Cancelling Running Earbuds Spatial Audio","brand":"SoundCoreX","category":"electronics_audio","product_type":"earbuds","price":89.5,"rating":4.6,"reviews":2185,"badge":"Amazon's Choice","highlights":["Multipoint Bluetooth 5.3","Wind-Cut Running Mic Array","10-Min Fast Charge = 2.5h Run"],"attributes":{"connectivity":"multipoint_bt","feature":"anc","color":"midnight_navy"},"base_bid":1.85,"effective_bid":1.25,"lambda_multiplier":0.673,"clearing_cpc":0.94,"cpc_savings_vs_raw_bid_pct":49.0,"p_ctr_pct":6.13,"p_cvr_pct":28.21,"ecpm_usd":57.83,"rank_score":0.09538,"expected_roas":26.76},{"slot_number":3,"sku_id":"SKU-F103","campaign_id":"CMP-009","seller_id":"SLR-VELOTONE","title":"VeloTone PacePulse Ultra Wireless ANC Running Earbuds Waterproof IPX7","brand":"VeloTone","category":"electronics_audio","product_type":"earbuds","price":134.0,"rating":4.7,"reviews":1290,"badge":"Prime Same-Day","highlights":["IPX7 Submersible Sport Seal","Heart-Rate Cadence Sensor","Featherweight 4.6g Fit"],"attributes":{"connectivity":"bluetooth_5_3","feature":"waterproof_ipx7","color":"arctic_white"},"base_bid":1.95,"effective_bid":1.31,"lambda_multiplier":0.673,"clearing_cpc":1.08,"cpc_savings_vs_raw_bid_pct":44.4,"p_ctr_pct":6.02,"p_cvr_pct":14.45,"ecpm_usd":65.26,"rank_score":0.07229,"expected_roas":17.87}],"filtered_out_drawer":[{"sku_id":"SKU-0169","campaign_id":"CMP-009","title":"Auralis wireless over ear headphones bluetooth 5 3 pro series","brand":"Auralis","price":152.64,"raw_bid":4.04,"filter_stage":"Stage-1 Inventory Gate","reason_code":"OUT_OF_STOCK_SUPPRESSED","reason_detail":"0 units in FBA fulfillment network; stale $4.04 CPC bid blocked in 0.08ms.","prune_latency_ms":0.08},{"sku_id":"SKU-0265","campaign_id":"CMP-025","title":"KodaAudio wireless over ear headphones bluetooth 5 3 waterproof ipx7 midnight navy pro series","brand":"KodaAudio","price":220.28,"raw_bid":3.99,"filter_stage":"Stage-1 Inventory Gate","reason_code":"OUT_OF_STOCK_SUPPRESSED","reason_detail":"0 units in FBA fulfillment network; stale $3.99 CPC bid blocked in 0.08ms.","prune_latency_ms":0.08},{"sku_id":"SKU-0025","campaign_id":"CMP-025","title":"KodaAudio wireless over ear headphones bluetooth 5 3 waterproof ipx7 midnight navy pro series","brand":"KodaAudio","price":227.97,"raw_bid":3.89,"filter_stage":"Stage-1 Inventory Gate","reason_code":"OUT_OF_STOCK_SUPPRESSED","reason_detail":"0 units in FBA fulfillment network; stale $3.89 CPC bid blocked in 0.08ms.","prune_latency_ms":0.08},{"sku_id":"SKU-F105-OOS","campaign_id":"CMP-D001","title":"NordWave SonicRun Pro Wireless ANC Running Earbuds Titanium Driver","brand":"NordWave","price":129.0,"raw_bid":3.85,"filter_stage":"Stage-1 Inventory Gate","reason_code":"OUT_OF_STOCK_SUPPRESSED","reason_detail":"0 units in FBA fulfillment network; stale $3.85 CPC bid blocked in 0.08ms.","prune_latency_ms":0.08},{"sku_id":"SKU-0409","campaign_id":"CMP-009","title":"Auralis wireless over ear headphones bluetooth 5 3 waterproof ipx7 midnight navy pro series","brand":"Auralis","price":162.05,"raw_bid":3.83,"filter_stage":"Stage-1 Inventory Gate","reason_code":"OUT_OF_STOCK_SUPPRESSED","reason_detail":"0 units in FBA fulfillment network; stale $3.83 CPC bid blocked in 0.08ms.","prune_latency_ms":0.08},{"sku_id":"SKU-0241","campaign_id":"CMP-001","title":"SoundCoreX wireless over ear headphones bluetooth 5 3 waterproof ipx7 midnight navy pro series","brand":"SoundCoreX","price":88.3,"raw_bid":3.63,"filter_stage":"Stage-1 Inventory Gate","reason_code":"OUT_OF_STOCK_SUPPRESSED","reason_detail":"0 units in FBA fulfillment network; stale $3.63 CPC bid blocked in 0.08ms.","prune_latency_ms":0.08},{"sku_id":"SKU-0193","campaign_id":"CMP-033","title":"VeloTone wireless over ear headphones bluetooth 5 3 waterproof ipx7 midnight navy pro series","brand":"VeloTone","price":129.55,"raw_bid":3.61,"filter_stage":"Stage-1 Inventory Gate","reason_code":"OUT_OF_STOCK_SUPPRESSED","reason_detail":"0 units in FBA fulfillment network; stale $3.61 CPC bid blocked in 0.08ms.","prune_latency_ms":0.08},{"sku_id":"SKU-0481","campaign_id":"CMP-001","title":"SoundCoreX wireless over ear headphones bluetooth 5 3 waterproof ipx7 midnight navy pro series","brand":"SoundCoreX","price":72.52,"raw_bid":3.56,"filter_stage":"Stage-1 Inventory Gate","reason_code":"OUT_OF_STOCK_SUPPRESSED","reason_detail":"0 units in FBA fulfillment network; stale $3.56 CPC bid blocked in 0.08ms.","prune_latency_ms":0.08}],"filtered_out_counts_by_reason":{"OUT_OF_STOCK_SUPPRESSED":15,"ABOVE_SHOPPER_PRICE_CAP":13,"MISSING_CATALOG_ATTRIBUTES":3},"conversational_shopping_preview":{"assistant_answer":"For **wireless anc running earbuds**, top-rated verified pick is the **Auralis** ($119.99, 4.8\u2605 from 3,420 shoppers) featuring bluetooth 5 3, anc, matte black \u2014 verified in-stock for Prime delivery.","sponsored_slot":{"slot_number":1,"sku_id":"SKU-F101","campaign_id":"CMP-002","seller_id":"SLR-AURALIS","title":"Auralis AeroFit Pro Wireless ANC Running Earbuds IPX7 Earhooks Bluetooth 5.3","brand":"Auralis","category":"electronics_audio","product_type":"earbuds","price":119.99,"rating":4.8,"reviews":3420,"badge":"Best Seller in Running Audio","highlights":["42dB Adaptive ANC + Transparency","IPX7 SweatShield + LockWing","9h Earbud / 36h USB-C Case"],"attributes":{"connectivity":"bluetooth_5_3","feature":"anc","color":"matte_black"},"base_bid":2.15,"effective_bid":1.45,"lambda_multiplier":0.673,"clearing_cpc":1.01,"cpc_savings_vs_raw_bid_pct":53.1,"p_ctr_pct":7.49,"p_cvr_pct":28.98,"ecpm_usd":75.46,"rank_score":0.13692,"expected_roas":34.49},"why_selected":"Cleared GSP Slot #1 at $1.01 CPC (shaded from $2.15 raw bid) with 7.49% calibrated pCTR, 28.98% hourly pCVR, and 34.5x projected ROAS."},"baseline_comparison":{"baseline_leaks_prevented":2,"baseline_leak_examples":["SKU-F105-OOS (Out-of-Stock leaked at $3.85 bid)","SKU-F106-LUX ($269 violates $160 cap)"]}},"default_pacing":{"daily_budget_input":28.0,"selected_hour":19,"unpaced_metrics":{"policy_name":"unpaced_greedy_bidding","total_auctions":6000,"total_impressions":8097,"total_clicks":687,"total_conversions":75,"total_spend":1416.14,"total_attributed_sales":7093.41,"platform_clearing_revenue":1416.14,"advertiser_roas":5.009,"mean_clearing_cpc":2.061,"early_depletion_rate_pct":55.0,"campaigns_depleted_early":22,"total_campaigns":40,"budget_utilization_pct":96.29,"budget_cap_violations":0,"evening_peak_impression_share_pct":19.55},"pid_paced_metrics":{"policy_name":"pid_bid_shaded_pacer","total_auctions":6000,"total_impressions":11164,"total_clicks":955,"total_conversions":126,"total_spend":1309.03,"total_attributed_sales":12215.79,"platform_clearing_revenue":1309.03,"advertiser_roas":9.332,"mean_clearing_cpc":1.371,"early_depletion_rate_pct":0.0,"campaigns_depleted_early":0,"total_campaigns":40,"budget_utilization_pct":89.01,"budget_cap_violations":0,"evening_peak_impression_share_pct":33.95},"roas_lift_pct":86.3,"conversions_lift_pct":68.0,"hourly_curve":[{"hour":0,"label":"00:00","is_evening_peak":false,"traffic_share_pct":1.4,"cvr_intent_multiplier":0.72,"target_cum_spend_pct":1.1,"unpaced_cum_spend_pct":2.1,"pid_cum_spend_pct":1.5,"unpaced_active_campaigns":40,"pid_active_campaigns":40,"unpaced_hourly_conversions":0,"pid_hourly_conversions":0,"pid_mean_lambda":0.718},{"hour":1,"label":"01:00","is_evening_peak":false,"traffic_share_pct":1.0,"cvr_intent_multiplier":0.68,"target_cum_spend_pct":1.9,"unpaced_cum_spend_pct":4.2,"pid_cum_spend_pct":2.8,"unpaced_active_campaigns":40,"pid_active_campaigns":40,"unpaced_hourly_conversions":1,"pid_hourly_conversions":1,"pid_mean_lambda":0.703},{"hour":2,"label":"02:00","is_evening_peak":false,"traffic_share_pct":0.8,"cvr_intent_multiplier":0.65,"target_cum_spend_pct":2.5,"unpaced_cum_spend_pct":5.8,"pid_cum_spend_pct":3.9,"unpaced_active_campaigns":40,"pid_active_campaigns":40,"unpaced_hourly_conversions":0,"pid_hourly_conversions":0,"pid_mean_lambda":0.694},{"hour":3,"label":"03:00","is_evening_peak":false,"traffic_share_pct":0.7,"cvr_intent_multiplier":0.65,"target_cum_spend_pct":3.0,"unpaced_cum_spend_pct":6.5,"pid_cum_spend_pct":4.4,"unpaced_active_campaigns":40,"pid_active_campaigns":40,"unpaced_hourly_conversions":0,"pid_hourly_conversions":0,"pid_mean_lambda":0.69},{"hour":4,"label":"04:00","is_evening_peak":false,"traffic_share_pct":0.9,"cvr_intent_multiplier":0.68,"target_cum_spend_pct":3.7,"unpaced_cum_spend_pct":8.4,"pid_cum_spend_pct":5.6,"unpaced_active_campaigns":40,"pid_active_campaigns":40,"unpaced_hourly_conversions":0,"pid_hourly_conversions":0,"pid_mean_lambda":0.679},{"hour":5,"label":"05:00","is_evening_peak":false,"traffic_share_pct":1.8,"cvr_intent_multiplier":0.72,"target_cum_spend_pct":5.1,"unpaced_cum_spend_pct":10.5,"pid_cum_spend_pct":7.0,"unpaced_active_campaigns":40,"pid_active_campaigns":40,"unpaced_hourly_conversions":1,"pid_hourly_conversions":1,"pid_mean_lambda":0.63},{"hour":6,"label":"06:00","is_evening_peak":false,"traffic_share_pct":3.8,"cvr_intent_multiplier":0.58,"target_cum_spend_pct":7.8,"unpaced_cum_spend_pct":16.5,"pid_cum_spend_pct":10.7,"unpaced_active_campaigns":40,"pid_active_campaigns":40,"unpaced_hourly_conversions":2,"pid_hourly_conversions":2,"pid_mean_lambda":0.492},{"hour":7,"label":"07:00","is_evening_peak":false,"traffic_share_pct":5.6,"cvr_intent_multiplier":0.54,"target_cum_spend_pct":11.6,"unpaced_cum_spend_pct":25.3,"pid_cum_spend_pct":14.1,"unpaced_active_campaigns":38,"pid_active_campaigns":40,"unpaced_hourly_conversions":2,"pid_hourly_conversions":3,"pid_mean_lambda":0.349},{"hour":8,"label":"08:00","is_evening_peak":false,"traffic_share_pct":6.8,"cvr_intent_multiplier":0.52,"target_cum_spend_pct":16.2,"unpaced_cum_spend_pct":36.3,"pid_cum_spend_pct":17.5,"unpaced_active_campaigns":38,"pid_active_campaigns":40,"unpaced_hourly_conversions":3,"pid_hourly_conversions":2,"pid_mean_lambda":0.275},{"hour":9,"label":"09:00","is_evening_peak":false,"traffic_share_pct":6.6,"cvr_intent_multiplier":0.56,"target_cum_spend_pct":20.8,"unpaced_cum_spend_pct":46.0,"pid_cum_spend_pct":22.1,"unpaced_active_campaigns":36,"pid_active_campaigns":40,"unpaced_hourly_conversions":2,"pid_hourly_conversions":3,"pid_mean_lambda":0.258},{"hour":10,"label":"10:00","is_evening_peak":false,"traffic_share_pct":5.8,"cvr_intent_multiplier":0.64,"target_cum_spend_pct":25.1,"unpaced_cum_spend_pct":56.0,"pid_cum_spend_pct":25.7,"unpaced_active_campaigns":34,"pid_active_campaigns":40,"unpaced_hourly_conversions":6,"pid_hourly_conversions":5,"pid_mean_lambda":0.228},{"hour":11,"label":"11:00","is_evening_peak":false,"traffic_share_pct":5.0,"cvr_intent_multiplier":0.74,"target_cum_spend_pct":29.1,"unpaced_cum_spend_pct":61.7,"pid_cum_spend_pct":28.3,"unpaced_active_campaigns":27,"pid_active_campaigns":40,"unpaced_hourly_conversions":8,"pid_hourly_conversions":5,"pid_mean_lambda":0.266},{"hour":12,"label":"12:00","is_evening_peak":false,"traffic_share_pct":4.6,"cvr_intent_multiplier":0.86,"target_cum_spend_pct":33.2,"unpaced_cum_spend_pct":66.7,"pid_cum_spend_pct":32.3,"unpaced_active_campaigns":18,"pid_active_campaigns":40,"unpaced_hourly_conversions":3,"pid_hourly_conversions":4,"pid_mean_lambda":0.322},{"hour":13,"label":"13:00","is_evening_peak":false,"traffic_share_pct":4.3,"cvr_intent_multiplier":0.9,"target_cum_spend_pct":37.1,"unpaced_cum_spend_pct":69.2,"pid_cum_spend_pct":35.4,"unpaced_active_campaigns":18,"pid_active_campaigns":40,"unpaced_hourly_conversions":4,"pid_hourly_conversions":6,"pid_mean_lambda":0.375},{"hour":14,"label":"14:00","is_evening_peak":false,"traffic_share_pct":4.1,"cvr_intent_multiplier":0.92,"target_cum_spend_pct":40.9,"unpaced_cum_spend_pct":72.7,"pid_cum_spend_pct":39.8,"unpaced_active_campaigns":18,"pid_active_campaigns":40,"unpaced_hourly_conversions":4,"pid_hourly_conversions":6,"pid_mean_lambda":0.393},{"hour":15,"label":"15:00","is_evening_peak":false,"traffic_share_pct":4.2,"cvr_intent_multiplier":0.96,"target_cum_spend_pct":44.9,"unpaced_cum_spend_pct":75.4,"pid_cum_spend_pct":43.7,"unpaced_active_campaigns":18,"pid_active_campaigns":40,"unpaced_hourly_conversions":1,"pid_hourly_conversions":1,"pid_mean_lambda":0.428},{"hour":16,"label":"16:00","is_evening_peak":false,"traffic_share_pct":4.6,"cvr_intent_multiplier":1.05,"target_cum_spend_pct":49.5,"unpaced_cum_spend_pct":78.1,"pid_cum_spend_pct":48.3,"unpaced_active_campaigns":18,"pid_active_campaigns":40,"unpaced_hourly_conversions":1,"pid_hourly_conversions":1,"pid_mean_lambda":0.498},{"hour":17,"label":"17:00","is_evening_peak":false,"traffic_share_pct":5.4,"cvr_intent_multiplier":1.24,"target_cum_spend_pct":55.5,"unpaced_cum_spend_pct":81.7,"pid_cum_spend_pct":54.4,"unpaced_active_campaigns":18,"pid_active_campaigns":40,"unpaced_hourly_conversions":4,"pid_hourly_conversions":11,"pid_mean_lambda":0.447},{"hour":18,"label":"18:00","is_evening_peak":true,"traffic_share_pct":6.8,"cvr_intent_multiplier":1.58,"target_cum_spend_pct":64.6,"unpaced_cum_spend_pct":86.2,"pid_cum_spend_pct":61.9,"unpaced_active_campaigns":17,"pid_active_campaigns":40,"unpaced_hourly_conversions":5,"pid_hourly_conversions":11,"pid_mean_lambda":0.417},{"hour":19,"label":"19:00","is_evening_peak":true,"traffic_share_pct":7.8,"cvr_intent_multiplier":1.78,"target_cum_spend_pct":76.1,"unpaced_cum_spend_pct":91.4,"pid_cum_spend_pct":71.5,"unpaced_active_campaigns":11,"pid_active_campaigns":40,"unpaced_hourly_conversions":15,"pid_hourly_conversions":23,"pid_mean_lambda":0.447},{"hour":20,"label":"20:00","is_evening_peak":true,"traffic_share_pct":7.6,"cvr_intent_multiplier":1.82,"target_cum_spend_pct":87.4,"unpaced_cum_spend_pct":93.7,"pid_cum_spend_pct":80.1,"unpaced_active_campaigns":8,"pid_active_campaigns":39,"unpaced_hourly_conversions":9,"pid_hourly_conversions":17,"pid_mean_lambda":0.539},{"hour":21,"label":"21:00","is_evening_peak":true,"traffic_share_pct":5.8,"cvr_intent_multiplier":1.62,"target_cum_spend_pct":95.3,"unpaced_cum_spend_pct":94.8,"pid_cum_spend_pct":85.5,"unpaced_active_campaigns":8,"pid_active_campaigns":34,"unpaced_hourly_conversions":1,"pid_hourly_conversions":17,"pid_mean_lambda":0.582},{"hour":22,"label":"22:00","is_evening_peak":true,"traffic_share_pct":3.0,"cvr_intent_multiplier":1.18,"target_cum_spend_pct":98.6,"unpaced_cum_spend_pct":95.4,"pid_cum_spend_pct":87.4,"unpaced_active_campaigns":8,"pid_active_campaigns":28,"unpaced_hourly_conversions":2,"pid_hourly_conversions":5,"pid_mean_lambda":0.604},{"hour":23,"label":"23:00","is_evening_peak":true,"traffic_share_pct":1.6,"cvr_intent_multiplier":0.88,"target_cum_spend_pct":100.0,"unpaced_cum_spend_pct":96.3,"pid_cum_spend_pct":89.0,"unpaced_active_campaigns":7,"pid_active_campaigns":25,"unpaced_hourly_conversions":1,"pid_hourly_conversions":2,"pid_mean_lambda":0.595}],"off_policy_evaluation":{"selected_policy":"adaptive_pid","policy_label":"Context-Adaptive PID Policy (0.70x Morning / 1.15x Evening Peak)","logging_baseline_value":2.1888,"oracle_ground_truth":2.3142,"dr_expected_lift_vs_logging_pct":5.96,"safe_to_ship_verdict":"SAFE_TO_DEPLOY","dr_rmse_reduction_benchmark_pct":66.03,"clipped_ips_rmse_reduction_benchmark_pct":26.68,"evaluation":{"policy_name":"context_adaptive_pid_policy","sample_size":1200,"effective_sample_size":168.63,"max_importance_weight":26.0,"oracle_ground_truth":2.314198,"naive_ips":{"estimate":2.21237,"ci_95_low":1.89873,"ci_95_high":2.55923,"bootstrap_std":0.159921},"clipped_ips":{"estimate":2.209723,"ci_95_low":1.89873,"ci_95_high":2.551355,"bootstrap_std":0.158785},"doubly_robust":{"estimate":2.31917,"ci_95_low":2.188904,"ci_95_high":2.464451,"bootstrap_std":0.074259}},"available_multipliers":[{"id":"adaptive_pid","label":"Context-Adaptive PID (Recommended)"},{"id":"0.55","label":"0.55x Aggressive Shade"},{"id":"0.70","label":"0.70x Moderate Shade"},{"id":"0.85","label":"0.85x Light Shade"},{"id":"1.00","label":"1.00x Unshaded Baseline"},{"id":"1.15","label":"1.15x Peak Boost Only"},{"id":"1.30","label":"1.30x Overbid (ROAS Risk)"}]},"benchmark_reference":{"num_trials":40,"events_per_trial":1200,"clip_threshold":25.0,"oracle_target_policy_value":2.3142,"oracle_logging_policy_value":2.18878,"single_trace_demo":{"policy_name":"context_shaded_pid_policy","sample_size":1200,"effective_sample_size":168.63,"max_importance_weight":26.0,"oracle_ground_truth":2.314198,"naive_ips":{"estimate":2.21237,"ci_95_low":1.89873,"ci_95_high":2.55923,"bootstrap_std":0.159921},"clipped_ips":{"estimate":2.209723,"ci_95_low":1.89873,"ci_95_high":2.551355,"bootstrap_std":0.158785},"doubly_robust":{"estimate":2.31917,"ci_95_low":2.188904,"ci_95_high":2.464451,"bootstrap_std":0.074259}},"naive_ips_summary":{"estimator_name":"naive_ips","rmse":0.16606,"mae":0.1249,"mean_signed_bias":0.02651,"ci_95_coverage_pct":97.5,"mean_ci_width":0.69805},"clipped_ips_summary":{"estimator_name":"clipped_ips","rmse":0.12175,"mae":0.09437,"mean_signed_bias":-0.0322,"ci_95_coverage_pct":97.5,"mean_ci_width":0.58661},"doubly_robust_summary":{"estimator_name":"doubly_robust","rmse":0.05641,"mae":0.04453,"mean_signed_bias":-0.01488,"ci_95_coverage_pct":100.0,"mean_ci_width":0.30181},"clipped_ips_rmse_reduction_pct":26.68,"dr_rmse_reduction_pct":66.03}},"seller_campaigns":[{"campaign_id":"CMP-D002","sku_id":"SKU-D0002","seller_name":"Auralis Running Audio","campaign_title":"Wireless ANC Running Earbuds \u2014 Exact & Broad","category":"kitchen_appliances","sku_price":54.05,"gross_margin":0.407,"in_stock":true,"depleted_hour":13,"daily_budget":32.9,"spent_today":32.9,"calibrated_ctr":0.0666,"calibrated_cvr":0.1218,"missing_attributes":[],"spektr_table":"spektr.ads_lakehouse.hourly_budget_pacing_v2","suggested_negative_keywords":["wired aux earphones","kids volume headphones","replacement silicone tips"],"sample_question":"Why did our ANC earbuds campaign run out of budget at 13:00 before the 18:00-22:00 Prime conversion peak, and what bid + PID pacing curve should we set?","diagnostic":{"campaign_id":"CMP-D002","sku_id":"SKU-D0002","primary_issue":"BUDGET_EXHAUSTED_EARLY","secondary_issues":[],"lost_impression_share_pct":70.0,"dominant_loss_bucket":"LOST_BUDGET","median_clearing_cpc":1.68,"current_bid":2.2,"recommended_bid":1.8,"max_acos_cpc":1.91,"target_acos":0.29,"implied_expected_acos":0.2734,"recommended_daily_budget":32.9,"enable_pid_pacing":true,"catalog_fixes":[],"action_summary":"Enable Lagrangian PID bid-shading (base bid $1.80 <= $1.91 ACOS cap) to eliminate 13:00 budget depletion and capture 18:00-22:00 peak CVR."}},{"campaign_id":"CMP-D001","sku_id":"SKU-D0001","seller_name":"NordWave Acoustics","campaign_title":"SonicRun Pro Earbuds \u2014 Brand Defense","category":"electronics_audio","sku_price":111.06,"gross_margin":0.325,"in_stock":false,"depleted_hour":null,"daily_budget":45.3,"spent_today":5.44,"calibrated_ctr":0.0447,"calibrated_cvr":0.1093,"missing_attributes":[],"spektr_table":"spektr.catalog.fba_inventory_realtime_iceberg","suggested_negative_keywords":["refurbished earbuds case"],"sample_question":"Should we raise our CPC bid to recover the 88% lost impression share on SKU-D0001, or is FBA inventory blocking us?","diagnostic":{"campaign_id":"CMP-D001","sku_id":"SKU-D0001","primary_issue":"OUT_OF_STOCK_SUPPRESSED","secondary_issues":[],"lost_impression_share_pct":88.0,"dominant_loss_bucket":"LOST_OOS","median_clearing_cpc":2.89,"current_bid":2.69,"recommended_bid":2.69,"max_acos_cpc":3.28,"target_acos":0.27,"implied_expected_acos":0.2216,"recommended_daily_budget":45.3,"enable_pid_pacing":false,"catalog_fixes":["Restock FBA inventory for SKU-D0001 before resuming bid adjustments."],"action_summary":"Hold bid at $2.69; SKU is out-of-stock suppressed (88.0% impressions blocked). Replenish inventory first."}},{"campaign_id":"CMP-D003","sku_id":"SKU-D0003","seller_name":"LumaWork Studio","campaign_title":"27-Inch 4K USB-C MacBook Monitor","category":"home_office","sku_price":72.81,"gross_margin":0.459,"in_stock":true,"depleted_hour":null,"daily_budget":39.6,"spent_today":32.47,"calibrated_ctr":0.0615,"calibrated_cvr":0.1411,"missing_attributes":["connectivity","material"],"spektr_table":"spektr.catalog.sku_structured_attributes_iceberg","suggested_negative_keywords":["hdmi vga splitter","laptop sleeve 15 inch"],"sample_question":"Why is Stage-1 structured retrieval dropping 76% of our 4K monitor impressions even though our bid is healthy?","diagnostic":{"campaign_id":"CMP-D003","sku_id":"SKU-D0003","primary_issue":"MISSING_CATALOG_ATTRIBUTES","secondary_issues":[],"lost_impression_share_pct":76.0,"dominant_loss_bucket":"LOST_ATTR_FILTER","median_clearing_cpc":2.42,"current_bid":2.27,"recommended_bid":2.27,"max_acos_cpc":2.77,"target_acos":0.27,"implied_expected_acos":0.221,"recommended_daily_budget":39.6,"enable_pid_pacing":false,"catalog_fixes":["Backfill structured catalog attributes [connectivity, material] in Seller Central."],"action_summary":"Populate missing attributes (connectivity, material) to recover structured filter eligibility while keeping bid <= $2.77 ACOS cap."}},{"campaign_id":"CMP-D004","sku_id":"SKU-D0004","seller_name":"ErgoLift Seating","campaign_title":"SpineSync Mesh Office Chair \u2014 Broad Discovery","category":"smart_home","sku_price":141.98,"gross_margin":0.367,"in_stock":true,"depleted_hour":null,"daily_budget":37.37,"spent_today":30.64,"calibrated_ctr":0.062,"calibrated_cvr":0.1014,"missing_attributes":[],"spektr_table":"spektr.ads_lakehouse.search_term_overlap_iceberg","suggested_negative_keywords":["dining chair cushion","gaming beanbag","plastic folding chair"],"sample_question":"Which broad search terms are hurting our query relevance score and what ACOS-safe bid cap should we enforce?","diagnostic":{"campaign_id":"CMP-D004","sku_id":"SKU-D0004","primary_issue":"LOW_QUERY_RELEVANCE","secondary_issues":[],"lost_impression_share_pct":80.0,"dominant_loss_bucket":"LOST_LOW_RELEVANCE","median_clearing_cpc":2.82,"current_bid":2.6,"recommended_bid":2.34,"max_acos_cpc":3.17,"target_acos":0.22,"implied_expected_acos":0.1625,"recommended_daily_budget":37.37,"enable_pid_pacing":false,"catalog_fixes":["Add negative exact/phrase keywords for non-converting broad terms and align product_type title tokens."],"action_summary":"Prune low-overlap broad queries (avg overlap 0.20) and cap CPC bid at $2.34 (ACOS ceiling $3.17)."}},{"campaign_id":"CMP-D005","sku_id":"SKU-D0005","seller_name":"KonaMill Coffee","campaign_title":"64mm Burr Espresso Grinder \u2014 Conquesting","category":"electronics_audio","sku_price":85.16,"gross_margin":0.35,"in_stock":true,"depleted_hour":null,"daily_budget":51.56,"spent_today":42.28,"calibrated_ctr":0.0648,"calibrated_cvr":0.1381,"missing_attributes":[],"spektr_table":"spektr.ads_lakehouse.gsp_clearing_floors_iceberg","suggested_negative_keywords":["blade spice grinder","paper coffee filters"],"sample_question":"Median GSP clearing CPC is $4.03 while our target ACOS is 29%. How high can we safely raise our bid without losing money?","diagnostic":{"campaign_id":"CMP-D005","sku_id":"SKU-D0005","primary_issue":"BID_BELOW_CLEARING_FLOOR","secondary_issues":[],"lost_impression_share_pct":78.0,"dominant_loss_bucket":"LOST_BID_FLOOR","median_clearing_cpc":4.03,"current_bid":2.33,"recommended_bid":3.41,"max_acos_cpc":3.41,"target_acos":0.29,"implied_expected_acos":0.29,"recommended_daily_budget":51.56,"enable_pid_pacing":false,"catalog_fixes":["Clearing CPC exceeds ACOS ceiling; improve detail-page CVR (images/A+ content) instead of overbidding."],"action_summary":"Cap bid at $3.41 (ACOS ceiling) rather than chasing $4.03 clearing floor; lift SKU CVR to unlock higher profitable CPC headroom."}}],"default_copilot":{"campaign":{"campaign_id":"CMP-D002","sku_id":"SKU-D0002","seller_name":"Auralis Running Audio","campaign_title":"Wireless ANC Running Earbuds \u2014 Exact & Broad","category":"kitchen_appliances","sku_price":54.05,"gross_margin":0.407,"in_stock":true,"depleted_hour":13,"daily_budget":32.9,"spent_today":32.9,"calibrated_ctr":0.0666,"calibrated_cvr":0.1218,"missing_attributes":[],"spektr_table":"spektr.ads_lakehouse.hourly_budget_pacing_v2","suggested_negative_keywords":["wired aux earphones","kids volume headphones","replacement silicone tips"],"sample_question":"Why did our ANC earbuds campaign run out of budget at 13:00 before the 18:00-22:00 Prime conversion peak, and what bid + PID pacing curve should we set?","diagnostic":{"campaign_id":"CMP-D002","sku_id":"SKU-D0002","primary_issue":"BUDGET_EXHAUSTED_EARLY","secondary_issues":[],"lost_impression_share_pct":70.0,"dominant_loss_bucket":"LOST_BUDGET","median_clearing_cpc":1.68,"current_bid":2.2,"recommended_bid":1.8,"max_acos_cpc":1.91,"target_acos":0.29,"implied_expected_acos":0.2734,"recommended_daily_budget":32.9,"enable_pid_pacing":true,"catalog_fixes":[],"action_summary":"Enable Lagrangian PID bid-shading (base bid $1.80 <= $1.91 ACOS cap) to eliminate 13:00 budget depletion and capture 18:00-22:00 peak CVR."}},"question":"Why did our ANC earbuds campaign run out of budget at 13:00 before the 18:00-22:00 Prime conversion peak, and what bid + PID pacing curve should we set?","diagnostic":{"campaign_id":"CMP-D002","sku_id":"SKU-D0002","primary_issue":"BUDGET_EXHAUSTED_EARLY","secondary_issues":[],"lost_impression_share_pct":70.0,"dominant_loss_bucket":"LOST_BUDGET","median_clearing_cpc":1.68,"current_bid":2.2,"recommended_bid":1.8,"max_acos_cpc":1.91,"target_acos":0.29,"implied_expected_acos":0.2734,"recommended_daily_budget":32.9,"enable_pid_pacing":true,"catalog_fixes":[],"action_summary":"Enable Lagrangian PID bid-shading (base bid $1.80 <= $1.91 ACOS cap) to eliminate 13:00 budget depletion and capture 18:00-22:00 peak CVR."},"acos_guardrail_verified":true,"spektr_sql":"SELECT hour, outcome, COUNT(*) AS auctions, ROUND(AVG(clearing_cpc), 2) AS avg_gsp_cpc\nFROM spektr.ads_lakehouse.hourly_budget_pacing_v2\nWHERE campaign_id = 'CMP-D002' AND sku_id = 'SKU-D0002'\nGROUP BY 1, 2 ORDER BY auctions DESC;","copilot_memo":"- **Root-Cause Diagnosis (`BUDGET_EXHAUSTED_EARLY`)**: `CMP-D002` (`SKU-D0002`) lost **70.0%** of eligible impressions (`LOST_BUDGET`) against a `$1.68` median GSP clearing floor.\n- **ACOS-Bounded Bid & PID Pacing Action**: Set base CPC bid to **`$1.80`** (strictly `<= $1.91` max profitable CPC at `29%` target ACOS, implied ACOS `27.3%`) and set `PID Pacing = True` (daily budget `$32.90`).\n- **Catalog & Negative-Keyword Hygiene**: Add negative phrase keywords (\"wired aux earphones\", \"kids volume headphones\", \"replacement silicone tips\") to prune non-converting upper-funnel clicks.\n- **Spektr Iceberg Verification**: Audit hourly impression recovery in `spektr.ads_lakehouse.hourly_budget_pacing_v2` and validate counterfactual multiplier via Doubly-Robust OPE (`-66.0%` RMSE) before rollout.","llm_telemetry":{"engine":"adpulse-deterministic-guardrail-v1 (offline fallback)","latency_ms":1.8,"tokens":0,"live_bedrock":false}},"ope_by_mult":{"adaptive_pid":{"selected_policy":"adaptive_pid","policy_label":"Context-Adaptive PID Policy (0.70x Morning / 1.15x Evening Peak)","logging_baseline_value":2.1888,"oracle_ground_truth":2.3142,"dr_expected_lift_vs_logging_pct":5.96,"safe_to_ship_verdict":"SAFE_TO_DEPLOY","dr_rmse_reduction_benchmark_pct":66.03,"clipped_ips_rmse_reduction_benchmark_pct":26.68,"evaluation":{"policy_name":"context_adaptive_pid_policy","sample_size":1200,"effective_sample_size":168.63,"max_importance_weight":26.0,"oracle_ground_truth":2.314198,"naive_ips":{"estimate":2.21237,"ci_95_low":1.89873,"ci_95_high":2.55923,"bootstrap_std":0.159921},"clipped_ips":{"estimate":2.209723,"ci_95_low":1.89873,"ci_95_high":2.551355,"bootstrap_std":0.158785},"doubly_robust":{"estimate":2.31917,"ci_95_low":2.188904,"ci_95_high":2.464451,"bootstrap_std":0.074259}},"available_multipliers":[{"id":"adaptive_pid","label":"Context-Adaptive PID (Recommended)"},{"id":"0.55","label":"0.55x Aggressive Shade"},{"id":"0.70","label":"0.70x Moderate Shade"},{"id":"0.85","label":"0.85x Light Shade"},{"id":"1.00","label":"1.00x Unshaded Baseline"},{"id":"1.15","label":"1.15x Peak Boost Only"},{"id":"1.30","label":"1.30x Overbid (ROAS Risk)"}]},"0.75":{"selected_policy":"0.75","policy_label":"Counterfactual Fixed Bid Multiplier (0.70x)","logging_baseline_value":2.1888,"oracle_ground_truth":1.953,"dr_expected_lift_vs_logging_pct":-11.63,"safe_to_ship_verdict":"HOLD_REGRESSION_RISK","dr_rmse_reduction_benchmark_pct":66.03,"clipped_ips_rmse_reduction_benchmark_pct":26.68,"evaluation":{"policy_name":"uniform_bid_multiplier_0.70x","sample_size":1200,"effective_sample_size":24.43,"max_importance_weight":108.571,"oracle_ground_truth":1.952973,"naive_ips":{"estimate":1.521947,"ci_95_low":0.794742,"ci_95_high":2.303998,"bootstrap_std":0.423806},"clipped_ips":{"estimate":0.936054,"ci_95_low":0.675131,"ci_95_high":1.231301,"bootstrap_std":0.144742},"doubly_robust":{"estimate":1.934293,"ci_95_low":1.760866,"ci_95_high":2.061343,"bootstrap_std":0.085343}},"available_multipliers":[{"id":"adaptive_pid","label":"Context-Adaptive PID (Recommended)"},{"id":"0.55","label":"0.55x Aggressive Shade"},{"id":"0.70","label":"0.70x Moderate Shade"},{"id":"0.85","label":"0.85x Light Shade"},{"id":"1.00","label":"1.00x Unshaded Baseline"},{"id":"1.15","label":"1.15x Peak Boost Only"},{"id":"1.30","label":"1.30x Overbid (ROAS Risk)"}]},"1.00":{"selected_policy":"1.00","policy_label":"Counterfactual Fixed Bid Multiplier (1.00x)","logging_baseline_value":2.1888,"oracle_ground_truth":2.2144,"dr_expected_lift_vs_logging_pct":1.68,"safe_to_ship_verdict":"HOLD_REGRESSION_RISK","dr_rmse_reduction_benchmark_pct":66.03,"clipped_ips_rmse_reduction_benchmark_pct":26.68,"evaluation":{"policy_name":"uniform_bid_multiplier_1.00x","sample_size":1200,"effective_sample_size":608.16,"max_importance_weight":16.0,"oracle_ground_truth":2.214419,"naive_ips":{"estimate":2.052977,"ci_95_low":1.92331,"ci_95_high":2.212447,"bootstrap_std":0.074981},"clipped_ips":{"estimate":2.052977,"ci_95_low":1.92331,"ci_95_high":2.212447,"bootstrap_std":0.074981},"doubly_robust":{"estimate":2.225441,"ci_95_low":2.119542,"ci_95_high":2.315057,"bootstrap_std":0.054632}},"available_multipliers":[{"id":"adaptive_pid","label":"Context-Adaptive PID (Recommended)"},{"id":"0.55","label":"0.55x Aggressive Shade"},{"id":"0.70","label":"0.70x Moderate Shade"},{"id":"0.85","label":"0.85x Light Shade"},{"id":"1.00","label":"1.00x Unshaded Baseline"},{"id":"1.15","label":"1.15x Peak Boost Only"},{"id":"1.30","label":"1.30x Overbid (ROAS Risk)"}]},"1.25":{"selected_policy":"1.25","policy_label":"Counterfactual Fixed Bid Multiplier (1.30x)","logging_baseline_value":2.1888,"oracle_ground_truth":1.7716,"dr_expected_lift_vs_logging_pct":-18.67,"safe_to_ship_verdict":"HOLD_REGRESSION_RISK","dr_rmse_reduction_benchmark_pct":66.03,"clipped_ips_rmse_reduction_benchmark_pct":26.68,"evaluation":{"policy_name":"uniform_bid_multiplier_1.30x","sample_size":1200,"effective_sample_size":182.28,"max_importance_weight":16.0,"oracle_ground_truth":1.771626,"naive_ips":{"estimate":1.662712,"ci_95_low":1.376171,"ci_95_high":1.942405,"bootstrap_std":0.150163},"clipped_ips":{"estimate":1.662712,"ci_95_low":1.376171,"ci_95_high":1.942405,"bootstrap_std":0.150163},"doubly_robust":{"estimate":1.780143,"ci_95_low":1.641485,"ci_95_high":1.931327,"bootstrap_std":0.075481}},"available_multipliers":[{"id":"adaptive_pid","label":"Context-Adaptive PID (Recommended)"},{"id":"0.55","label":"0.55x Aggressive Shade"},{"id":"0.70","label":"0.70x Moderate Shade"},{"id":"0.85","label":"0.85x Light Shade"},{"id":"1.00","label":"1.00x Unshaded Baseline"},{"id":"1.15","label":"1.15x Peak Boost Only"},{"id":"1.30","label":"1.30x Overbid (ROAS Risk)"}]},"0.55":{"selected_policy":"0.55","policy_label":"Counterfactual Fixed Bid Multiplier (0.55x)","logging_baseline_value":2.1888,"oracle_ground_truth":1.6383,"dr_expected_lift_vs_logging_pct":-22.51,"safe_to_ship_verdict":"HOLD_REGRESSION_RISK","dr_rmse_reduction_benchmark_pct":66.03,"clipped_ips_rmse_reduction_benchmark_pct":26.68,"evaluation":{"policy_name":"uniform_bid_multiplier_0.55x","sample_size":1200,"effective_sample_size":6.87,"max_importance_weight":253.333,"oracle_ground_truth":1.638269,"naive_ips":{"estimate":1.194843,"ci_95_low":0.570765,"ci_95_high":2.024669,"bootstrap_std":0.381062},"clipped_ips":{"estimate":0.559271,"ci_95_low":0.475057,"ci_95_high":0.65927,"bootstrap_std":0.048563},"doubly_robust":{"estimate":1.696077,"ci_95_low":1.612541,"ci_95_high":1.767644,"bootstrap_std":0.040561}},"available_multipliers":[{"id":"adaptive_pid","label":"Context-Adaptive PID (Recommended)"},{"id":"0.55","label":"0.55x Aggressive Shade"},{"id":"0.70","label":"0.70x Moderate Shade"},{"id":"0.85","label":"0.85x Light Shade"},{"id":"1.00","label":"1.00x Unshaded Baseline"},{"id":"1.15","label":"1.15x Peak Boost Only"},{"id":"1.30","label":"1.30x Overbid (ROAS Risk)"}]},"0.85":{"selected_policy":"0.85","policy_label":"Counterfactual Fixed Bid Multiplier (0.85x)","logging_baseline_value":2.1888,"oracle_ground_truth":2.1954,"dr_expected_lift_vs_logging_pct":-4.14,"safe_to_ship_verdict":"HOLD_REGRESSION_RISK","dr_rmse_reduction_benchmark_pct":66.03,"clipped_ips_rmse_reduction_benchmark_pct":26.68,"evaluation":{"policy_name":"uniform_bid_multiplier_0.85x","sample_size":1200,"effective_sample_size":108.04,"max_importance_weight":29.231,"oracle_ground_truth":2.195409,"naive_ips":{"estimate":1.949718,"ci_95_low":1.528851,"ci_95_high":2.489961,"bootstrap_std":0.243562},"clipped_ips":{"estimate":1.88476,"ci_95_low":1.498193,"ci_95_high":2.363121,"bootstrap_std":0.220515},"doubly_robust":{"estimate":2.098224,"ci_95_low":1.892812,"ci_95_high":2.286711,"bootstrap_std":0.103565}},"available_multipliers":[{"id":"adaptive_pid","label":"Context-Adaptive PID (Recommended)"},{"id":"0.55","label":"0.55x Aggressive Shade"},{"id":"0.70","label":"0.70x Moderate Shade"},{"id":"0.85","label":"0.85x Light Shade"},{"id":"1.00","label":"1.00x Unshaded Baseline"},{"id":"1.15","label":"1.15x Peak Boost Only"},{"id":"1.30","label":"1.30x Overbid (ROAS Risk)"}]},"1.30":{"selected_policy":"1.30","policy_label":"Counterfactual Fixed Bid Multiplier (1.30x)","logging_baseline_value":2.1888,"oracle_ground_truth":1.7716,"dr_expected_lift_vs_logging_pct":-18.67,"safe_to_ship_verdict":"HOLD_REGRESSION_RISK","dr_rmse_reduction_benchmark_pct":66.03,"clipped_ips_rmse_reduction_benchmark_pct":26.68,"evaluation":{"policy_name":"uniform_bid_multiplier_1.30x","sample_size":1200,"effective_sample_size":182.28,"max_importance_weight":16.0,"oracle_ground_truth":1.771626,"naive_ips":{"estimate":1.662712,"ci_95_low":1.376171,"ci_95_high":1.942405,"bootstrap_std":0.150163},"clipped_ips":{"estimate":1.662712,"ci_95_low":1.376171,"ci_95_high":1.942405,"bootstrap_std":0.150163},"doubly_robust":{"estimate":1.780143,"ci_95_low":1.641485,"ci_95_high":1.931327,"bootstrap_std":0.075481}},"available_multipliers":[{"id":"adaptive_pid","label":"Context-Adaptive PID (Recommended)"},{"id":"0.55","label":"0.55x Aggressive Shade"},{"id":"0.70","label":"0.70x Moderate Shade"},{"id":"0.85","label":"0.85x Light Shade"},{"id":"1.00","label":"1.00x Unshaded Baseline"},{"id":"1.15","label":"1.15x Peak Boost Only"},{"id":"1.30","label":"1.30x Overbid (ROAS Risk)"}]}}};
-      const VALID_TABS = ["storefront-gsp", "pid-pacer", "dr-ope", "spektr-copilot"];
+      const SEED = {"engine":"AdPulse","version":"2.0.0","bedrock_model":"us.amazon.nova-lite-v1:0","delivery":"cloudfront-s3-oac","headline_metrics":{"top3_recall_baseline":0.1861,"top3_recall_two_stage":0.8056,"top3_recall_lift_pct":332.89,"ndcg_at_3_baseline":0.202,"ndcg_at_3_two_stage":0.8331,"ndcg_lift_pct":312.43,"expected_conversions_lift_pct":980.53,"oos_impression_rate_baseline_pct":15.28,"oos_impression_rate_two_stage_pct":0.0,"price_cap_violation_baseline_pct":59.72,"price_cap_violation_two_stage_pct":0.0,"ranker_p50_ms":0.158,"ranker_p99_ms":0.217,"early_depletion_unpaced_pct":55.0,"early_depletion_paced_pct":0.0,"early_depletion_reduction_pct":100.0,"roas_unpaced":5.009,"roas_paced":9.332,"roas_lift_pct":86.3,"pacing_conversions_lift_pct":68.0,"platform_revenue_change_pct":-7.56,"budget_utilization_pct":89.01,"budget_cap_violations":0,"naive_ips_rmse":0.16606,"clipped_ips_rmse":0.12175,"doubly_robust_rmse":0.05641,"clipped_ips_rmse_reduction_pct":26.68,"dr_rmse_reduction_pct":66.03,"dr_ci95_coverage_pct":100.0,"diagnostics_primary_accuracy_pct":100.0,"diagnostics_acos_compliance_pct":100.0,"cax_unfloored_pollution_pct":100.0,"cax_floored_pollution_pct":0.0,"cax_constraint_satisfaction_pct":100.0,"cax_policy_pass_rate_pct":100.0,"cax_linucb_lift_pct":61.06,"offsearch_naive_redundant_pct":100.0,"offsearch_graph_redundant_pct":0.0,"offsearch_naive_incompat_pct":100.0,"offsearch_graph_incompat_pct":0.0,"cuped_theta":0.8107,"cuped_variance_reduction_pct":58.27,"cuped_rpm_lift_pct":6.41,"pal_naive_logloss":0.4975,"pal_isotonic_logloss":0.46454,"pal_naive_rig_pct":1.48,"pal_isotonic_rig_pct":8.01,"pal_naive_ece":0.04103,"pal_isotonic_ece":0.01788,"pal_naive_copc":1.1844,"pal_isotonic_copc":1.0016,"shuffle_virtual_shards":28,"shuffle_blast_radius_pct":3.57},"featured_queries":[{"id":"earbuds","query":"wireless anc running earbuds","label":"Wireless ANC Running Earbuds","category":"electronics_audio","product_type":"earbuds","default_price_cap":160.0,"conversational_prompt":"Best sweatproof wireless ANC earbuds for marathon training under $160?"},{"id":"monitor","query":"4k usb-c monitor macbook","label":"4K USB-C Monitor MacBook","category":"home_office","product_type":"monitor","default_price_cap":340.0,"conversational_prompt":"Which 27-inch 4K USB-C PD monitor charges a MacBook Pro with one cable?"},{"id":"chair","query":"ergonomic mesh office chair","label":"Ergonomic Mesh Office Chair","category":"home_office","product_type":"chair","default_price_cap":280.0,"conversational_prompt":"Recommend a breathable mesh lumbar office chair for 8-hour coding sessions."},{"id":"espresso","query":"espresso grinder burr","label":"Espresso Grinder Burr","category":"kitchen_appliances","product_type":"espresso","default_price_cap":260.0,"conversational_prompt":"Quiet stainless conical burr espresso grinder with low retention for home baristas?"}],"default_storefront":{"query":"wireless anc running earbuds","resolved_category":"electronics_audio","shopper_price_cap":160.0,"hour":19,"hour_label":"19:00","is_prime_evening_peak":true,"hourly_cvr_multiplier":1.78,"daily_budget":28.0,"pacing_mode":"pid_paced","pid_lambda_t":0.673,"target_spend_progress_pct":70.4,"latency_ms":{"live_wall_ms":0.51,"benchmark_p50_ms":0.158,"benchmark_p99_ms":0.217},"stage_counts":{"catalog_total":520,"filtered_before_auction":31,"stage2_reranked":17,"slots_cleared":3},"winning_ads":[{"slot_number":1,"sku_id":"SKU-F101","campaign_id":"CMP-002","seller_id":"SLR-AURALIS","title":"Auralis AeroFit Pro Wireless ANC Running Earbuds IPX7 Earhooks Bluetooth 5.3","brand":"Auralis","category":"electronics_audio","product_type":"earbuds","price":119.99,"rating":4.8,"reviews":3420,"badge":"Best Seller in Running Audio","highlights":["42dB Adaptive ANC + Transparency","IPX7 SweatShield + LockWing","9h Earbud / 36h USB-C Case"],"attributes":{"connectivity":"bluetooth_5_3","feature":"anc","color":"matte_black"},"base_bid":2.15,"effective_bid":1.45,"lambda_multiplier":0.673,"clearing_cpc":1.01,"cpc_savings_vs_raw_bid_pct":53.1,"p_ctr_pct":7.49,"p_cvr_pct":28.98,"ecpm_usd":75.46,"rank_score":0.13692,"expected_roas":34.49},{"slot_number":2,"sku_id":"SKU-F102","campaign_id":"CMP-005","seller_id":"SLR-SOUNDCOREX","title":"SoundCoreX StrideBuds S3 Bluetooth Noise Cancelling Running Earbuds Spatial Audio","brand":"SoundCoreX","category":"electronics_audio","product_type":"earbuds","price":89.5,"rating":4.6,"reviews":2185,"badge":"Amazon's Choice","highlights":["Multipoint Bluetooth 5.3","Wind-Cut Running Mic Array","10-Min Fast Charge = 2.5h Run"],"attributes":{"connectivity":"multipoint_bt","feature":"anc","color":"midnight_navy"},"base_bid":1.85,"effective_bid":1.25,"lambda_multiplier":0.673,"clearing_cpc":0.94,"cpc_savings_vs_raw_bid_pct":49.0,"p_ctr_pct":6.13,"p_cvr_pct":28.21,"ecpm_usd":57.83,"rank_score":0.09538,"expected_roas":26.76},{"slot_number":3,"sku_id":"SKU-F103","campaign_id":"CMP-009","seller_id":"SLR-VELOTONE","title":"VeloTone PacePulse Ultra Wireless ANC Running Earbuds Waterproof IPX7","brand":"VeloTone","category":"electronics_audio","product_type":"earbuds","price":134.0,"rating":4.7,"reviews":1290,"badge":"Prime Same-Day","highlights":["IPX7 Submersible Sport Seal","Heart-Rate Cadence Sensor","Featherweight 4.6g Fit"],"attributes":{"connectivity":"bluetooth_5_3","feature":"waterproof_ipx7","color":"arctic_white"},"base_bid":1.95,"effective_bid":1.31,"lambda_multiplier":0.673,"clearing_cpc":1.08,"cpc_savings_vs_raw_bid_pct":44.4,"p_ctr_pct":6.02,"p_cvr_pct":14.45,"ecpm_usd":65.26,"rank_score":0.07229,"expected_roas":17.87}],"filtered_out_drawer":[{"sku_id":"SKU-0169","campaign_id":"CMP-009","title":"Auralis wireless over ear headphones bluetooth 5 3 pro series","brand":"Auralis","price":152.64,"raw_bid":4.04,"filter_stage":"Stage-1 Inventory Gate","reason_code":"OUT_OF_STOCK_SUPPRESSED","reason_detail":"0 units in FBA fulfillment network; stale $4.04 CPC bid blocked in 0.08ms.","prune_latency_ms":0.08},{"sku_id":"SKU-0265","campaign_id":"CMP-025","title":"KodaAudio wireless over ear headphones bluetooth 5 3 waterproof ipx7 midnight navy pro series","brand":"KodaAudio","price":220.28,"raw_bid":3.99,"filter_stage":"Stage-1 Inventory Gate","reason_code":"OUT_OF_STOCK_SUPPRESSED","reason_detail":"0 units in FBA fulfillment network; stale $3.99 CPC bid blocked in 0.08ms.","prune_latency_ms":0.08},{"sku_id":"SKU-0025","campaign_id":"CMP-025","title":"KodaAudio wireless over ear headphones bluetooth 5 3 waterproof ipx7 midnight navy pro series","brand":"KodaAudio","price":227.97,"raw_bid":3.89,"filter_stage":"Stage-1 Inventory Gate","reason_code":"OUT_OF_STOCK_SUPPRESSED","reason_detail":"0 units in FBA fulfillment network; stale $3.89 CPC bid blocked in 0.08ms.","prune_latency_ms":0.08},{"sku_id":"SKU-F105-OOS","campaign_id":"CMP-D001","title":"NordWave SonicRun Pro Wireless ANC Running Earbuds Titanium Driver","brand":"NordWave","price":129.0,"raw_bid":3.85,"filter_stage":"Stage-1 Inventory Gate","reason_code":"OUT_OF_STOCK_SUPPRESSED","reason_detail":"0 units in FBA fulfillment network; stale $3.85 CPC bid blocked in 0.08ms.","prune_latency_ms":0.08},{"sku_id":"SKU-0409","campaign_id":"CMP-009","title":"Auralis wireless over ear headphones bluetooth 5 3 waterproof ipx7 midnight navy pro series","brand":"Auralis","price":162.05,"raw_bid":3.83,"filter_stage":"Stage-1 Inventory Gate","reason_code":"OUT_OF_STOCK_SUPPRESSED","reason_detail":"0 units in FBA fulfillment network; stale $3.83 CPC bid blocked in 0.08ms.","prune_latency_ms":0.08},{"sku_id":"SKU-0241","campaign_id":"CMP-001","title":"SoundCoreX wireless over ear headphones bluetooth 5 3 waterproof ipx7 midnight navy pro series","brand":"SoundCoreX","price":88.3,"raw_bid":3.63,"filter_stage":"Stage-1 Inventory Gate","reason_code":"OUT_OF_STOCK_SUPPRESSED","reason_detail":"0 units in FBA fulfillment network; stale $3.63 CPC bid blocked in 0.08ms.","prune_latency_ms":0.08},{"sku_id":"SKU-0193","campaign_id":"CMP-033","title":"VeloTone wireless over ear headphones bluetooth 5 3 waterproof ipx7 midnight navy pro series","brand":"VeloTone","price":129.55,"raw_bid":3.61,"filter_stage":"Stage-1 Inventory Gate","reason_code":"OUT_OF_STOCK_SUPPRESSED","reason_detail":"0 units in FBA fulfillment network; stale $3.61 CPC bid blocked in 0.08ms.","prune_latency_ms":0.08},{"sku_id":"SKU-0481","campaign_id":"CMP-001","title":"SoundCoreX wireless over ear headphones bluetooth 5 3 waterproof ipx7 midnight navy pro series","brand":"SoundCoreX","price":72.52,"raw_bid":3.56,"filter_stage":"Stage-1 Inventory Gate","reason_code":"OUT_OF_STOCK_SUPPRESSED","reason_detail":"0 units in FBA fulfillment network; stale $3.56 CPC bid blocked in 0.08ms.","prune_latency_ms":0.08}],"filtered_out_counts_by_reason":{"OUT_OF_STOCK_SUPPRESSED":15,"ABOVE_SHOPPER_PRICE_CAP":13,"MISSING_CATALOG_ATTRIBUTES":3},"conversational_shopping_preview":{"assistant_answer":"For **wireless anc running earbuds**, top-rated verified pick is the **Auralis** ($119.99, 4.8\u2605 from 3,420 shoppers) featuring bluetooth 5 3, anc, matte black - verified in-stock for Prime delivery.","sponsored_slot":{"slot_number":1,"sku_id":"SKU-F101","campaign_id":"CMP-002","seller_id":"SLR-AURALIS","title":"Auralis AeroFit Pro Wireless ANC Running Earbuds IPX7 Earhooks Bluetooth 5.3","brand":"Auralis","category":"electronics_audio","product_type":"earbuds","price":119.99,"rating":4.8,"reviews":3420,"badge":"Best Seller in Running Audio","highlights":["42dB Adaptive ANC + Transparency","IPX7 SweatShield + LockWing","9h Earbud / 36h USB-C Case"],"attributes":{"connectivity":"bluetooth_5_3","feature":"anc","color":"matte_black"},"base_bid":2.15,"effective_bid":1.45,"lambda_multiplier":0.673,"clearing_cpc":1.01,"cpc_savings_vs_raw_bid_pct":53.1,"p_ctr_pct":7.49,"p_cvr_pct":28.98,"ecpm_usd":75.46,"rank_score":0.13692,"expected_roas":34.49},"why_selected":"Cleared GSP Slot #1 at $1.01 CPC (shaded from $2.15 raw bid) with 7.49% calibrated pCTR, 28.98% hourly pCVR, and 34.5x projected ROAS."},"baseline_comparison":{"baseline_leaks_prevented":2,"baseline_leak_examples":["SKU-F105-OOS (Out-of-Stock leaked at $3.85 bid)","SKU-F106-LUX ($269 violates $160 cap)"]}},"default_pacing":{"daily_budget_input":28.0,"selected_hour":19,"unpaced_metrics":{"policy_name":"unpaced_greedy_bidding","total_auctions":6000,"total_impressions":8097,"total_clicks":687,"total_conversions":75,"total_spend":1416.14,"total_attributed_sales":7093.41,"platform_clearing_revenue":1416.14,"advertiser_roas":5.009,"mean_clearing_cpc":2.061,"early_depletion_rate_pct":55.0,"campaigns_depleted_early":22,"total_campaigns":40,"budget_utilization_pct":96.29,"budget_cap_violations":0,"evening_peak_impression_share_pct":19.55},"pid_paced_metrics":{"policy_name":"pid_bid_shaded_pacer","total_auctions":6000,"total_impressions":11164,"total_clicks":955,"total_conversions":126,"total_spend":1309.03,"total_attributed_sales":12215.79,"platform_clearing_revenue":1309.03,"advertiser_roas":9.332,"mean_clearing_cpc":1.371,"early_depletion_rate_pct":0.0,"campaigns_depleted_early":0,"total_campaigns":40,"budget_utilization_pct":89.01,"budget_cap_violations":0,"evening_peak_impression_share_pct":33.95},"roas_lift_pct":86.3,"conversions_lift_pct":68.0,"hourly_curve":[{"hour":0,"label":"00:00","is_evening_peak":false,"traffic_share_pct":1.4,"cvr_intent_multiplier":0.72,"target_cum_spend_pct":1.1,"unpaced_cum_spend_pct":2.1,"pid_cum_spend_pct":1.5,"unpaced_active_campaigns":40,"pid_active_campaigns":40,"unpaced_hourly_conversions":0,"pid_hourly_conversions":0,"pid_mean_lambda":0.718},{"hour":1,"label":"01:00","is_evening_peak":false,"traffic_share_pct":1.0,"cvr_intent_multiplier":0.68,"target_cum_spend_pct":1.9,"unpaced_cum_spend_pct":4.2,"pid_cum_spend_pct":2.8,"unpaced_active_campaigns":40,"pid_active_campaigns":40,"unpaced_hourly_conversions":1,"pid_hourly_conversions":1,"pid_mean_lambda":0.703},{"hour":2,"label":"02:00","is_evening_peak":false,"traffic_share_pct":0.8,"cvr_intent_multiplier":0.65,"target_cum_spend_pct":2.5,"unpaced_cum_spend_pct":5.8,"pid_cum_spend_pct":3.9,"unpaced_active_campaigns":40,"pid_active_campaigns":40,"unpaced_hourly_conversions":0,"pid_hourly_conversions":0,"pid_mean_lambda":0.694},{"hour":3,"label":"03:00","is_evening_peak":false,"traffic_share_pct":0.7,"cvr_intent_multiplier":0.65,"target_cum_spend_pct":3.0,"unpaced_cum_spend_pct":6.5,"pid_cum_spend_pct":4.4,"unpaced_active_campaigns":40,"pid_active_campaigns":40,"unpaced_hourly_conversions":0,"pid_hourly_conversions":0,"pid_mean_lambda":0.69},{"hour":4,"label":"04:00","is_evening_peak":false,"traffic_share_pct":0.9,"cvr_intent_multiplier":0.68,"target_cum_spend_pct":3.7,"unpaced_cum_spend_pct":8.4,"pid_cum_spend_pct":5.6,"unpaced_active_campaigns":40,"pid_active_campaigns":40,"unpaced_hourly_conversions":0,"pid_hourly_conversions":0,"pid_mean_lambda":0.679},{"hour":5,"label":"05:00","is_evening_peak":false,"traffic_share_pct":1.8,"cvr_intent_multiplier":0.72,"target_cum_spend_pct":5.1,"unpaced_cum_spend_pct":10.5,"pid_cum_spend_pct":7.0,"unpaced_active_campaigns":40,"pid_active_campaigns":40,"unpaced_hourly_conversions":1,"pid_hourly_conversions":1,"pid_mean_lambda":0.63},{"hour":6,"label":"06:00","is_evening_peak":false,"traffic_share_pct":3.8,"cvr_intent_multiplier":0.58,"target_cum_spend_pct":7.8,"unpaced_cum_spend_pct":16.5,"pid_cum_spend_pct":10.7,"unpaced_active_campaigns":40,"pid_active_campaigns":40,"unpaced_hourly_conversions":2,"pid_hourly_conversions":2,"pid_mean_lambda":0.492},{"hour":7,"label":"07:00","is_evening_peak":false,"traffic_share_pct":5.6,"cvr_intent_multiplier":0.54,"target_cum_spend_pct":11.6,"unpaced_cum_spend_pct":25.3,"pid_cum_spend_pct":14.1,"unpaced_active_campaigns":38,"pid_active_campaigns":40,"unpaced_hourly_conversions":2,"pid_hourly_conversions":3,"pid_mean_lambda":0.349},{"hour":8,"label":"08:00","is_evening_peak":false,"traffic_share_pct":6.8,"cvr_intent_multiplier":0.52,"target_cum_spend_pct":16.2,"unpaced_cum_spend_pct":36.3,"pid_cum_spend_pct":17.5,"unpaced_active_campaigns":38,"pid_active_campaigns":40,"unpaced_hourly_conversions":3,"pid_hourly_conversions":2,"pid_mean_lambda":0.275},{"hour":9,"label":"09:00","is_evening_peak":false,"traffic_share_pct":6.6,"cvr_intent_multiplier":0.56,"target_cum_spend_pct":20.8,"unpaced_cum_spend_pct":46.0,"pid_cum_spend_pct":22.1,"unpaced_active_campaigns":36,"pid_active_campaigns":40,"unpaced_hourly_conversions":2,"pid_hourly_conversions":3,"pid_mean_lambda":0.258},{"hour":10,"label":"10:00","is_evening_peak":false,"traffic_share_pct":5.8,"cvr_intent_multiplier":0.64,"target_cum_spend_pct":25.1,"unpaced_cum_spend_pct":56.0,"pid_cum_spend_pct":25.7,"unpaced_active_campaigns":34,"pid_active_campaigns":40,"unpaced_hourly_conversions":6,"pid_hourly_conversions":5,"pid_mean_lambda":0.228},{"hour":11,"label":"11:00","is_evening_peak":false,"traffic_share_pct":5.0,"cvr_intent_multiplier":0.74,"target_cum_spend_pct":29.1,"unpaced_cum_spend_pct":61.7,"pid_cum_spend_pct":28.3,"unpaced_active_campaigns":27,"pid_active_campaigns":40,"unpaced_hourly_conversions":8,"pid_hourly_conversions":5,"pid_mean_lambda":0.266},{"hour":12,"label":"12:00","is_evening_peak":false,"traffic_share_pct":4.6,"cvr_intent_multiplier":0.86,"target_cum_spend_pct":33.2,"unpaced_cum_spend_pct":66.7,"pid_cum_spend_pct":32.3,"unpaced_active_campaigns":18,"pid_active_campaigns":40,"unpaced_hourly_conversions":3,"pid_hourly_conversions":4,"pid_mean_lambda":0.322},{"hour":13,"label":"13:00","is_evening_peak":false,"traffic_share_pct":4.3,"cvr_intent_multiplier":0.9,"target_cum_spend_pct":37.1,"unpaced_cum_spend_pct":69.2,"pid_cum_spend_pct":35.4,"unpaced_active_campaigns":18,"pid_active_campaigns":40,"unpaced_hourly_conversions":4,"pid_hourly_conversions":6,"pid_mean_lambda":0.375},{"hour":14,"label":"14:00","is_evening_peak":false,"traffic_share_pct":4.1,"cvr_intent_multiplier":0.92,"target_cum_spend_pct":40.9,"unpaced_cum_spend_pct":72.7,"pid_cum_spend_pct":39.8,"unpaced_active_campaigns":18,"pid_active_campaigns":40,"unpaced_hourly_conversions":4,"pid_hourly_conversions":6,"pid_mean_lambda":0.393},{"hour":15,"label":"15:00","is_evening_peak":false,"traffic_share_pct":4.2,"cvr_intent_multiplier":0.96,"target_cum_spend_pct":44.9,"unpaced_cum_spend_pct":75.4,"pid_cum_spend_pct":43.7,"unpaced_active_campaigns":18,"pid_active_campaigns":40,"unpaced_hourly_conversions":1,"pid_hourly_conversions":1,"pid_mean_lambda":0.428},{"hour":16,"label":"16:00","is_evening_peak":false,"traffic_share_pct":4.6,"cvr_intent_multiplier":1.05,"target_cum_spend_pct":49.5,"unpaced_cum_spend_pct":78.1,"pid_cum_spend_pct":48.3,"unpaced_active_campaigns":18,"pid_active_campaigns":40,"unpaced_hourly_conversions":1,"pid_hourly_conversions":1,"pid_mean_lambda":0.498},{"hour":17,"label":"17:00","is_evening_peak":false,"traffic_share_pct":5.4,"cvr_intent_multiplier":1.24,"target_cum_spend_pct":55.5,"unpaced_cum_spend_pct":81.7,"pid_cum_spend_pct":54.4,"unpaced_active_campaigns":18,"pid_active_campaigns":40,"unpaced_hourly_conversions":4,"pid_hourly_conversions":11,"pid_mean_lambda":0.447},{"hour":18,"label":"18:00","is_evening_peak":true,"traffic_share_pct":6.8,"cvr_intent_multiplier":1.58,"target_cum_spend_pct":64.6,"unpaced_cum_spend_pct":86.2,"pid_cum_spend_pct":61.9,"unpaced_active_campaigns":17,"pid_active_campaigns":40,"unpaced_hourly_conversions":5,"pid_hourly_conversions":11,"pid_mean_lambda":0.417},{"hour":19,"label":"19:00","is_evening_peak":true,"traffic_share_pct":7.8,"cvr_intent_multiplier":1.78,"target_cum_spend_pct":76.1,"unpaced_cum_spend_pct":91.4,"pid_cum_spend_pct":71.5,"unpaced_active_campaigns":11,"pid_active_campaigns":40,"unpaced_hourly_conversions":15,"pid_hourly_conversions":23,"pid_mean_lambda":0.447},{"hour":20,"label":"20:00","is_evening_peak":true,"traffic_share_pct":7.6,"cvr_intent_multiplier":1.82,"target_cum_spend_pct":87.4,"unpaced_cum_spend_pct":93.7,"pid_cum_spend_pct":80.1,"unpaced_active_campaigns":8,"pid_active_campaigns":39,"unpaced_hourly_conversions":9,"pid_hourly_conversions":17,"pid_mean_lambda":0.539},{"hour":21,"label":"21:00","is_evening_peak":true,"traffic_share_pct":5.8,"cvr_intent_multiplier":1.62,"target_cum_spend_pct":95.3,"unpaced_cum_spend_pct":94.8,"pid_cum_spend_pct":85.5,"unpaced_active_campaigns":8,"pid_active_campaigns":34,"unpaced_hourly_conversions":1,"pid_hourly_conversions":17,"pid_mean_lambda":0.582},{"hour":22,"label":"22:00","is_evening_peak":true,"traffic_share_pct":3.0,"cvr_intent_multiplier":1.18,"target_cum_spend_pct":98.6,"unpaced_cum_spend_pct":95.4,"pid_cum_spend_pct":87.4,"unpaced_active_campaigns":8,"pid_active_campaigns":28,"unpaced_hourly_conversions":2,"pid_hourly_conversions":5,"pid_mean_lambda":0.604},{"hour":23,"label":"23:00","is_evening_peak":true,"traffic_share_pct":1.6,"cvr_intent_multiplier":0.88,"target_cum_spend_pct":100.0,"unpaced_cum_spend_pct":96.3,"pid_cum_spend_pct":89.0,"unpaced_active_campaigns":7,"pid_active_campaigns":25,"unpaced_hourly_conversions":1,"pid_hourly_conversions":2,"pid_mean_lambda":0.595}],"off_policy_evaluation":{"selected_policy":"adaptive_pid","policy_label":"Context-Adaptive PID Policy (0.70x Morning / 1.15x Evening Peak)","logging_baseline_value":2.1888,"oracle_ground_truth":2.3142,"dr_expected_lift_vs_logging_pct":5.96,"safe_to_ship_verdict":"SAFE_TO_DEPLOY","dr_rmse_reduction_benchmark_pct":66.03,"clipped_ips_rmse_reduction_benchmark_pct":26.68,"evaluation":{"policy_name":"context_adaptive_pid_policy","sample_size":1200,"effective_sample_size":168.63,"max_importance_weight":26.0,"oracle_ground_truth":2.314198,"naive_ips":{"estimate":2.21237,"ci_95_low":1.89873,"ci_95_high":2.55923,"bootstrap_std":0.159921},"clipped_ips":{"estimate":2.209723,"ci_95_low":1.89873,"ci_95_high":2.551355,"bootstrap_std":0.158785},"doubly_robust":{"estimate":2.31917,"ci_95_low":2.188904,"ci_95_high":2.464451,"bootstrap_std":0.074259}},"available_multipliers":[{"id":"adaptive_pid","label":"Context-Adaptive PID (Recommended)"},{"id":"0.55","label":"0.55x Aggressive Shade"},{"id":"0.70","label":"0.70x Moderate Shade"},{"id":"0.85","label":"0.85x Light Shade"},{"id":"1.00","label":"1.00x Unshaded Baseline"},{"id":"1.15","label":"1.15x Peak Boost Only"},{"id":"1.30","label":"1.30x Overbid (ROAS Risk)"}]},"benchmark_reference":{"num_trials":40,"events_per_trial":1200,"clip_threshold":25.0,"oracle_target_policy_value":2.3142,"oracle_logging_policy_value":2.18878,"single_trace_demo":{"policy_name":"context_shaded_pid_policy","sample_size":1200,"effective_sample_size":168.63,"max_importance_weight":26.0,"oracle_ground_truth":2.314198,"naive_ips":{"estimate":2.21237,"ci_95_low":1.89873,"ci_95_high":2.55923,"bootstrap_std":0.159921},"clipped_ips":{"estimate":2.209723,"ci_95_low":1.89873,"ci_95_high":2.551355,"bootstrap_std":0.158785},"doubly_robust":{"estimate":2.31917,"ci_95_low":2.188904,"ci_95_high":2.464451,"bootstrap_std":0.074259}},"naive_ips_summary":{"estimator_name":"naive_ips","rmse":0.16606,"mae":0.1249,"mean_signed_bias":0.02651,"ci_95_coverage_pct":97.5,"mean_ci_width":0.69805},"clipped_ips_summary":{"estimator_name":"clipped_ips","rmse":0.12175,"mae":0.09437,"mean_signed_bias":-0.0322,"ci_95_coverage_pct":97.5,"mean_ci_width":0.58661},"doubly_robust_summary":{"estimator_name":"doubly_robust","rmse":0.05641,"mae":0.04453,"mean_signed_bias":-0.01488,"ci_95_coverage_pct":100.0,"mean_ci_width":0.30181},"clipped_ips_rmse_reduction_pct":26.68,"dr_rmse_reduction_pct":66.03}},"seller_campaigns":[{"campaign_id":"CMP-D002","sku_id":"SKU-D0002","seller_name":"Auralis Running Audio","campaign_title":"Wireless ANC Running Earbuds - Exact & Broad","category":"kitchen_appliances","sku_price":54.05,"gross_margin":0.407,"in_stock":true,"depleted_hour":13,"daily_budget":32.9,"spent_today":32.9,"calibrated_ctr":0.0666,"calibrated_cvr":0.1218,"missing_attributes":[],"spektr_table":"spektr.ads_lakehouse.hourly_budget_pacing_v2","suggested_negative_keywords":["wired aux earphones","kids volume headphones","replacement silicone tips"],"sample_question":"Why did our ANC earbuds campaign run out of budget at 13:00 before the 18:00-22:00 Prime conversion peak, and what bid + PID pacing curve should we set?","diagnostic":{"campaign_id":"CMP-D002","sku_id":"SKU-D0002","primary_issue":"BUDGET_EXHAUSTED_EARLY","secondary_issues":[],"lost_impression_share_pct":70.0,"dominant_loss_bucket":"LOST_BUDGET","median_clearing_cpc":1.68,"current_bid":2.2,"recommended_bid":1.8,"max_acos_cpc":1.91,"target_acos":0.29,"implied_expected_acos":0.2734,"recommended_daily_budget":32.9,"enable_pid_pacing":true,"catalog_fixes":[],"action_summary":"Enable Lagrangian PID bid-shading (base bid $1.80 <= $1.91 ACOS cap) to eliminate 13:00 budget depletion and capture 18:00-22:00 peak CVR."}},{"campaign_id":"CMP-D001","sku_id":"SKU-D0001","seller_name":"NordWave Acoustics","campaign_title":"SonicRun Pro Earbuds - Brand Defense","category":"electronics_audio","sku_price":111.06,"gross_margin":0.325,"in_stock":false,"depleted_hour":null,"daily_budget":45.3,"spent_today":5.44,"calibrated_ctr":0.0447,"calibrated_cvr":0.1093,"missing_attributes":[],"spektr_table":"spektr.catalog.fba_inventory_realtime_iceberg","suggested_negative_keywords":["refurbished earbuds case"],"sample_question":"Should we raise our CPC bid to recover the 88% lost impression share on SKU-D0001, or is FBA inventory blocking us?","diagnostic":{"campaign_id":"CMP-D001","sku_id":"SKU-D0001","primary_issue":"OUT_OF_STOCK_SUPPRESSED","secondary_issues":[],"lost_impression_share_pct":88.0,"dominant_loss_bucket":"LOST_OOS","median_clearing_cpc":2.89,"current_bid":2.69,"recommended_bid":2.69,"max_acos_cpc":3.28,"target_acos":0.27,"implied_expected_acos":0.2216,"recommended_daily_budget":45.3,"enable_pid_pacing":false,"catalog_fixes":["Restock FBA inventory for SKU-D0001 before resuming bid adjustments."],"action_summary":"Hold bid at $2.69; SKU is out-of-stock suppressed (88.0% impressions blocked). Replenish inventory first."}},{"campaign_id":"CMP-D003","sku_id":"SKU-D0003","seller_name":"LumaWork Studio","campaign_title":"27-Inch 4K USB-C MacBook Monitor","category":"home_office","sku_price":72.81,"gross_margin":0.459,"in_stock":true,"depleted_hour":null,"daily_budget":39.6,"spent_today":32.47,"calibrated_ctr":0.0615,"calibrated_cvr":0.1411,"missing_attributes":["connectivity","material"],"spektr_table":"spektr.catalog.sku_structured_attributes_iceberg","suggested_negative_keywords":["hdmi vga splitter","laptop sleeve 15 inch"],"sample_question":"Why is Stage-1 structured retrieval dropping 76% of our 4K monitor impressions even though our bid is healthy?","diagnostic":{"campaign_id":"CMP-D003","sku_id":"SKU-D0003","primary_issue":"MISSING_CATALOG_ATTRIBUTES","secondary_issues":[],"lost_impression_share_pct":76.0,"dominant_loss_bucket":"LOST_ATTR_FILTER","median_clearing_cpc":2.42,"current_bid":2.27,"recommended_bid":2.27,"max_acos_cpc":2.77,"target_acos":0.27,"implied_expected_acos":0.221,"recommended_daily_budget":39.6,"enable_pid_pacing":false,"catalog_fixes":["Backfill structured catalog attributes [connectivity, material] in Seller Central."],"action_summary":"Populate missing attributes (connectivity, material) to recover structured filter eligibility while keeping bid <= $2.77 ACOS cap."}},{"campaign_id":"CMP-D004","sku_id":"SKU-D0004","seller_name":"ErgoLift Seating","campaign_title":"SpineSync Mesh Office Chair - Broad Discovery","category":"smart_home","sku_price":141.98,"gross_margin":0.367,"in_stock":true,"depleted_hour":null,"daily_budget":37.37,"spent_today":30.64,"calibrated_ctr":0.062,"calibrated_cvr":0.1014,"missing_attributes":[],"spektr_table":"spektr.ads_lakehouse.search_term_overlap_iceberg","suggested_negative_keywords":["dining chair cushion","gaming beanbag","plastic folding chair"],"sample_question":"Which broad search terms are hurting our query relevance score and what ACOS-safe bid cap should we enforce?","diagnostic":{"campaign_id":"CMP-D004","sku_id":"SKU-D0004","primary_issue":"LOW_QUERY_RELEVANCE","secondary_issues":[],"lost_impression_share_pct":80.0,"dominant_loss_bucket":"LOST_LOW_RELEVANCE","median_clearing_cpc":2.82,"current_bid":2.6,"recommended_bid":2.34,"max_acos_cpc":3.17,"target_acos":0.22,"implied_expected_acos":0.1625,"recommended_daily_budget":37.37,"enable_pid_pacing":false,"catalog_fixes":["Add negative exact/phrase keywords for non-converting broad terms and align product_type title tokens."],"action_summary":"Prune low-overlap broad queries (avg overlap 0.20) and cap CPC bid at $2.34 (ACOS ceiling $3.17)."}},{"campaign_id":"CMP-D005","sku_id":"SKU-D0005","seller_name":"KonaMill Coffee","campaign_title":"64mm Burr Espresso Grinder - Conquesting","category":"electronics_audio","sku_price":85.16,"gross_margin":0.35,"in_stock":true,"depleted_hour":null,"daily_budget":51.56,"spent_today":42.28,"calibrated_ctr":0.0648,"calibrated_cvr":0.1381,"missing_attributes":[],"spektr_table":"spektr.ads_lakehouse.gsp_clearing_floors_iceberg","suggested_negative_keywords":["blade spice grinder","paper coffee filters"],"sample_question":"Median GSP clearing CPC is $4.03 while our target ACOS is 29%. How high can we safely raise our bid without losing money?","diagnostic":{"campaign_id":"CMP-D005","sku_id":"SKU-D0005","primary_issue":"BID_BELOW_CLEARING_FLOOR","secondary_issues":[],"lost_impression_share_pct":78.0,"dominant_loss_bucket":"LOST_BID_FLOOR","median_clearing_cpc":4.03,"current_bid":2.33,"recommended_bid":3.41,"max_acos_cpc":3.41,"target_acos":0.29,"implied_expected_acos":0.29,"recommended_daily_budget":51.56,"enable_pid_pacing":false,"catalog_fixes":["Clearing CPC exceeds ACOS ceiling; improve detail-page CVR (images/A+ content) instead of overbidding."],"action_summary":"Cap bid at $3.41 (ACOS ceiling) rather than chasing $4.03 clearing floor; lift SKU CVR to unlock higher profitable CPC headroom."}}],"default_cax":{"turns":["wireless running earbuds","I wear glasses and sweat heavily, need IPX7 waterproof under $140","compare battery life and wind mic on the best options"],"tau_rel":0.58,"suppress_ad":false,"max_candidate_relevance":0.7678,"constraints":{"turn_count":3,"resolved_category":"electronics_audio","product_type":"earbuds","max_price":140.0,"min_usb_watts":null,"required_features":["waterproof_ipx7","earhooks","wind_mic"],"excluded_terms":[],"comparison_intent":true,"troubleshooting_intent":false,"commercial_intent_score":0.97,"merged_query_tokens":["wireless","running","earbuds","wear","glasses","sweat","heavily","need","ipx7","waterproof","140","compare","battery","life","wind","mic","on","best","options"]},"caller_auth":{"caller_type":"shopper_search_surface","granted_scopes":["cax:recommend"],"feedback_update":null},"linucb_policy":{"selected_arm":{"arm_id":"value_headroom","arm_label":"Price-Cap Headroom & Durability Framing","expected_reward":0.97456,"exploration_bonus":0.08894,"ucb_score":1.06349,"pulls":91},"all_arms":[{"arm_id":"value_headroom","arm_label":"Price-Cap Headroom & Durability Framing","expected_reward":0.97456,"exploration_bonus":0.08894,"ucb_score":1.06349,"pulls":91},{"arm_id":"spec_comparison","arm_label":"Spec-by-Spec Constraint Contrast","expected_reward":0.93532,"exploration_bonus":0.07821,"ucb_score":1.01353,"pulls":109},{"arm_id":"use_case_fit","arm_label":"Activity & Ergonomic Fit Framing","expected_reward":0.92235,"exploration_bonus":0.0851,"ucb_score":1.00744,"pulls":157},{"arm_id":"compact_disclosure","arm_label":"Minimal Single-Line Sponsored Callout","expected_reward":0.0,"exploration_bonus":0.27878,"ucb_score":0.27878,"pulls":3}],"benchmark_summary":{"training_rounds":360,"linucb_expected_acceptance_pct":89.37,"uniform_random_acceptance_pct":55.49,"expert_acceptance_lift_pct":61.06}},"assistant_response":"**Auralis AeroFit Pro Wireless ANC Running Earbuds IPX7 Earhooks Bluetooth 5.3 [Sponsored]** ($119.99, saving $20.01 vs your $140 ceiling) is verified in stock with 42dB Adaptive ANC + Transparency, IPX7 SweatShield + LockWing, 9h Earbud / 36h USB-C Case.","winning_ads":[{"slot_number":1,"sku_id":"SKU-F101","campaign_id":"CMP-002","brand":"Auralis","title":"Auralis AeroFit Pro Wireless ANC Running Earbuds IPX7 Earhooks Bluetooth 5.3","price":119.99,"base_bid":2.15,"clearing_cpc":1.24,"semantic_relevance":0.7678,"p_ctr_pct":8.65,"p_cvr_pct":23.9,"matched_constraints":["category:electronics_audio","type:earbuds","waterproof_ipx7","earhooks"],"highlights":["42dB Adaptive ANC + Transparency","IPX7 SweatShield + LockWing","9h Earbud / 36h USB-C Case"],"rating":4.8,"reviews":3420},{"slot_number":2,"sku_id":"SKU-0257","campaign_id":"CMP-017","brand":"NordWave","title":"NordWave bluetooth noise cancelling earbuds bluetooth 5 3 waterproof ipx7 midnight navy pro series","price":112.03,"base_bid":1.76,"clearing_cpc":1.75,"semantic_relevance":0.6583,"p_ctr_pct":7.67,"p_cvr_pct":22.13,"matched_constraints":["category:electronics_audio","type:earbuds","waterproof_ipx7"],"highlights":["connectivity: bluetooth 5 3","feature: waterproof ipx7","color: midnight navy"],"rating":4.6,"reviews":940}],"suppressed_high_bid_ads":[{"sku_id":"SKU-CAX-D2","brand":"DongleMax","title":"DongleMax Bluetooth 5.0 Reset & Diagnostics USB Adapter","price":19.99,"raw_bid":4.95,"semantic_relevance":0.5488,"missing_constraints":["waterproof_ipx7","earhooks","wind_mic"],"reason":"SUPPRESSED_BELOW_TAU_REL (0.55 < 0.58)"},{"sku_id":"SKU-CAX-D1","brand":"CallPro","title":"CallPro Wired USB Office Headset Boom Mic Call Center Mono","price":49.99,"raw_bid":4.65,"semantic_relevance":0.5326,"missing_constraints":["type:earbuds","earhooks"],"reason":"SUPPRESSED_BELOW_TAU_REL (0.53 < 0.58)"},{"sku_id":"SKU-0230","brand":"HomeLinkX","title":"HomeLinkX wireless indoor outdoor 2k security camera matter thread night vision warm white pro portable wireless smart","price":189.37,"raw_bid":4.22,"semantic_relevance":0.35,"reason":"ABOVE_TURN_PRICE_CAP ($189.37 > $140)"},{"sku_id":"SKU-0245","brand":"PawHaven","title":"PawHaven orthopedic memory foam washable dog bed small breed ceramic top battery backup pro series","price":143.61,"raw_bid":4.21,"semantic_relevance":0.35,"reason":"ABOVE_TURN_PRICE_CAP ($143.61 > $140)"},{"sku_id":"SKU-0390","brand":"HomeLinkX","title":"HomeLinkX compact matter wifi energy monitoring plug matter thread night vision warm white pro portable wireless smart","price":189.3,"raw_bid":4.19,"semantic_relevance":0.35,"reason":"ABOVE_TURN_PRICE_CAP ($189.30 > $140)"},{"sku_id":"SKU-0335","brand":"IonicPure","title":"IonicPure waterproof cordless precision beard trimmer fragrance free curly thick rose quartz pro series","price":209.55,"raw_bid":4.17,"semantic_relevance":0.35,"reason":"ABOVE_TURN_PRICE_CAP ($209.55 > $140)"}],"llm_telemetry":{"engine":"adpulse-cax-grounded-synthesizer-v2","live_bedrock":false,"latency_ms":0.9,"policy_verified":true,"policy_violations_caught":[]},"auction_wall_ms":3.994,"presets":[{"id":"marathon_earbuds","label":"3-Turn Marathon Earbuds Refinement","tau_rel_default":0.58,"turns":["wireless running earbuds","I wear glasses and sweat heavily, need IPX7 waterproof under $140","compare battery life and wind mic on the best options"]},{"id":"troubleshooting_suppress","label":"Troubleshooting Turn (Ad Floor Suppresses $4.95 Bid)","tau_rel_default":0.58,"turns":["wireless anc running earbuds","wait, how do I factory reset bluetooth pairing when my left earbud blinks red?"]},{"id":"macbook_monitor","label":"2-Turn MacBook 90W+ USB-C 4K Monitor","tau_rel_default":0.58,"turns":["27 inch 4k monitor for macbook pro","must support single cable 90W USB-C charging under $320"]},{"id":"espresso_barista","label":"2-Turn Quiet Low-Retention Burr Grinder","tau_rel_default":0.58,"turns":["stainless conical burr espresso grinder","needs low retention bellows or quiet brushless motor under $210"]}]},"default_offsearch":{"surface":"homepage_discovery","shopper_stage":"homepage_post_purchase","routing_policy":"Homepage Post-Purchase: Durable Suppressed -> Complementary Cross-Sell","anchor":{"anchor_id":"ANCHOR-CAM-4K","title":"AlphaPro A7C Mirrorless 4K Camera (67mm E-Mount Kit)","category":"camera_photo","durable_group":"mirrorless_camera_body","price":849.0,"compatibility_spec":{"filter_thread":"67mm","media_slot":"uhs_ii_sdxc","tripod_plate":"arca_swiss"}},"purchased_durable_groups":["mirrorless_camera_body"],"carousel_ads":[{"slot_number":1,"sku_id":"SKU-OS-SDCARD","brand":"ProGradeX","title":"ProGradeX 256GB UHS-II V90 SDXC 300MB/s 4K Memory Card","relationship":"complement","complement_role":"SD Card","price":109.0,"base_bid":1.92,"clearing_cpc":1.65,"p_ctr_pct":7.9,"p_cvr_pct":24.2,"co_buy_score":0.95,"verified_spec":{"media_slot":"uhs_ii_sdxc"}},{"slot_number":2,"sku_id":"SKU-OS-TRIPOD","brand":"PeakCarbon","title":"PeakCarbon Ultralight Travel Tripod (Arca-Swiss Ball Head)","relationship":"complement","complement_role":"Tripod","price":129.0,"base_bid":2.05,"clearing_cpc":1.45,"p_ctr_pct":7.4,"p_cvr_pct":21.5,"co_buy_score":0.92,"verified_spec":{"tripod_plate":"arca_swiss"}},{"slot_number":3,"sku_id":"SKU-OS-CPL67","brand":"OptiClear","title":"OptiClear 67mm Multi-Coated Circular Polarizer Lens Filter","relationship":"complement","complement_role":"67mm Lens Filter","price":54.0,"base_bid":1.68,"clearing_cpc":0.35,"p_ctr_pct":6.9,"p_cvr_pct":20.8,"co_buy_score":0.88,"verified_spec":{"filter_thread":"67mm"}}],"pruned_incompatible_or_redundant":[{"sku_id":"SKU-OS-CAM1","title":"LumixView S5 Compact 4K60 Full-Frame Mirrorless Camera","brand":"LumixView","relationship":"substitute","price":799.0,"raw_bid":2.65,"reason_code":"ALREADY_PURCHASED_DURABLE_SUPPRESSED","detail":"Shopper stage 'homepage_post_purchase' already includes 'mirrorless_camera_body'; pivoting carousel to complementary accessories."},{"sku_id":"SKU-OS-CAM2","title":"FujiCraft X-S20 Stabilized 4K Creator Mirrorless Camera","brand":"FujiCraft","relationship":"substitute","price":829.0,"raw_bid":2.45,"reason_code":"ALREADY_PURCHASED_DURABLE_SUPPRESSED","detail":"Shopper stage 'homepage_post_purchase' already includes 'mirrorless_camera_body'; pivoting carousel to complementary accessories."},{"sku_id":"SKU-OS-BAD58","title":"OptiClear 58mm Circular Polarizer Filter (Wrong Thread Size)","brand":"OptiClear","relationship":"complement","price":46.0,"raw_bid":3.95,"reason_code":"INCOMPATIBLE_SPEC_PRUNED","detail":"Requires 58mm lens thread; anchor camera kit uses 67mm thread."},{"sku_id":"SKU-OS-BADCFB","title":"CineFlash 256GB CFexpress Type-B Card (Incompatible Slot)","brand":"CineFlash","relationship":"complement","price":169.0,"raw_bid":4.15,"reason_code":"INCOMPATIBLE_SPEC_PRUNED","detail":"Requires CFexpress Type-B slot; anchor camera accepts UHS-II SDXC only."}],"naive_baseline_defects_prevented":["SKU-OS-BAD58: incompatible spec (Incompatible 58mm Filter)","SKU-OS-BADCFB: incompatible spec (Incompatible CFexpress-B)","SKU-OS-CAM1: redundant mirrorless_camera_body shown post-purchase"],"cuped_experiment":{"sample_size_per_arm":600,"theta":0.8107,"pre_post_correlation_r":0.7602,"raw_control_rpm":4.5529,"raw_treatment_rpm":4.8278,"raw_lift_pct":6.04,"raw_se":0.0969,"raw_p_value":0.004544,"cuped_control_rpm":4.5447,"cuped_treatment_rpm":4.836,"cuped_lift_pct":6.41,"cuped_se":0.0626,"cuped_ci95_low":0.1686,"cuped_ci95_high":0.4139,"cuped_p_value":3.24e-06,"variance_reduction_pct":58.27,"effective_sample_size_multiplier":2.4},"available_anchors":[{"anchor_id":"ANCHOR-CAM-4K","title":"AlphaPro A7C Mirrorless 4K Camera (67mm E-Mount Kit)","category":"camera_photo","durable_group":"mirrorless_camera_body","price":849.0,"compatibility_spec":{"filter_thread":"67mm","media_slot":"uhs_ii_sdxc","tripod_plate":"arca_swiss"}},{"anchor_id":"ANCHOR-ESP-58","title":"CasaVero Dual-Boiler 58mm Espresso Machine","category":"kitchen_appliances","durable_group":"espresso_machine_durable","price":599.0,"compatibility_spec":{"portafilter_size":"58mm","voltage":"120v"}},{"anchor_id":"ANCHOR-MBP-14","title":"ProBook 14-Inch Laptop (Thunderbolt 4 / 96W USB-C)","category":"home_office","durable_group":"pro_laptop_durable","price":1599.0,"compatibility_spec":{"usb_pd_min":"90w","port":"thunderbolt_4"}}],"latency_ms":0.033},"default_pal_ha":{"pal_calibration":{"drift_mode":"none","test_impressions":1200,"learned_slot_examination":{"slot_1":1.0,"slot_2":0.5984,"slot_3":0.4199,"slot_4":0.2632},"models":{"naive_position_blind":{"model_name":"naive_position_blind","log_loss":0.4975,"rig_pct":1.48,"ece":0.04103,"copc":1.1844,"slot_copc_by_pos":{"slot_1":0.6688,"slot_2":1.0757,"slot_3":1.8304,"slot_4":2.4188}},"pal_platt_scaled":{"model_name":"pal_platt_scaled","log_loss":0.45824,"rig_pct":9.26,"ece":0.01958,"copc":1.0082,"slot_copc_by_pos":{"slot_1":0.982,"slot_2":0.9575,"slot_3":1.179,"slot_4":0.986}},"pal_isotonic_calibrated":{"model_name":"pal_isotonic_calibrated","log_loss":0.46454,"rig_pct":8.01,"ece":0.01788,"copc":1.0016,"slot_copc_by_pos":{"slot_1":1.0447,"slot_2":0.949,"slot_3":1.1063,"slot_4":0.8223}}},"reliability_curves":{"naive_position_blind":[{"bin":1,"count":120,"mean_predicted_pct":17.8,"empirical_ctr_pct":8.33},{"bin":2,"count":120,"mean_predicted_pct":19.49,"empirical_ctr_pct":14.17},{"bin":3,"count":120,"mean_predicted_pct":20.67,"empirical_ctr_pct":13.33},{"bin":4,"count":120,"mean_predicted_pct":21.74,"empirical_ctr_pct":21.67},{"bin":5,"count":120,"mean_predicted_pct":22.92,"empirical_ctr_pct":18.33},{"bin":6,"count":120,"mean_predicted_pct":24.32,"empirical_ctr_pct":20.0},{"bin":7,"count":120,"mean_predicted_pct":25.84,"empirical_ctr_pct":24.17},{"bin":8,"count":120,"mean_predicted_pct":27.38,"empirical_ctr_pct":25.0},{"bin":9,"count":120,"mean_predicted_pct":29.11,"empirical_ctr_pct":25.0},{"bin":10,"count":120,"mean_predicted_pct":31.57,"empirical_ctr_pct":33.33}],"pal_platt_scaled":[{"bin":1,"count":120,"mean_predicted_pct":7.37,"empirical_ctr_pct":6.67},{"bin":2,"count":120,"mean_predicted_pct":9.97,"empirical_ctr_pct":9.17},{"bin":3,"count":120,"mean_predicted_pct":11.78,"empirical_ctr_pct":9.17},{"bin":4,"count":120,"mean_predicted_pct":13.8,"empirical_ctr_pct":13.33},{"bin":5,"count":120,"mean_predicted_pct":16.21,"empirical_ctr_pct":15.83},{"bin":6,"count":120,"mean_predicted_pct":19.12,"empirical_ctr_pct":15.83},{"bin":7,"count":120,"mean_predicted_pct":22.43,"empirical_ctr_pct":23.33},{"bin":8,"count":120,"mean_predicted_pct":26.83,"empirical_ctr_pct":28.33},{"bin":9,"count":120,"mean_predicted_pct":33.19,"empirical_ctr_pct":30.83},{"bin":10,"count":120,"mean_predicted_pct":44.28,"empirical_ctr_pct":50.83}],"pal_isotonic_calibrated":[{"bin":1,"count":120,"mean_predicted_pct":5.45,"empirical_ctr_pct":6.67},{"bin":2,"count":120,"mean_predicted_pct":8.78,"empirical_ctr_pct":9.17},{"bin":3,"count":120,"mean_predicted_pct":10.3,"empirical_ctr_pct":9.17},{"bin":4,"count":120,"mean_predicted_pct":11.97,"empirical_ctr_pct":13.33},{"bin":5,"count":120,"mean_predicted_pct":13.91,"empirical_ctr_pct":15.83},{"bin":6,"count":120,"mean_predicted_pct":19.05,"empirical_ctr_pct":15.83},{"bin":7,"count":120,"mean_predicted_pct":23.87,"empirical_ctr_pct":23.33},{"bin":8,"count":120,"mean_predicted_pct":27.16,"empirical_ctr_pct":28.33},{"bin":9,"count":120,"mean_predicted_pct":35.05,"empirical_ctr_pct":30.83},{"bin":10,"count":120,"mean_predicted_pct":48.11,"empirical_ctr_pct":50.83}]}},"shuffle_sharding":{"n_cells":8,"shard_k":2,"virtual_shards":28,"noisy_tenant_id":"ADV-ROGUE-RETRY-STORM","poisoned_cells":["cell-3","cell-5"],"auto_evacuate_quarantine":false,"co_tenants_evaluated":560,"zero_overlap_tenants":300,"failover_rescued_tenants":240,"impacted_tenants":20,"shared_fleet_blast_radius_pct":100.0,"modulo_sharding_blast_radius_pct":12.5,"shuffle_sharding_blast_radius_pct":3.57,"theoretical_combinatorial_pct":3.57,"availability_pct":96.43,"cells":[{"cell_id":"cell-0","az":"us-west-2a","status":"HEALTHY","p99_latency_ms":0.44,"cpu_utilization_pct":31.5},{"cell_id":"cell-1","az":"us-west-2b","status":"HEALTHY","p99_latency_ms":0.44,"cpu_utilization_pct":31.5},{"cell_id":"cell-2","az":"us-west-2c","status":"HEALTHY","p99_latency_ms":0.44,"cpu_utilization_pct":31.5},{"cell_id":"cell-3","az":"us-west-2d","status":"SATURATED_NOISY_NEIGHBOR","p99_latency_ms":84.5,"cpu_utilization_pct":99.2},{"cell_id":"cell-4","az":"us-west-2a","status":"HEALTHY","p99_latency_ms":0.44,"cpu_utilization_pct":31.5},{"cell_id":"cell-5","az":"us-west-2b","status":"SATURATED_NOISY_NEIGHBOR","p99_latency_ms":84.5,"cpu_utilization_pct":99.2},{"cell_id":"cell-6","az":"us-west-2c","status":"HEALTHY","p99_latency_ms":0.44,"cpu_utilization_pct":31.5},{"cell_id":"cell-7","az":"us-west-2d","status":"HEALTHY","p99_latency_ms":0.44,"cpu_utilization_pct":31.5}]}},"default_copilot":{"campaign":{"campaign_id":"CMP-D002","sku_id":"SKU-D0002","seller_name":"Auralis Running Audio","campaign_title":"Wireless ANC Running Earbuds - Exact & Broad","category":"kitchen_appliances","sku_price":54.05,"gross_margin":0.407,"in_stock":true,"depleted_hour":13,"daily_budget":32.9,"spent_today":32.9,"calibrated_ctr":0.0666,"calibrated_cvr":0.1218,"missing_attributes":[],"spektr_table":"spektr.ads_lakehouse.hourly_budget_pacing_v2","suggested_negative_keywords":["wired aux earphones","kids volume headphones","replacement silicone tips"],"sample_question":"Why did our ANC earbuds campaign run out of budget at 13:00 before the 18:00-22:00 Prime conversion peak, and what bid + PID pacing curve should we set?","diagnostic":{"campaign_id":"CMP-D002","sku_id":"SKU-D0002","primary_issue":"BUDGET_EXHAUSTED_EARLY","secondary_issues":[],"lost_impression_share_pct":70.0,"dominant_loss_bucket":"LOST_BUDGET","median_clearing_cpc":1.68,"current_bid":2.2,"recommended_bid":1.8,"max_acos_cpc":1.91,"target_acos":0.29,"implied_expected_acos":0.2734,"recommended_daily_budget":32.9,"enable_pid_pacing":true,"catalog_fixes":[],"action_summary":"Enable Lagrangian PID bid-shading (base bid $1.80 <= $1.91 ACOS cap) to eliminate 13:00 budget depletion and capture 18:00-22:00 peak CVR."}},"question":"Why did our ANC earbuds campaign run out of budget at 13:00 before the 18:00-22:00 Prime conversion peak, and what bid + PID pacing curve should we set?","diagnostic":{"campaign_id":"CMP-D002","sku_id":"SKU-D0002","primary_issue":"BUDGET_EXHAUSTED_EARLY","secondary_issues":[],"lost_impression_share_pct":70.0,"dominant_loss_bucket":"LOST_BUDGET","median_clearing_cpc":1.68,"current_bid":2.2,"recommended_bid":1.8,"max_acos_cpc":1.91,"target_acos":0.29,"implied_expected_acos":0.2734,"recommended_daily_budget":32.9,"enable_pid_pacing":true,"catalog_fixes":[],"action_summary":"Enable Lagrangian PID bid-shading (base bid $1.80 <= $1.91 ACOS cap) to eliminate 13:00 budget depletion and capture 18:00-22:00 peak CVR."},"acos_guardrail_verified":true,"spektr_sql":"SELECT hour, outcome, COUNT(*) AS auctions, ROUND(AVG(clearing_cpc), 2) AS avg_gsp_cpc\nFROM spektr.ads_lakehouse.hourly_budget_pacing_v2\nWHERE campaign_id = 'CMP-D002' AND sku_id = 'SKU-D0002'\nGROUP BY 1, 2 ORDER BY auctions DESC;","copilot_memo":"- **Root-Cause Diagnosis (`BUDGET_EXHAUSTED_EARLY`)**: `CMP-D002` (`SKU-D0002`) lost **70.0%** of eligible impressions (`LOST_BUDGET`) against a `$1.68` median GSP clearing floor.\n- **ACOS-Bounded Bid & PID Pacing Action**: Set base CPC bid to **`$1.80`** (strictly `<= $1.91` max profitable CPC at `29%` target ACOS, implied ACOS `27.3%`) and set `PID Pacing = True` (daily budget `$32.90`).\n- **Catalog & Negative-Keyword Hygiene**: Add negative phrase keywords (\"wired aux earphones\", \"kids volume headphones\", \"replacement silicone tips\") to prune non-converting upper-funnel clicks.\n- **Spektr Iceberg Verification**: Audit hourly impression recovery in `spektr.ads_lakehouse.hourly_budget_pacing_v2` and validate counterfactual multiplier via Doubly-Robust OPE (`-66.0%` RMSE) before rollout.","llm_telemetry":{"engine":"adpulse-deterministic-guardrail-v1 (offline fallback)","latency_ms":1.8,"tokens":0,"live_bedrock":false}},"ope_by_mult":{"adaptive_pid":{"selected_policy":"adaptive_pid","policy_label":"Context-Adaptive PID Policy (0.70x Morning / 1.15x Evening Peak)","logging_baseline_value":2.1888,"oracle_ground_truth":2.3142,"dr_expected_lift_vs_logging_pct":5.96,"safe_to_ship_verdict":"SAFE_TO_DEPLOY","dr_rmse_reduction_benchmark_pct":66.03,"clipped_ips_rmse_reduction_benchmark_pct":26.68,"evaluation":{"policy_name":"context_adaptive_pid_policy","sample_size":1200,"effective_sample_size":168.63,"max_importance_weight":26.0,"oracle_ground_truth":2.314198,"naive_ips":{"estimate":2.21237,"ci_95_low":1.89873,"ci_95_high":2.55923,"bootstrap_std":0.159921},"clipped_ips":{"estimate":2.209723,"ci_95_low":1.89873,"ci_95_high":2.551355,"bootstrap_std":0.158785},"doubly_robust":{"estimate":2.31917,"ci_95_low":2.188904,"ci_95_high":2.464451,"bootstrap_std":0.074259}},"available_multipliers":[{"id":"adaptive_pid","label":"Context-Adaptive PID (Recommended)"},{"id":"0.55","label":"0.55x Aggressive Shade"},{"id":"0.70","label":"0.70x Moderate Shade"},{"id":"0.85","label":"0.85x Light Shade"},{"id":"1.00","label":"1.00x Unshaded Baseline"},{"id":"1.15","label":"1.15x Peak Boost Only"},{"id":"1.30","label":"1.30x Overbid (ROAS Risk)"}]},"0.75":{"selected_policy":"0.75","policy_label":"Counterfactual Fixed Bid Multiplier (0.70x)","logging_baseline_value":2.1888,"oracle_ground_truth":1.953,"dr_expected_lift_vs_logging_pct":-11.63,"safe_to_ship_verdict":"HOLD_REGRESSION_RISK","dr_rmse_reduction_benchmark_pct":66.03,"clipped_ips_rmse_reduction_benchmark_pct":26.68,"evaluation":{"policy_name":"uniform_bid_multiplier_0.70x","sample_size":1200,"effective_sample_size":24.43,"max_importance_weight":108.571,"oracle_ground_truth":1.952973,"naive_ips":{"estimate":1.521947,"ci_95_low":0.794742,"ci_95_high":2.303998,"bootstrap_std":0.423806},"clipped_ips":{"estimate":0.936054,"ci_95_low":0.675131,"ci_95_high":1.231301,"bootstrap_std":0.144742},"doubly_robust":{"estimate":1.934293,"ci_95_low":1.760866,"ci_95_high":2.061343,"bootstrap_std":0.085343}},"available_multipliers":[{"id":"adaptive_pid","label":"Context-Adaptive PID (Recommended)"},{"id":"0.55","label":"0.55x Aggressive Shade"},{"id":"0.70","label":"0.70x Moderate Shade"},{"id":"0.85","label":"0.85x Light Shade"},{"id":"1.00","label":"1.00x Unshaded Baseline"},{"id":"1.15","label":"1.15x Peak Boost Only"},{"id":"1.30","label":"1.30x Overbid (ROAS Risk)"}]},"1.00":{"selected_policy":"1.00","policy_label":"Counterfactual Fixed Bid Multiplier (1.00x)","logging_baseline_value":2.1888,"oracle_ground_truth":2.2144,"dr_expected_lift_vs_logging_pct":1.68,"safe_to_ship_verdict":"HOLD_REGRESSION_RISK","dr_rmse_reduction_benchmark_pct":66.03,"clipped_ips_rmse_reduction_benchmark_pct":26.68,"evaluation":{"policy_name":"uniform_bid_multiplier_1.00x","sample_size":1200,"effective_sample_size":608.16,"max_importance_weight":16.0,"oracle_ground_truth":2.214419,"naive_ips":{"estimate":2.052977,"ci_95_low":1.92331,"ci_95_high":2.212447,"bootstrap_std":0.074981},"clipped_ips":{"estimate":2.052977,"ci_95_low":1.92331,"ci_95_high":2.212447,"bootstrap_std":0.074981},"doubly_robust":{"estimate":2.225441,"ci_95_low":2.119542,"ci_95_high":2.315057,"bootstrap_std":0.054632}},"available_multipliers":[{"id":"adaptive_pid","label":"Context-Adaptive PID (Recommended)"},{"id":"0.55","label":"0.55x Aggressive Shade"},{"id":"0.70","label":"0.70x Moderate Shade"},{"id":"0.85","label":"0.85x Light Shade"},{"id":"1.00","label":"1.00x Unshaded Baseline"},{"id":"1.15","label":"1.15x Peak Boost Only"},{"id":"1.30","label":"1.30x Overbid (ROAS Risk)"}]},"1.25":{"selected_policy":"1.25","policy_label":"Counterfactual Fixed Bid Multiplier (1.30x)","logging_baseline_value":2.1888,"oracle_ground_truth":1.7716,"dr_expected_lift_vs_logging_pct":-18.67,"safe_to_ship_verdict":"HOLD_REGRESSION_RISK","dr_rmse_reduction_benchmark_pct":66.03,"clipped_ips_rmse_reduction_benchmark_pct":26.68,"evaluation":{"policy_name":"uniform_bid_multiplier_1.30x","sample_size":1200,"effective_sample_size":182.28,"max_importance_weight":16.0,"oracle_ground_truth":1.771626,"naive_ips":{"estimate":1.662712,"ci_95_low":1.376171,"ci_95_high":1.942405,"bootstrap_std":0.150163},"clipped_ips":{"estimate":1.662712,"ci_95_low":1.376171,"ci_95_high":1.942405,"bootstrap_std":0.150163},"doubly_robust":{"estimate":1.780143,"ci_95_low":1.641485,"ci_95_high":1.931327,"bootstrap_std":0.075481}},"available_multipliers":[{"id":"adaptive_pid","label":"Context-Adaptive PID (Recommended)"},{"id":"0.55","label":"0.55x Aggressive Shade"},{"id":"0.70","label":"0.70x Moderate Shade"},{"id":"0.85","label":"0.85x Light Shade"},{"id":"1.00","label":"1.00x Unshaded Baseline"},{"id":"1.15","label":"1.15x Peak Boost Only"},{"id":"1.30","label":"1.30x Overbid (ROAS Risk)"}]},"0.55":{"selected_policy":"0.55","policy_label":"Counterfactual Fixed Bid Multiplier (0.55x)","logging_baseline_value":2.1888,"oracle_ground_truth":1.6383,"dr_expected_lift_vs_logging_pct":-22.51,"safe_to_ship_verdict":"HOLD_REGRESSION_RISK","dr_rmse_reduction_benchmark_pct":66.03,"clipped_ips_rmse_reduction_benchmark_pct":26.68,"evaluation":{"policy_name":"uniform_bid_multiplier_0.55x","sample_size":1200,"effective_sample_size":6.87,"max_importance_weight":253.333,"oracle_ground_truth":1.638269,"naive_ips":{"estimate":1.194843,"ci_95_low":0.570765,"ci_95_high":2.024669,"bootstrap_std":0.381062},"clipped_ips":{"estimate":0.559271,"ci_95_low":0.475057,"ci_95_high":0.65927,"bootstrap_std":0.048563},"doubly_robust":{"estimate":1.696077,"ci_95_low":1.612541,"ci_95_high":1.767644,"bootstrap_std":0.040561}},"available_multipliers":[{"id":"adaptive_pid","label":"Context-Adaptive PID (Recommended)"},{"id":"0.55","label":"0.55x Aggressive Shade"},{"id":"0.70","label":"0.70x Moderate Shade"},{"id":"0.85","label":"0.85x Light Shade"},{"id":"1.00","label":"1.00x Unshaded Baseline"},{"id":"1.15","label":"1.15x Peak Boost Only"},{"id":"1.30","label":"1.30x Overbid (ROAS Risk)"}]},"0.85":{"selected_policy":"0.85","policy_label":"Counterfactual Fixed Bid Multiplier (0.85x)","logging_baseline_value":2.1888,"oracle_ground_truth":2.1954,"dr_expected_lift_vs_logging_pct":-4.14,"safe_to_ship_verdict":"HOLD_REGRESSION_RISK","dr_rmse_reduction_benchmark_pct":66.03,"clipped_ips_rmse_reduction_benchmark_pct":26.68,"evaluation":{"policy_name":"uniform_bid_multiplier_0.85x","sample_size":1200,"effective_sample_size":108.04,"max_importance_weight":29.231,"oracle_ground_truth":2.195409,"naive_ips":{"estimate":1.949718,"ci_95_low":1.528851,"ci_95_high":2.489961,"bootstrap_std":0.243562},"clipped_ips":{"estimate":1.88476,"ci_95_low":1.498193,"ci_95_high":2.363121,"bootstrap_std":0.220515},"doubly_robust":{"estimate":2.098224,"ci_95_low":1.892812,"ci_95_high":2.286711,"bootstrap_std":0.103565}},"available_multipliers":[{"id":"adaptive_pid","label":"Context-Adaptive PID (Recommended)"},{"id":"0.55","label":"0.55x Aggressive Shade"},{"id":"0.70","label":"0.70x Moderate Shade"},{"id":"0.85","label":"0.85x Light Shade"},{"id":"1.00","label":"1.00x Unshaded Baseline"},{"id":"1.15","label":"1.15x Peak Boost Only"},{"id":"1.30","label":"1.30x Overbid (ROAS Risk)"}]},"1.30":{"selected_policy":"1.30","policy_label":"Counterfactual Fixed Bid Multiplier (1.30x)","logging_baseline_value":2.1888,"oracle_ground_truth":1.7716,"dr_expected_lift_vs_logging_pct":-18.67,"safe_to_ship_verdict":"HOLD_REGRESSION_RISK","dr_rmse_reduction_benchmark_pct":66.03,"clipped_ips_rmse_reduction_benchmark_pct":26.68,"evaluation":{"policy_name":"uniform_bid_multiplier_1.30x","sample_size":1200,"effective_sample_size":182.28,"max_importance_weight":16.0,"oracle_ground_truth":1.771626,"naive_ips":{"estimate":1.662712,"ci_95_low":1.376171,"ci_95_high":1.942405,"bootstrap_std":0.150163},"clipped_ips":{"estimate":1.662712,"ci_95_low":1.376171,"ci_95_high":1.942405,"bootstrap_std":0.150163},"doubly_robust":{"estimate":1.780143,"ci_95_low":1.641485,"ci_95_high":1.931327,"bootstrap_std":0.075481}},"available_multipliers":[{"id":"adaptive_pid","label":"Context-Adaptive PID (Recommended)"},{"id":"0.55","label":"0.55x Aggressive Shade"},{"id":"0.70","label":"0.70x Moderate Shade"},{"id":"0.85","label":"0.85x Light Shade"},{"id":"1.00","label":"1.00x Unshaded Baseline"},{"id":"1.15","label":"1.15x Peak Boost Only"},{"id":"1.30","label":"1.30x Overbid (ROAS Risk)"}]}}};
+      const VALID_TABS = ["storefront-gsp", "pid-pacer", "dr-ope", "spektr-copilot", "cax-offsearch-pal"];
 
       const state = {
         activeTab: "storefront-gsp",
@@ -2247,7 +2504,13 @@
         opeByMult: JSON.parse(JSON.stringify(SEED.ope_by_mult || {})),
         sellerCampaigns: JSON.parse(JSON.stringify(SEED.seller_campaigns || [])),
         selectedCampaignId: "CMP-D002",
-        copilotData: JSON.parse(JSON.stringify(SEED.default_copilot || {}))
+        copilotData: JSON.parse(JSON.stringify(SEED.default_copilot || {})),
+        caxData: JSON.parse(JSON.stringify(SEED.default_cax || {})),
+        offsearchData: JSON.parse(JSON.stringify(SEED.default_offsearch || {})),
+        palHaData: JSON.parse(JSON.stringify(SEED.default_pal_ha || {})),
+        offsearchStage: "homepage_post_purchase",
+        palDriftMode: "none",
+        palEvacuate: false
       };
 
       function esc(val) {
@@ -2323,6 +2586,7 @@
         syncHashState();
         renderPacingCharts();
         renderOpeTab();
+        if (typeof renderPalHaSection === "function") renderPalHaSection();
       }
 
       window.switchTab = function(tabId) {
@@ -2418,7 +2682,7 @@
 
         document.getElementById("sfBudgetBadge").textContent = "$" + state.dailyBudget + " / day";
 
-        const lat = sf.latency_ms || { benchmark_p50_ms: 0.266, benchmark_p99_ms: 0.430, live_wall_ms: 0.42 };
+        const lat = sf.latency_ms || { benchmark_p50_ms: 0.158, benchmark_p99_ms: 0.217, live_wall_ms: 0.35 };
         document.getElementById("storeLatencyTag").textContent =
           "Live " + (lat.live_wall_ms || 0.41) + "ms · Bench " + lat.benchmark_p50_ms + "ms p50 / " + lat.benchmark_p99_ms + "ms p99";
 
@@ -2492,7 +2756,7 @@
             return '<div style="border:2px solid var(--border); background:var(--bg-paper); padding:0.6rem 0.85rem; margin-bottom:0.5rem; display:flex; justify-content:space-between; align-items:center; gap:0.6rem; flex-wrap:wrap;">' +
               '<div>' +
                 '<span class="tag tag-blue" style="margin-right:0.4rem;">ORGANIC #' + (idx + 1) + '</span>' +
-                '<strong style="font-size:0.84rem;">' + esc(item.brand) + ' — ' + esc(item.title.slice(0, 56)) + '...</strong>' +
+                '<strong style="font-size:0.84rem;">' + esc(item.brand) + ' - ' + esc(item.title.slice(0, 56)) + '...</strong>' +
               '</div>' +
               '<span class="mono" style="font-size:0.72rem;">$' + Number(item.price).toFixed(2) + ' · In-Stock Verified · $0.00 Organic Click</span>' +
             '</div>';
@@ -2890,7 +3154,7 @@
         const llm = res.llm_telemetry || {};
 
         document.getElementById("copilotSellerTitle").textContent =
-          (camp.seller_name || d.campaign_id) + " — " + (camp.campaign_title || d.sku_id);
+          (camp.seller_name || d.campaign_id) + " - " + (camp.campaign_title || d.sku_id);
         document.getElementById("copilotEngineMeta").textContent =
           (llm.engine || "aws-bedrock (us.amazon.nova-lite-v1:0)") +
           (llm.latency_ms ? " · " + llm.latency_ms + " ms" : "") +
@@ -2947,6 +3211,310 @@
       document.getElementById("btnRunSpektrCopilot").addEventListener("click", runSpektrCopilotLive);
       document.getElementById("targetAcosSlider").addEventListener("change", runSpektrCopilotLive);
 
+
+      // =====================================================================
+      // TAB 5: CONVERSATIONAL ADS (CAX), OFF-SEARCH PDP & PAL CALIBRATION
+      // =====================================================================
+      function renderCaxSection() {
+        const d = state.caxData || {};
+        const sup = Boolean(d.suppress_ad);
+        const tau = Number(d.tau_rel ?? 0.58).toFixed(2);
+        const maxRel = Number(d.max_candidate_relevance ?? 0.0).toFixed(2);
+        const llm = d.llm_telemetry || {};
+
+        const pBadge = document.getElementById("caxPolicyBadge");
+        if (pBadge) {
+          pBadge.className = "tag " + (llm.policy_verified !== false ? "tag-pass" : "tag-warn");
+          pBadge.textContent = (llm.live_bedrock ? "LIVE BEDROCK NOVA · " : "POLICY VERIFIED · ") + (d.auction_wall_ms || 1.2) + " ms";
+        }
+
+        const banner = document.getElementById("caxVerdictBanner");
+        if (banner) {
+          banner.className = "verdict-banner " + (sup ? "verdict-warn" : "verdict-allow");
+          const arm = (d.linucb_policy && d.linucb_policy.selected_arm) || { arm_id: "spec_comparison", ucb_score: 0.92 };
+          banner.innerHTML =
+            '<div>' +
+              '<div style="font-weight:800; font-size:0.96rem;">' +
+                (sup
+                  ? "🛡️ AD SLOT SUPPRESSED (max_rel " + maxRel + " < tau_rel " + tau + ")"
+                  : "✅ CLEARED " + (d.winning_ads || []).length + " CONVERSATIONAL GSP SLOTS (rel >= " + tau + ")") +
+              '</div>' +
+              '<div class="mono" style="font-size:0.7rem; margin-top:0.2rem;">' +
+                'LinUCB Selected Arm: ' + esc(arm.arm_id) + ' (UCB ' + Number(arm.ucb_score || 0).toFixed(3) + ')' +
+                (d.caller_auth && d.caller_auth.feedback_update
+                  ? ' · Feedback: ' + esc(d.caller_auth.feedback_update.status)
+                  : '') +
+              '</div>' +
+            '</div>' +
+            '<span class="tag ' + (sup ? "tag-warn" : "tag-pass") + '">' + (sup ? "0 ADS SHOWN" : "GROUNDED AD") + '</span>';
+        }
+
+        const c = d.constraints || {};
+        const pills = [];
+        if (c.resolved_category) pills.push("category: " + c.resolved_category);
+        if (c.product_type) pills.push("type: " + c.product_type);
+        if (c.max_price != null) pills.push("cap <= $" + c.max_price);
+        if (c.min_usb_watts != null) pills.push("power >= " + c.min_usb_watts + "W");
+        (c.required_features || []).forEach(function(f) { pills.push("req: " + f); });
+        if (c.troubleshooting_intent) pills.push("intent: troubleshooting_support");
+        const pillsEl = document.getElementById("caxConstraintPills");
+        if (pillsEl) {
+          pillsEl.innerHTML = pills.map(function(p) {
+            return '<span class="tag tag-blue" style="text-transform:none;">' + esc(p) + '</span>';
+          }).join("");
+        }
+
+        const replyEl = document.getElementById("caxAssistantBox");
+        if (replyEl) {
+          replyEl.innerHTML =
+            '<div class="mono" style="font-size:0.68rem; color:var(--accent-deep); font-weight:700; margin-bottom:0.3rem;">CONVERSATIONAL ASSISTANT RESPONSE (' + esc(llm.engine || "adpulse-cax") + ')</div>' +
+            '<div>' + inlineMd(d.assistant_response || "") + '</div>';
+        }
+
+        const wrap = document.getElementById("caxSlotsAndSuppressedWrap");
+        if (wrap) {
+          const winnersHtml = (d.winning_ads || []).map(function(w) {
+            return '<div style="border:2px solid var(--border); background:var(--bg-card); padding:0.6rem 0.75rem; margin-bottom:0.5rem;">' +
+              '<div style="display:flex; justify-content:space-between; gap:0.4rem; flex-wrap:wrap;">' +
+                '<strong style="font-size:0.86rem;">SP #' + w.slot_number + ' · ' + esc(w.title) + '</strong>' +
+                '<span class="tag tag-pass">rel ' + Number(w.semantic_relevance).toFixed(2) + ' · CPC $' + Number(w.clearing_cpc).toFixed(2) + '</span>' +
+              '</div>' +
+              '<div class="mono" style="font-size:0.69rem; color:var(--ink-muted); margin-top:0.2rem;">$' + Number(w.price).toFixed(2) + ' · Raw Bid $' + Number(w.base_bid).toFixed(2) + ' · pCTR ' + w.p_ctr_pct + '% · pCVR ' + w.p_cvr_pct + '%</div>' +
+            '</div>';
+          }).join("");
+
+          const supList = (d.suppressed_high_bid_ads || []).slice(0, 3).map(function(s) {
+            return '<div style="border:1.5px solid var(--border); background:var(--fail-soft); padding:0.48rem 0.68rem; margin-bottom:0.4rem;">' +
+              '<div style="display:flex; justify-content:space-between; gap:0.4rem; flex-wrap:wrap; font-size:0.79rem;">' +
+                '<strong>Blocked: ' + esc(s.brand) + ' (' + esc(s.sku_id) + ' · Bid $' + Number(s.raw_bid).toFixed(2) + ')</strong>' +
+                '<span class="mono" style="font-size:0.67rem; color:var(--fail); font-weight:700;">' + esc(s.reason) + '</span>' +
+              '</div>' +
+            '</div>';
+          }).join("");
+
+          wrap.innerHTML = winnersHtml + (supList ? '<div class="mono" style="font-size:0.69rem; font-weight:700; margin:0.45rem 0 0.3rem;">HIGH-BID CANDIDATES BLOCKED BY FLOOR / CAP:</div>' + supList : "");
+        }
+      }
+
+      async function runCaxLive(feedbackPayload) {
+        const btn = document.getElementById("btnRunCaxLive");
+        const orig = btn.textContent;
+        btn.textContent = "Running CAX Auction + Bedrock...";
+        const turnsRaw = document.getElementById("caxTurnsInput").value;
+        const turns = turnsRaw.split(/\r?\n/).map(function(x) { return x.trim(); }).filter(Boolean);
+        const tau = Number(document.getElementById("caxTauSlider").value || 0.58);
+        const caller = document.getElementById("caxCallerSelect").value;
+        try {
+          const payload = { turns: turns, tau_rel: tau, caller_type: caller, use_bedrock: true };
+          if (feedbackPayload) payload.expert_feedback = feedbackPayload;
+          const res = await apiFetch("/api/cax/recommend", "POST", payload);
+          state.caxData = res;
+          renderCaxSection();
+        } catch (_) {
+          renderCaxSection();
+        } finally {
+          btn.textContent = orig;
+        }
+      }
+
+      document.querySelectorAll("#caxPresetBtns button").forEach(function(btn) {
+        btn.addEventListener("click", function() {
+          const pid = btn.getAttribute("data-cax-preset");
+          const presets = (state.caxData && state.caxData.presets) || (SEED.default_cax && SEED.default_cax.presets) || [];
+          const found = presets.find(function(p) { return p.id === pid; });
+          if (found) {
+            document.getElementById("caxTurnsInput").value = found.turns.join("\n");
+            document.getElementById("caxTauSlider").value = String(found.tau_rel_default || 0.58);
+            document.getElementById("caxTauBadge").textContent = Number(found.tau_rel_default || 0.58).toFixed(2);
+          }
+          runCaxLive(null);
+        });
+      });
+
+      document.getElementById("caxTauSlider").addEventListener("input", function(e) {
+        document.getElementById("caxTauBadge").textContent = Number(e.target.value).toFixed(2);
+      });
+      document.getElementById("caxTauSlider").addEventListener("change", function() { runCaxLive(null); });
+      document.getElementById("btnRunCaxLive").addEventListener("click", function() { runCaxLive(null); });
+      document.getElementById("btnSendLinUcbFeedback").addEventListener("click", function() {
+        const curArm = (state.caxData && state.caxData.linucb_policy && state.caxData.linucb_policy.selected_arm && state.caxData.linucb_policy.selected_arm.arm_id) || "spec_comparison";
+        runCaxLive({ arm_id: curArm, reward: 1.0 });
+      });
+
+      function renderOffsearchSection() {
+        const d = state.offsearchData || {};
+        const ads = d.carousel_ads || [];
+        const pruned = d.pruned_incompatible_or_redundant || [];
+        const cup = d.cuped_experiment || {};
+
+        const hdr = document.getElementById("offsearchPolicyHeader");
+        if (hdr) hdr.textContent = d.routing_policy || "Cleared Off-Search Carousel";
+
+        const cWrap = document.getElementById("offsearchCarouselWrap");
+        if (cWrap) {
+          cWrap.innerHTML = ads.map(function(ad) {
+            const isComp = ad.relationship === "complement";
+            return '<div style="border:2px solid var(--border); background:var(--bg-card); padding:0.68rem 0.85rem; margin-bottom:0.55rem;">' +
+              '<div style="display:flex; justify-content:space-between; align-items:center; gap:0.4rem; flex-wrap:wrap;">' +
+                '<span class="tag ' + (isComp ? "tag-pass" : "tag-blue") + '">SLOT #' + ad.slot_number + ' · ' + esc(ad.relationship.toUpperCase()) + ' (' + esc(ad.complement_role) + ')</span>' +
+                '<span class="mono" style="font-size:0.72rem; font-weight:700;">$' + Number(ad.price).toFixed(2) + ' · GSP CPC $' + Number(ad.clearing_cpc).toFixed(2) + '</span>' +
+              '</div>' +
+              '<div style="font-weight:800; font-size:0.9rem; margin-top:0.28rem;">' + esc(ad.title) + '</div>' +
+              '<div class="mono" style="font-size:0.68rem; color:var(--ink-muted); margin-top:0.2rem;">Co-Buy Affinity ' + Number(ad.co_buy_score).toFixed(2) + ' · pCTR ' + ad.p_ctr_pct + '% · pCVR ' + ad.p_cvr_pct + '%</div>' +
+            '</div>';
+          }).join("");
+        }
+
+        const pCnt = document.getElementById("offsearchPrunedCount");
+        if (pCnt) pCnt.textContent = pruned.length + " Blocked";
+
+        const pWrap = document.getElementById("offsearchPrunedWrap");
+        if (pWrap) {
+          pWrap.innerHTML = pruned.map(function(p) {
+            return '<div style="border:1.5px solid var(--border); background:var(--bg-paper); padding:0.5rem 0.7rem;">' +
+              '<div style="display:flex; justify-content:space-between; gap:0.4rem; flex-wrap:wrap;">' +
+                '<strong style="font-size:0.8rem;">' + esc(p.title) + ' (Bid $' + Number(p.raw_bid).toFixed(2) + ')</strong>' +
+                '<span class="tag tag-fail">' + esc(p.reason_code.replace(/_/g, " ")) + '</span>' +
+              '</div>' +
+              '<div class="mono" style="font-size:0.67rem; color:var(--ink-muted); margin-top:0.18rem;">' + esc(p.detail) + '</div>' +
+            '</div>';
+          }).join("");
+        }
+
+        const cupCard = document.getElementById("cupedSummaryCard");
+        if (cupCard && cup.theta != null) {
+          document.getElementById("cupedVarTag").textContent = "-" + cup.variance_reduction_pct + "% CUPED VARIANCE (" + cup.effective_sample_size_multiplier + "x SPEED)";
+          cupCard.innerHTML =
+            '<div class="mono" style="font-size:0.71rem; font-weight:700; margin-bottom:0.35rem;">CUPED ONLINE A/B EXPERIMENT (N = ' + (cup.sample_size_per_arm * 2) + ' SHOPPER SESSIONS)</div>' +
+            '<div class="mono" style="font-size:0.72rem; line-height:1.6;">' +
+              '• Optimal Covariate Weight: <strong>theta = Cov(Y, X_pre) / Var(X_pre) = ' + cup.theta + '</strong> (r = ' + cup.pre_post_correlation_r + ')<br/>' +
+              '• Raw Diff-in-Means SE: ±$' + cup.raw_se + ' (p = ' + cup.raw_p_value + ') -> <strong>CUPED SE: ±$' + cup.cuped_se + ' (p = ' + cup.cuped_p_value + ')</strong><br/>' +
+              '• Measured Ad RPM Lift: <strong>+' + cup.cuped_lift_pct + '%</strong> (95% CI [+$' + cup.cuped_ci95_low + ', +$' + cup.cuped_ci95_high + '])' +
+            '</div>';
+        }
+      }
+
+      async function refreshOffsearchLive() {
+        const anchorId = document.getElementById("offsearchAnchorSelect").value;
+        try {
+          const res = await apiFetch("/api/offsearch/pdp", "POST", {
+            anchor_id: anchorId,
+            shopper_stage: state.offsearchStage
+          });
+          state.offsearchData = res;
+          renderOffsearchSection();
+        } catch (_) {
+          renderOffsearchSection();
+        }
+      }
+
+      document.getElementById("offsearchAnchorSelect").addEventListener("change", refreshOffsearchLive);
+      document.getElementById("btnRunOffsearchLive").addEventListener("click", refreshOffsearchLive);
+      document.querySelectorAll("#offsearchStageBtns button").forEach(function(btn) {
+        btn.addEventListener("click", function() {
+          state.offsearchStage = btn.getAttribute("data-os-stage");
+          document.querySelectorAll("#offsearchStageBtns button").forEach(function(b) {
+            b.className = "btn " + (b === btn ? "btn-accent" : "btn-secondary");
+          });
+          refreshOffsearchLive();
+        });
+      });
+
+      window.runPalLive = async function(driftMode, evacuateFlag) {
+        state.palDriftMode = driftMode;
+        state.palEvacuate = Boolean(evacuateFlag);
+        document.getElementById("btnPalSteady").className = "btn " + (driftMode === "none" && !evacuateFlag ? "btn-accent" : "btn-secondary");
+        document.getElementById("btnPalDrift").className = "btn " + (driftMode === "flash_sale_surge" ? "btn-accent" : "btn-secondary");
+        document.getElementById("btnPalEvacuate").className = "btn " + (evacuateFlag ? "btn-accent" : "btn-secondary");
+        try {
+          const res = await apiFetch("/api/pal/calibrate", "POST", {
+            drift_mode: driftMode,
+            n_cells: 8,
+            shard_k: 2,
+            auto_evacuate_quarantine: evacuateFlag
+          });
+          state.palHaData = res;
+          renderPalHaSection();
+        } catch (_) {
+          renderPalHaSection();
+        }
+      };
+
+      function renderPalHaSection() {
+        const root = state.palHaData || {};
+        const pal = root.pal_calibration || {};
+        const ha = root.shuffle_sharding || {};
+        const models = pal.models || {};
+        const curves = pal.reliability_curves || {};
+        const mN = models.naive_position_blind || {};
+        const mP = models.pal_platt_scaled || {};
+        const mI = models.pal_isotonic_calibrated || {};
+
+        // 10-Bin Reliability SVG Plot
+        const cN = curves.naive_position_blind || [];
+        const cI = curves.pal_isotonic_calibrated || [];
+        const svgEl = document.getElementById("palReliabilitySvg");
+        if (svgEl && cI.length) {
+          const isDark = state.activeTheme === "dark";
+          const gridStroke = isDark ? "#2E343B" : "#D6D0C4";
+          const mutedInk = isDark ? "#A1A1AA" : "#52514E";
+          const W = 520, H = 195, pL = 42, pR = 18, pT = 16, pB = 28;
+          const pW = W - pL - pR, pH = H - pT - pB;
+          const maxPct = Math.max(36, ...cN.concat(cI).map(function(b) { return Math.max(b.mean_predicted_pct || 0, b.empirical_ctr_pct || 0); }));
+          const xAt = function(v) { return pL + (Math.min(maxPct, v) / maxPct) * pW; };
+          const yAt = function(v) { return pT + pH - (Math.min(maxPct, v) / maxPct) * pH; };
+          const polyPts = function(arr) {
+            return arr.map(function(b) { return xAt(b.mean_predicted_pct).toFixed(1) + "," + yAt(b.empirical_ctr_pct).toFixed(1); }).join(" ");
+          };
+          svgEl.innerHTML =
+            '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="PAL Reliability Calibration Curve">' +
+              '<line x1="' + pL + '" y1="' + yAt(0).toFixed(1) + '" x2="' + xAt(maxPct).toFixed(1) + '" y2="' + yAt(maxPct).toFixed(1) + '" stroke="' + gridStroke + '" stroke-width="2" stroke-dasharray="4 4"/>' +
+              '<polyline fill="none" stroke="#DC2626" stroke-width="2.6" stroke-dasharray="5 3" points="' + polyPts(cN) + '"/>' +
+              '<polyline fill="none" stroke="#059669" stroke-width="3.2" points="' + polyPts(cI) + '"/>' +
+              '<text x="' + (W / 2) + '" y="' + (H - 6) + '" text-anchor="middle" font-family="Martian Mono, monospace" font-size="9" fill="' + mutedInk + '">Mean Predicted pCTR (%) vs Empirical Click Rate (%) · Diagonal = Perfect COPC 1.00</text>' +
+            '</svg>';
+        }
+
+        const tblEl = document.getElementById("palMetricsTableWrap");
+        if (tblEl && mI.log_loss != null) {
+          tblEl.innerHTML =
+            '<table>' +
+              '<thead><tr><th>Response Model</th><th>LogLoss</th><th>RIG (%)</th><th>ECE</th><th>COPC (pred/clicks)</th></tr></thead>' +
+              '<tbody>' +
+                '<tr><td>Naive Position-Blind</td><td class="mono">' + mN.log_loss + '</td><td class="mono">' + mN.rig_pct + '%</td><td class="mono">' + mN.ece + '</td><td class="mono" style="color:var(--fail);">' + mN.copc + '</td></tr>' +
+                '<tr><td>PAL + Platt Scaling</td><td class="mono">' + mP.log_loss + '</td><td class="mono">' + mP.rig_pct + '%</td><td class="mono">' + mP.ece + '</td><td class="mono">' + mP.copc + '</td></tr>' +
+                '<tr style="background:var(--pass-soft); font-weight:700;"><td>PAL + PAV Isotonic ★</td><td class="mono">' + mI.log_loss + '</td><td class="mono" style="color:var(--pass);">' + mI.rig_pct + '%</td><td class="mono" style="color:var(--pass);">' + mI.ece + '</td><td class="mono" style="color:var(--pass);">' + mI.copc + '</td></tr>' +
+              '</tbody>' +
+            '</table>';
+        }
+
+        const blastBadge = document.getElementById("shuffleBlastBadge");
+        if (blastBadge && ha.shuffle_sharding_blast_radius_pct != null) {
+          blastBadge.textContent = ha.shuffle_sharding_blast_radius_pct + "% Blast Radius (" + ha.virtual_shards + " Shards)";
+        }
+
+        const gridEl = document.getElementById("shuffleCellsGrid");
+        if (gridEl && ha.cells) {
+          gridEl.innerHTML = ha.cells.map(function(cell) {
+            const bad = cell.status !== "HEALTHY";
+            return '<div style="border:2px solid var(--border); background:' + (bad ? "var(--fail-soft)" : "var(--bg-paper)") + '; padding:0.5rem 0.68rem;">' +
+              '<div style="display:flex; justify-content:space-between; align-items:center;">' +
+                '<strong class="mono" style="font-size:0.74rem;">' + esc(cell.cell_id) + ' (' + esc(cell.az) + ')</strong>' +
+                '<span class="tag ' + (bad ? "tag-fail" : "tag-pass") + '">' + (bad ? "SATURATED" : "HEALTHY") + '</span>' +
+              '</div>' +
+              '<div class="mono" style="font-size:0.67rem; color:var(--ink-muted); margin-top:0.18rem;">p99 ' + cell.p99_latency_ms + ' ms · CPU ' + cell.cpu_utilization_pct + '%</div>' +
+            '</div>';
+          }).join("");
+        }
+
+        const mathEl = document.getElementById("shuffleMathCallout");
+        if (mathEl && ha.virtual_shards) {
+          mathEl.innerHTML =
+            '<strong>Combinatorial Fault Isolation:</strong> Assigning each advertiser <code>k = ' + ha.shard_k + '</code> of <code>N = ' + ha.n_cells + '</code> multi-AZ cells creates <code>C(8, 2) = ' + ha.virtual_shards + '</code> virtual shards. ' +
+            'When <code>' + esc(ha.noisy_tenant_id) + '</code> floods <code>' + esc((ha.poisoned_cells || []).join(" + ")) + '</code>, <strong>' + ha.zero_overlap_tenants + '</strong> co-tenants share 0 cells, <strong>' + ha.failover_rescued_tenants + '</strong> fail over cleanly via their healthy 2nd cell, and only <strong>' + ha.impacted_tenants + '/' + ha.co_tenants_evaluated + ' (' + ha.shuffle_sharding_blast_radius_pct + '%)</strong> experience impact (down from 100.0% on a shared fleet).';
+        }
+      }
+
       // =====================================================================
       // LIVE CLOUDFRONT /api/health & /api/bootstrap HYDRATION
       // =====================================================================
@@ -2968,7 +3536,13 @@
             state.storefrontData = boot.default_storefront;
             state.pacingData = boot.default_pacing;
             state.sellerCampaigns = boot.seller_campaigns || state.sellerCampaigns;
+            if (boot.default_cax) state.caxData = boot.default_cax;
+            if (boot.default_offsearch) state.offsearchData = boot.default_offsearch;
+            if (boot.default_pal_ha) state.palHaData = boot.default_pal_ha;
             renderStorefrontTab();
+            renderCaxSection();
+            renderOffsearchSection();
+            renderPalHaSection();
             renderPacingCharts();
             renderOpeTab();
             renderSellerCampaignList();
@@ -3000,7 +3574,7 @@
           plane: "Plane ① · AWS Edge Delivery",
           title: "Private Amazon S3 Bucket with Origin Access Control (OAC)",
           module: "s3://adpulse-web-796330847946-us-west-2/index.html",
-          summary: "Stores static UI assets with S3 BlockPublicAccess enabled on all 4 flags—only CloudFront distribution E79KI4V15IVRU can fetch objects via IAM service-principal policy.",
+          summary: "Stores static UI assets with S3 BlockPublicAccess enabled on all 4 flags-only CloudFront distribution E79KI4V15IVRU can fetch objects via IAM service-principal policy.",
           metric: "0 Public S3 ACLs · $0 Idle Compute Cost"
         },
         "ap-lambda": {
@@ -3022,7 +3596,7 @@
           title: "Empirical-Bayes Beta-Binomial pCTR × pCVR Ranker",
           module: "adpulse/catalog_ranker.py :: _calibrated_rate() & rank_query()",
           summary: "Shrinks noisy cold-start click and conversion counts toward category Beta priors modulated by hourly shopper purchase-intent multipliers (0.52x morning browse vs 1.82x Prime evening peak).",
-          metric: "NDCG@3: 0.2020 → 0.8331 (+312.43%) · 0.266ms p50 / 0.430ms p99"
+          metric: "NDCG@3: 0.2020 → 0.8331 (+312.43%) · 0.158ms p50 / 0.217ms p99"
         },
         "ap-conv-unit": {
           plane: "Plane ② · Two-Stage Catalog Retrieval & Calibration",
@@ -3042,7 +3616,7 @@
           plane: "Plane ③ · GSP Clearinghouse & 24h Lagrangian PID Pacer",
           title: "3-Slot Generalized Second-Price (GSP) Clearinghouse",
           module: "adpulse/auction_pacer.py & catalog_ranker.py :: GSP Minimum-to-Beat",
-          summary: "Ranks shaded bidders by calibrated eCPM utility and charges each winning slot the exact minimum CPC required to outrank slot k+1 plus $0.01—cutting mean clearing CPC from $2.06 to $1.37.",
+          summary: "Ranks shaded bidders by calibrated eCPM utility and charges each winning slot the exact minimum CPC required to outrank slot k+1 plus $0.01-cutting mean clearing CPC from $2.06 to $1.37.",
           metric: "+68.0% Attributed Conversions (75 → 126) · 0 Cap Violations"
         },
         "ap-ope": {
@@ -3058,6 +3632,20 @@
           module: "adpulse/campaign_diagnostics.py · us.amazon.nova-lite-v1:0",
           summary: "Classifies lost impression share across 5 Seller Central failure archetypes, clamps recommended_bid <= price × pCVR × min(target_acos, gross_margin), and generates Spektr Apache Iceberg lineage SQL.",
           metric: "40/40 (100.0%) Root-Cause Accuracy · 100.0% ACoS Cap Safe"
+        },
+        "ap-v2-cax": {
+          plane: "Plane ⑥ · Conversational Ads (CAX) & Off-Search Experimentation",
+          title: "Multi-Turn CAX Relevance Floor, LinUCB & Off-Search CUPED",
+          module: "adpulse/cax_offsearch_pal.py :: ConversationalAdEngine & OffSearchPdpEngine",
+          summary: "Extracts cumulative shopper constraints across turns, enforces suppress_ad when semantic_relevance < tau_rel (0.58), selects framing via ridge-regression LinUCB, suppresses post-purchase durable repeats on Homepage, and cuts A/B test variance via CUPED.",
+          metric: "0.0% Support Leaks · +61.06% LinUCB · -58.27% CUPED Var"
+        },
+        "ap-v2-pal": {
+          plane: "Plane ⑦ · Ad Response Prediction (PAL) & Tier-1 Cellular HA",
+          title: "Position-Bias-Aware Learning (PAL) & C(8, 2) = 28 Shuffle Sharding",
+          module: "adpulse/cax_offsearch_pal.py :: PALClickCalibrator & ShuffleShardedCellRouter",
+          summary: "Trains factorized P(click | x, pos) = P(seen | pos) * P(click | x, seen) with Platt and PAV Isotonic calibration while isolating noisy-neighbor retry storms across 8 multi-AZ cells (k = 2 cells per tenant, 28 virtual shards).",
+          metric: "COPC 1.0016 · 8.01% RIG · 3.57% Blast Radius"
         }
       };
 
@@ -3166,6 +3754,9 @@
       renderOpeTab();
       renderSellerCampaignList();
       renderCopilotOutput(state.copilotData);
+      renderCaxSection();
+      renderOffsearchSection();
+      renderPalHaSection();
       hydrateLiveCloudFront();
     })();
   </script>

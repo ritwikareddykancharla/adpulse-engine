@@ -1,4 +1,4 @@
-"""AdPulse: Sponsored Catalog Ranking, GSP Budget Pacing, Off-Policy Evaluation & Seller Diagnostics."""
+"""AdPulse v2: Sponsored Search, Conversational Ads (CAX), Off-Search PDP, PAL Calibration & GSP Pacing."""
 
 from .catalog_ranker import (
     CatalogSKU,
@@ -38,8 +38,28 @@ from .campaign_diagnostics import (
     generate_diagnostic_scenarios,
     run_diagnostics_benchmark,
 )
+from .cax_offsearch_pal import (
+    CAX_DIALOGUE_PRESETS,
+    CAXBenchmarkReport,
+    CalibrationMetrics,
+    CUPEDExperimentSummary,
+    ConversationalAdEngine,
+    ConversationalConstraintState,
+    LinUCBContextualBandit,
+    OffSearchBenchmarkReport,
+    OffSearchPdpEngine,
+    PALAndHABenchmarkReport,
+    PALClickCalibrator,
+    ShuffleShardedCellRouter,
+    extract_dialogue_constraints,
+    run_cax_benchmark,
+    run_cuped_ab_analysis,
+    run_offsearch_benchmark,
+    run_pal_and_ha_benchmark,
+    verify_ad_copy_policy,
+)
 
-__version__ = "0.1.0"
+__version__ = "2.0.0"
 
 __all__ = [
     "__version__",
@@ -73,4 +93,22 @@ __all__ = [
     "DiagnosticsBenchmarkReport",
     "generate_diagnostic_scenarios",
     "run_diagnostics_benchmark",
+    "CAX_DIALOGUE_PRESETS",
+    "LinUCBContextualBandit",
+    "ConversationalConstraintState",
+    "ConversationalAdEngine",
+    "CAXBenchmarkReport",
+    "extract_dialogue_constraints",
+    "verify_ad_copy_policy",
+    "run_cax_benchmark",
+    "CUPEDExperimentSummary",
+    "OffSearchPdpEngine",
+    "OffSearchBenchmarkReport",
+    "run_cuped_ab_analysis",
+    "run_offsearch_benchmark",
+    "CalibrationMetrics",
+    "PALClickCalibrator",
+    "ShuffleShardedCellRouter",
+    "PALAndHABenchmarkReport",
+    "run_pal_and_ha_benchmark",
 ]

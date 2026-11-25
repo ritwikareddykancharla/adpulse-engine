@@ -1,6 +1,6 @@
 """AWS Lambda Function URL & Local HTTP Handler (`adpulse/aws_lambda_handler.py`).
 
-Zero-dependency stdlib handler compatible with AWS Lambda Function URLs (`us-west-2`,
+Pure Python HTTP handler compatible with AWS Lambda Function URLs (`us-west-2`,
 Payload Format v2.0 and v1.0):
   - `GET  /`            -> Interactive HTML overview or JSON index
   - `GET  /api/health`  -> Runtime health & subsystem inventory
@@ -157,6 +157,19 @@ def handler(event: Dict[str, Any], context: Any = None) -> Dict[str, Any]:
             return _json_response(result, status_code=200)
         except (ValueError, json.JSONDecodeError) as exc:
             return _json_response({"error": str(exc)}, status_code=400)
+
+    if path in (
+        "/api/cax/recommend",
+        "/api/offsearch/pdp",
+        "/api/pal/calibrate",
+        "/api/storefront/search",
+        "/api/pacing/simulate",
+        "/api/copilot/recommend",
+        "/api/bootstrap",
+    ):
+        from .web_api import lambda_handler as web_lambda_handler
+
+        return web_lambda_handler(event, context)
 
     return _json_response({"error": f"Route not found: {method} {path}"}, status_code=404)
 
