@@ -60,7 +60,7 @@
   <!-- Node 03B: AdPulse Core Engine -->
   <rect x="502" y="204" width="298" height="290" fill="#ffffff" stroke="#0e1a2b" stroke-width="1.5"/>
   <text x="518" y="227" font-family="'Martian Mono', monospace" font-size="9.5" fill="#d9480f" letter-spacing="1">03B · COMPUTE ORIGIN (US-WEST-2)</text>
-  <text x="518" y="248" font-size="16" font-weight="800" fill="#0e1a2b">adpulse-api-origin (Python 3.12)</text>
+  <text x="518" y="248" font-size="16" font-weight="800" fill="#0e1a2b">adpulse-api-origin (AWS Lambda)</text>
 
   <rect x="518" y="264" width="266" height="64" fill="#f2f5fa" stroke="#35527e" stroke-width="1.2"/>
   <text x="530" y="283" font-family="'Martian Mono', monospace" font-size="10" font-weight="500" fill="#35527e">STAGE 1+2 CATALOG RANKER (520 SKUs)</text>

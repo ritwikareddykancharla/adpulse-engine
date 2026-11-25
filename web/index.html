@@ -1362,7 +1362,7 @@
           <span class="section-kicker">02 · Architecture</span>
           <h2 class="section-title">Architecture</h2>
           <p class="section-desc">
-            Requests flow through CloudFront, S3, and Python 3.12 Lambda into two-stage catalog ranking, 3-slot GSP clearing with 24-hour PID pacing, Doubly-Robust off-policy evaluation, and Amazon Bedrock diagnostics. Click any node below to inspect its module, equations, and measured latency.
+            Requests flow through CloudFront, S3, and AWS Lambda into two-stage catalog ranking, 3-slot GSP clearing with 24-hour PID pacing, Doubly-Robust off-policy evaluation, and Amazon Bedrock diagnostics. Click any node below to inspect its module, equations, and measured latency.
           </p>
         </div>
       </div>
@@ -1436,7 +1436,7 @@
             <path d="M 646,100 Q 782,97 918,101 Q 921,127 917,152 Q 781,155 647,151 Q 643,126 646,100 Z" fill="#FFE8D6" />
             <path class="ex-stroke-main" d="M 646,100 Q 782,97 918,101 Q 921,127 917,152 Q 781,155 647,151 Q 643,126 646,100 Z" fill="none" stroke="#18181B" stroke-width="2" />
             <path d="M 649,103 Q 783,100 915,104 Q 917,127 914,149 Q 780,152 650,148 Z" fill="none" stroke="#18181B" stroke-width="1" opacity="0.6" />
-            <text x="782" y="123" text-anchor="middle" class="ex-hand" font-size="20" font-weight="700" fill="#18181B">AWS Lambda (Python 3.12)</text>
+            <text x="782" y="123" text-anchor="middle" class="ex-hand" font-size="20" font-weight="700" fill="#18181B">AWS Lambda</text>
             <text x="782" y="141" text-anchor="middle" class="ex-mono" font-size="9.3" fill="#9A3412">adpulse/web_api.py · /api/*</text>
           </g>
 
@@ -1846,7 +1846,7 @@
         </div>
         <div class="takeaway-card">
           <span class="tag tag-purple">PRINCIPLE 03 · MATH BOUNDS THE COPILOT</span>
-          <h3>Python Enforces the Profit Cap; Bedrock Writes the Memo</h3>
+          <h3>Hard Guardrails Enforce the Profit Cap; Bedrock Writes the Memo</h3>
           <p>
             Deterministic code computes exact <code>max_acos_cpc</code> ceilings and loss-bucket causes first, so Amazon Bedrock explains the fix and Iceberg SQL without ever recommending a money-losing bid.
           </p>
@@ -3567,7 +3567,7 @@ compare battery life and wind mic on the best options</textarea>
           plane: "Plane ① · AWS Edge Delivery",
           title: "Amazon CloudFront Global Edge Distribution (E79KI4V15IVRU)",
           module: "infra/deploy_cloudfront.sh · HTTPS TLS 1.3 + Origin Access Control",
-          summary: "Terminates HTTPS at the AWS edge, serves static storefront assets from private S3 via SigV4 Origin Access Control, and routes /api/* live auction & pacing requests to the Python 3.12 Lambda origin in us-west-2.",
+          summary: "Terminates HTTPS at the AWS edge, serves static storefront assets from private S3 via SigV4 Origin Access Control, and routes /api/* live auction & pacing requests to the AWS Lambda origin in us-west-2.",
           metric: "Distribution E79KI4V15IVRU · 100% HTTPS + OAC"
         },
         "ap-s3": {
@@ -3579,10 +3579,10 @@ compare battery life and wind mic on the best options</textarea>
         },
         "ap-lambda": {
           plane: "Plane ① · AWS Edge Delivery",
-          title: "Python 3.12 Serverless Auction & Pacing API Router",
+          title: "AWS Lambda Serverless Auction & Pacing API Router",
           module: "adpulse/web_api.py · adpulse/aws_lambda_handler.py (/api/storefront/search · /api/pacing/simulate · /api/copilot/recommend)",
           summary: "Executes sub-millisecond two-stage catalog ranking, 6,000-auction PID pacing simulations, 240x paired bootstrap Doubly-Robust OPE, and live Amazon Bedrock Nova Spektr diagnostics.",
-          metric: "Python 3.12 Serverless · 0 EC2 / 0 RDS Instances"
+          metric: "AWS Lambda Serverless · 0 EC2 / 0 RDS Instances"
         },
         "ap-stage1": {
           plane: "Plane ② · Two-Stage Catalog Retrieval & Calibration",
