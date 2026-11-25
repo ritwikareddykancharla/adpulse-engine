@@ -14,7 +14,7 @@
 
 1. **Live Storefront & Conversational Shopping Ad Slot Preview**:
    - Search with 1-click shopper queries (*"wireless anc running earbuds"*, *"4k usb-c monitor macbook"*, *"ergonomic mesh office chair"*, *"espresso grinder burr"*) or enter any custom query, and adjust **Hour of Day (`00:00` – `23:00`)** and **Daily Campaign Budget Cap**.
-   - Inspect **Winning Sponsored Slots `#1`, `#2`, `#3`** with calibrated Empirical-Bayes `pCTR`, hourly `pCVR`, `eCPM`, truthful **Second-Price GSP Clearing CPC**, `0.27 ms p50 / 0.43 ms p99` rank latency, plus the **Sponsored Conversational Shopping Unit** and the **`< 0.5 ms` Filtered Out Before Auction** drawer showing why out-of-stock, price-violating, or early-depleted SKUs were pruned.
+   - Inspect **Winning Sponsored Slots `#1`, `#2`, `#3`** with calibrated Empirical-Bayes `pCTR`, hourly `pCVR`, `eCPM`, truthful **Second-Price GSP Clearing CPC**, `0.266 ms p50 / 0.430 ms p99` rank latency, plus the **Sponsored Conversational Shopping Unit** and the **`< 0.5 ms` Filtered Out Before Auction** drawer showing why out-of-stock, price-violating, or early-depleted SKUs were pruned.
 2. **24-Hour PID Budget Pacing Curve & Doubly-Robust Bid Simulator**:
    - Compare **Unpaced Greedy Bidding** (`55.0%` of campaigns exhaust daily budget before the `18:00–22:00` Prime conversion peak) against **Lagrangian PID Bid Shading** (`+86.3%` ROAS, `0` pre-18:00 depletions, `0` budget cap violations), and test counterfactual bid multipliers (`0.55x` – `1.30x`) via **Doubly-Robust Off-Policy Evaluation** (`-66.03%` RMSE vs. Naive IPS) with 240x paired bootstrap 95% CIs.
 3. **Amazon Bedrock (`us.amazon.nova-lite-v1:0`) Seller Campaign & Spektr Iceberg Copilot**:

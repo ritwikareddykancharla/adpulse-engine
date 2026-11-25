@@ -7,7 +7,7 @@
   <meta name="description" content="Interactive Sponsored Search Auction &amp; Budget Pacing Studio: Two-Stage Catalog Retrieval &amp; Empirical-Bayes pCTR/pCVR Ranker, 3-Slot GSP Clearinghouse, 24-Hour Lagrangian PID Budget Pacer, Doubly-Robust Off-Policy Bid Evaluator, and Bedrock Nova Spektr Campaign Copilot." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&amp;family=Kalam:wght@400;700&amp;family=Martian+Mono:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg-paper: #FAF7F2;
@@ -23,6 +23,7 @@
       --shadow-sm: 2px 2px 0px #18181B;
       --dot-color: rgba(24, 24, 27, 0.13);
       --accent-main: #EA580C;
+      --accent-deep: #C2410C;
       --accent-ink: #FFFFFF;
       --accent-soft: #FFEDD5;
       --blue: #1D4ED8;
@@ -51,6 +52,7 @@
       --shadow-sm: 2px 2px 0px #000000;
       --dot-color: rgba(255, 255, 255, 0.08);
       --accent-main: #FB923C;
+      --accent-deep: #FDBA74;
       --accent-ink: #0E1113;
       --accent-soft: #431407;
       --blue: #60A5FA;
@@ -73,8 +75,112 @@
       background-image: radial-gradient(var(--dot-color) 1.25px, transparent 1.25px);
       background-size: 20px 20px;
       color: var(--ink);
-      line-height: 1.55;
-      padding-bottom: 4rem;
+      line-height: 1.68;
+      padding-bottom: 4.5rem;
+    }
+
+    /* Human-Readability & Deep-Dive Layout Components */
+    .plain-english-callout {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-left: 8px solid var(--accent-main);
+      box-shadow: var(--shadow);
+      padding: 1.45rem 1.6rem;
+      margin-bottom: 1.5rem;
+    }
+    .plain-english-callout h3 {
+      font-size: 1.12rem;
+      font-weight: 800;
+      margin-bottom: 0.55rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+    }
+    .plain-english-callout p {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 1.13rem;
+      line-height: 1.72;
+      color: var(--ink);
+      margin-bottom: 0.65rem;
+    }
+    .plain-english-callout p:last-child { margin-bottom: 0; }
+
+    .worked-example-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 1.5rem 1.6rem;
+      margin-top: 1.45rem;
+    }
+    .worked-stages {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    @media (max-width: 1024px) { .worked-stages { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .worked-stages { grid-template-columns: 1fr; } }
+    .worked-stage {
+      background: var(--bg-paper);
+      border: 2px solid var(--border);
+      padding: 1.05rem 1.1rem;
+      line-height: 1.65;
+      font-size: 0.88rem;
+    }
+    .worked-stage strong.stage-head {
+      display: block;
+      font-family: 'Martian Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent-deep);
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+    }
+
+    .dual-layer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 1.2rem;
+      margin-bottom: 1.45rem;
+    }
+    @media (max-width: 960px) { .dual-layer-grid { grid-template-columns: 1fr; } }
+    .intuition-card, .hood-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 1.35rem 1.45rem;
+      line-height: 1.68;
+    }
+    .intuition-card { border-top: 6px solid var(--pass); }
+    .hood-card { border-top: 6px solid var(--blue); }
+    .intuition-card h3, .hood-card h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin: 0.35rem 0 0.55rem;
+    }
+    .intuition-card p, .hood-card p {
+      font-size: 0.91rem;
+      color: var(--ink-muted);
+      line-height: 1.68;
+    }
+
+    .sandbox-guide-banner {
+      background: var(--bg-subtle);
+      border: 2px solid var(--border);
+      border-left: 6px solid var(--accent-main);
+      box-shadow: var(--shadow-sm);
+      padding: 1.05rem 1.25rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.68;
+      font-size: 0.9rem;
+    }
+    .sandbox-guide-banner strong.guide-title {
+      display: block;
+      font-family: 'Martian Mono', monospace;
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      margin-bottom: 0.35rem;
     }
 
     .serif { font-family: 'Newsreader', Georgia, serif; }
@@ -367,8 +473,321 @@
       font-weight: 700;
     }
 
-    /* Section & Walkthrough */
-    .section { padding: 2.2rem 0 0.6rem; }
+    /* Section, Sticky TOC & Architecture Canvas */
+    .section {
+      padding: 2.35rem 0 0.75rem;
+      scroll-margin-top: 132px;
+    }
+
+    .sticky-toc {
+      position: sticky;
+      top: 58px;
+      z-index: 95;
+      background: var(--bg-subtle);
+      border-bottom: 2px solid var(--border);
+      padding: 0.56rem 0;
+      box-shadow: 0 3px 0 rgba(24, 24, 27, 0.08);
+    }
+
+    .sticky-toc-inner {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      padding-bottom: 2px;
+    }
+
+    .toc-label {
+      font-family: 'Martian Mono', monospace;
+      font-size: 0.67rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      white-space: nowrap;
+      margin-right: 0.25rem;
+      letter-spacing: 0.03em;
+    }
+
+    .toc-chip {
+      font-family: 'Martian Mono', monospace;
+      font-size: 0.71rem;
+      font-weight: 700;
+      padding: 0.35rem 0.66rem;
+      border: 2px solid var(--border);
+      background: var(--bg-card);
+      color: var(--ink);
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.1s ease, background 0.14s ease, color 0.14s ease;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .toc-chip:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: var(--shadow);
+    }
+
+    .toc-chip.active, .nav-pill.active {
+      background: var(--accent-main) !important;
+      color: var(--accent-ink) !important;
+      border-color: var(--border);
+    }
+
+    .section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'Martian Mono', monospace;
+      font-size: 0.71rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.2rem 0.58rem;
+      background: var(--accent-main);
+      color: var(--accent-ink);
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 0.55rem;
+    }
+
+    .role-alignment-banner {
+      background: var(--bg-subtle);
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      padding: 0.9rem 1.15rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.15rem;
+      margin-bottom: 1.2rem;
+    }
+    @media (max-width: 980px) {
+      .problem-grid { grid-template-columns: 1fr; }
+    }
+
+    .problem-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-top: 6px solid var(--accent-main);
+    }
+
+    .problem-card h3 {
+      font-size: 1.06rem;
+      font-weight: 800;
+      margin: 0.45rem 0 0.55rem;
+      line-height: 1.28;
+    }
+
+    .problem-card p {
+      font-size: 0.89rem;
+      color: var(--ink-muted);
+      line-height: 1.65;
+      margin-bottom: 0.85rem;
+    }
+
+    .problem-stat {
+      font-family: 'Martian Mono', monospace;
+      font-size: 0.71rem;
+      font-weight: 700;
+      padding: 0.45rem 0.65rem;
+      background: var(--fail-soft);
+      color: var(--fail);
+      border: 1.5px solid var(--border);
+    }
+
+    .excalidraw-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      padding: 0.7rem 0.95rem;
+      background: var(--bg-subtle);
+      border: 2px solid var(--border);
+      border-bottom: none;
+    }
+
+    .excalidraw-viewport {
+      background-color: #FFFFFF;
+      background-image: radial-gradient(rgba(24, 24, 27, 0.14) 1px, transparent 1px);
+      background-size: 18px 18px;
+      border: 2px solid #18181B;
+      box-shadow: 4px 4px 0px #18181B;
+      overflow-x: auto;
+      padding: 0.9rem;
+    }
+
+    .excalidraw-svg {
+      display: block;
+      width: 100%;
+      min-width: 980px;
+      height: auto;
+      transition: width 0.22s ease, min-width 0.22s ease;
+    }
+
+    .excalidraw-svg.zoom-125 {
+      width: 125%;
+      min-width: 1225px;
+    }
+
+    .ex-hand { font-family: 'Caveat', 'Kalam', cursive; }
+    .ex-mono { font-family: 'Martian Mono', monospace; }
+
+    .ex-node {
+      cursor: pointer;
+      transition: filter 0.15s ease;
+    }
+
+    .ex-node:hover {
+      filter: drop-shadow(3px 3px 0px #EA580C);
+    }
+
+    .ex-node.selected .ex-stroke-main {
+      stroke: #EA580C !important;
+      stroke-width: 3.2px !important;
+    }
+
+    .arch-inspector {
+      margin-top: 1rem;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 1.05rem 1.2rem;
+    }
+
+    .arch-node-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .arch-node-pill {
+      font-family: 'Martian Mono', monospace;
+      font-size: 0.69rem;
+      font-weight: 700;
+      padding: 0.26rem 0.58rem;
+      border: 1.5px solid var(--border);
+      background: var(--bg-subtle);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .arch-node-pill.active {
+      background: var(--accent-main);
+      color: var(--accent-ink);
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+      margin-bottom: 1.2rem;
+    }
+    @media (max-width: 960px) {
+      .module-grid { grid-template-columns: 1fr; }
+    }
+
+    .module-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .module-card-head {
+      background: var(--bg-code);
+      color: var(--text-code);
+      padding: 0.72rem 1rem;
+      border-bottom: 2px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      font-family: 'Martian Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .module-card-body {
+      padding: 1.15rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      flex: 1;
+    }
+
+    .module-card-body h3 {
+      font-size: 1.06rem;
+      font-weight: 800;
+      line-height: 1.28;
+    }
+
+    .module-list {
+      padding-left: 1.15rem;
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+      line-height: 1.65;
+      display: flex;
+      flex-direction: column;
+      gap: 0.38rem;
+    }
+
+    .winner-col {
+      background: var(--accent-soft);
+      font-weight: 600;
+    }
+
+    .takeaway-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.15rem;
+      margin-top: 1.2rem;
+    }
+    @media (max-width: 980px) {
+      .takeaway-grid { grid-template-columns: 1fr; }
+    }
+
+    .takeaway-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 1.15rem;
+      border-left: 6px solid var(--accent-main);
+    }
+
+    .takeaway-card h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      margin: 0.35rem 0 0.45rem;
+    }
+
+    .takeaway-card p {
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+      line-height: 1.65;
+    }
+
+    .tag-soft { background: var(--bg-subtle); color: var(--ink); }
 
     .section-header {
       margin-bottom: 1.2rem;
@@ -758,14 +1177,15 @@
   <!-- Sticky Topbar -->
   <header class="topbar">
     <div class="container topbar-inner">
-      <a href="#storefront-gsp" class="brand">
+      <a href="#problem-statement" class="brand">
         <span class="brand-badge">ADPULSE v1.0</span>
         <span>AdPulse</span>
       </a>
       <nav class="nav-links" aria-label="Primary Navigation">
-        <a class="nav-pill" href="#how-it-works">How It Works</a>
-        <a class="nav-pill" href="#live-studio">4 Live Sandboxes</a>
-        <a class="nav-pill" href="#benchmarks" id="navBenchmarksLink">Benchmarks</a>
+        <a class="nav-pill" href="#problem-statement" data-nav-sec="problem-statement">Problem</a>
+        <a class="nav-pill" href="#architecture" data-nav-sec="architecture">Architecture</a>
+        <a class="nav-pill" href="#live-studio" data-nav-sec="live-studio">Interactive Studio</a>
+        <a class="nav-pill" href="#benchmarks" id="navBenchmarksLink" data-nav-sec="benchmarks">Benchmarks</a>
         <a class="nav-pill" href="https://d14kv31n2lrkoa.cloudfront.net" target="_blank" rel="noopener">VeriRAG ↗</a>
         <a class="nav-pill" href="https://d2x9ti2h7j9apb.cloudfront.net" target="_blank" rel="noopener">RouteLedger ↗</a>
         <a class="btn btn-obsidian" href="https://github.com/ritwikareddykancharla/adpulse-engine" target="_blank" rel="noopener">★ GitHub Repo</a>
@@ -775,6 +1195,19 @@
       </nav>
     </div>
   </header>
+
+  <!-- Sticky Jump-to-Section TOC -->
+  <nav class="sticky-toc" id="stickyToc" aria-label="Section Table of Contents">
+    <div class="container sticky-toc-inner">
+      <span class="toc-label">Jump To:</span>
+      <a href="#problem-statement" class="toc-chip active" data-toc-link="problem-statement">§01 · Problem Statement</a>
+      <a href="#architecture" class="toc-chip" data-toc-link="architecture">§02 · System Architecture</a>
+      <a href="#implementation" class="toc-chip" data-toc-link="implementation">§03 · Implementation</a>
+      <a href="#tradeoffs" class="toc-chip" data-toc-link="tradeoffs">§04 · Design Trade-Offs</a>
+      <a href="#live-studio" class="toc-chip" data-toc-link="live-studio">§05 · Interactive Studio</a>
+      <a href="#benchmarks" class="toc-chip" data-toc-link="benchmarks">§06 · Benchmarks</a>
+    </div>
+  </nav>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -798,32 +1231,32 @@
       </p>
 
       <div class="headline-pills">
-        <div class="headline-pill"><span>+312.4%</span> NDCG@3 Lift (0.833 vs 0.202 Lexical*Bid)</div>
+        <div class="headline-pill"><span>+312.4%</span> NDCG@3 Lift (0.2020 → 0.8331 · +332.9% Top-3 Recall)</div>
         <div class="headline-pill"><span>55.0% → 0.0%</span> Pre-18:00 Budget Burnout (+86.3% Advertiser ROAS)</div>
-        <div class="headline-pill"><span>-66.0%</span> Doubly-Robust RMSE vs Naive IPS (100% CI Coverage)</div>
-        <div class="headline-pill"><span>100.0%</span> ACoS Ceiling &amp; Out-of-Stock Guardrail Compliance</div>
+        <div class="headline-pill"><span>-66.03%</span> Doubly-Robust RMSE vs Naive IPS (100.0% 95% CI Coverage)</div>
+        <div class="headline-pill"><span>100.0%</span> ACoS Ceiling &amp; Out-of-Stock Guardrail Compliance (40/40)</div>
       </div>
 
       <div class="kpi-strip">
         <div class="card kpi-card">
-          <div class="kpi-val">2.38 ms</div>
-          <div class="kpi-label">p99 Auction &amp; Retrieval Latency</div>
-          <div class="kpi-sub">0.266 ms ranker p50 · 520-SKU catalog · 0.0% OOS leaks</div>
+          <div class="kpi-val">0.266 ms / 0.43 ms</div>
+          <div class="kpi-label">p50 / p99 Catalog Ranker Latency</div>
+          <div class="kpi-sub">500-SKU benchmark · 120 queries · 0.0% OOS &amp; price-cap leaks</div>
         </div>
         <div class="card kpi-card">
-          <div class="kpi-val">-82.4%</div>
-          <div class="kpi-label">24h Budget Pacing Error vs Greedy</div>
-          <div class="kpi-sub">0.0% early campaign burnout · 9.33x vs 5.01x ROAS</div>
+          <div class="kpi-val">+312.4%</div>
+          <div class="kpi-label">Sponsored NDCG@3 Lift</div>
+          <div class="kpi-sub">0.2020 → 0.8331 · +332.9% Top-3 Recall (0.1861 → 0.8056)</div>
         </div>
         <div class="card kpi-card">
-          <div class="kpi-val">+18.7%</div>
-          <div class="kpi-label">Attributed Conversions under Fixed Cap</div>
-          <div class="kpi-sub">+68.0% Prime evening peak conversions · 0 cap violations</div>
+          <div class="kpi-val">+86.3% ROAS</div>
+          <div class="kpi-label">24h Lagrangian PID Pacer Lift</div>
+          <div class="kpi-sub">5.01x → 9.33x ROAS · +68.0% Conv (75 → 126) · 55.0% → 0.0% Burnout</div>
         </div>
         <div class="card kpi-card">
-          <div class="kpi-val">-64.1%</div>
-          <div class="kpi-label">Off-Policy Counterfactual MSE</div>
-          <div class="kpi-sub">0.0564 DR RMSE vs 0.1661 Naive IPS · 240x bootstrap CI</div>
+          <div class="kpi-val">-66.03%</div>
+          <div class="kpi-label">Doubly-Robust OPE RMSE Reduction</div>
+          <div class="kpi-sub">0.1661 → 0.0564 RMSE · 100.0% 95% CI Coverage (40 trials)</div>
         </div>
       </div>
 
@@ -841,66 +1274,555 @@
     </div>
   </section>
 
-  <!-- How It Works (30-Second Visual Walkthrough) -->
-  <section id="how-it-works" class="section">
+  <!-- =================================================================== -->
+  <!-- §01 · PROBLEM STATEMENT                                             -->
+  <!-- =================================================================== -->
+  <section id="problem-statement" class="section" data-spy-section="problem-statement">
     <div class="container">
       <div class="section-header">
         <div>
-          <h2 class="section-title">How It Works (30-Second Visual Walkthrough)</h2>
+          <span class="section-kicker">§01 · Problem Statement</span>
+          <h2 class="section-title">Why Naive Sponsored Search Wastes Budgets Before Noon &amp; Breaks Shopper Trust</h2>
           <p class="section-desc">
-            Why naive <code>Lexical × RawBid</code> sponsored search wastes advertiser budgets by 11:00 AM and leaks out-of-stock SKUs—and how AdPulse fixes every stage.
+            Three coupled failure modes plague retail sponsored search when ad retrieval, auction clearing, 24-hour budget pacing, and counterfactual policy gating are built in silos.
           </p>
         </div>
-        <a href="architecture.svg" target="_blank" rel="noopener" class="btn btn-secondary">📐 View Architecture Diagram (SVG) ↗</a>
       </div>
 
-      <div class="summary-callout">
-        <strong>💡 Plain-English Summary:</strong>
-        <strong>(1) Hard Stage-1 Eligibility Gates:</strong> Before any auction runs, AdPulse prunes out-of-stock FBA SKUs, listings exceeding the shopper's price cap, and incomplete Spektr catalog schemas in under <code>0.15 ms</code>.
-        <strong>(2) Calibrated GSP + 24h PID Pacing:</strong> Surviving candidates are scored by Empirical-Bayes <code>pCTR × pCVR</code> utility and shaded by a dual Lagrangian PID multiplier <code>λ_t</code> so SMB budgets survive low-intent morning browse traffic and capture the <code>18:00–22:00</code> Prime conversion peak.
-        <strong>(3) Counterfactual Safety before Rollout:</strong> Candidate bid multipliers are stress-tested offline via Clipped IPS + Doubly-Robust OPE with paired bootstrap 95% confidence intervals, while Bedrock Nova generates ACoS-bounded seller optimizations.
+      <div class="plain-english-callout">
+        <h3><span>💡 In Plain English</span> <span class="tag tag-accent">Zero Jargon Summary</span></h3>
+        <p>
+          Imagine a small running-gear brand sets a <strong>$28/day</strong> ad budget for wireless earbuds. At 7:30 AM, thousands of commuters casually browse on their phones without buying (`0.54x` conversion intent). A naive ad engine bids full price (`$2.15`/click) on every morning click—burning through the entire $28 budget by <strong>11:00 AM</strong>. When ready-to-buy shoppers arrive at <strong>7:30 PM</strong> (`1.78x–1.82x` conversion peak), the seller's ad has vanished (`55.0%` of SMB campaigns burn out early in our 6,000-auction benchmark).
+        </p>
+        <p>
+          At the same time, ranking ads by simple <code>Keyword Match × Raw Bid</code> lets out-of-stock warehouse items (`15.28%` leak rate) and `$269` luxury headphones (`59.72%` price-cap violations) win top sponsored slots when a shopper explicitly asked for earbuds <em>under $160</em>. <strong>AdPulse</strong> solves all three layers together: hard pre-auction inventory &amp; price gates in `0.266 ms` p50, a 24-hour PID controller (`λ_t`) that shades morning bids to double ROAS (`5.01x → 9.33x`), and a Doubly-Robust counterfactual safety gate (`-66.03%` RMSE) before any new bidding rule touches live traffic.
+        </p>
       </div>
 
-      <div class="walkthrough-grid">
-        <div class="card walkthrough-card">
-          <span class="step-badge">STEP 01</span>
-          <h3>Stage-1 Eligibility &amp; Schema Gate</h3>
-          <p>
-            Blocks stale high-CPC bids on out-of-stock FBA SKUs (<code>15.3% → 0.0%</code>), enforces shopper price ceilings (<code>59.7% → 0.0%</code> violations), and validates Spektr Iceberg catalog attributes.
+      <div class="role-alignment-banner">
+        <div style="font-size:0.9rem;">
+          <strong>🎯 Retail Media Problem Space:</strong> Modeled on large-scale e-commerce Sponsored Products &amp; Conversational Shopping marketplaces (`500+20` SKUs, `40` SMB/Enterprise campaigns, `6,000` sequential GSP auctions, `48,000` logged OPE events).
+        </div>
+        <span class="tag tag-pass">Seed=42 Deterministic Suite · 100% Verified JSON</span>
+      </div>
+
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div>
+            <span class="step-badge">PROBLEM 01 · UNGUARDED LEXICAL × BID RANKING</span>
+            <h3>Stale Out-of-Stock Bids &amp; Over-Budget SKUs Win Top Slots</h3>
+            <p>
+              Scoring candidates purely by lexical token overlap times raw CPC bid allows depleted FBA SKUs with stale `$3.85–$4.04` bids and `$220+` items that violate a shopper's `$160` ceiling to capture Sponsored Slots #1–#3—destroying conversion rate (`1.90` conv / 1k queries) and shopper trust.
+            </p>
+          </div>
+          <div class="problem-stat">🛑 Baseline Leak: 15.28% Out-of-Stock · 59.72% Price-Cap Violations · 0.2020 NDCG@3</div>
+        </div>
+
+        <div class="problem-card">
+          <div>
+            <span class="step-badge">PROBLEM 02 · 11:00 AM GREEDY BUDGET BURNOUT</span>
+            <h3>Window-Shopping Morning Clicks Exhaust Daily SMB Caps</h3>
+            <p>
+              Retail traffic surges twice: low-CVR morning browse (`06:00–11:00`, `0.52x–0.74x` CVR) and high-CVR evening Prime purchase peak (`18:00–22:00`, `1.58x–1.82x` CVR). Unpaced greedy bidding (`λ_t = 1.0`) spends 61.7% of daily budgets by 11:00 AM, knocking out `22/40` campaigns before 18:00.
+            </p>
+          </div>
+          <div class="problem-stat">🔥 Baseline Burnout: 55.0% (22/40) Depleted Pre-18:00 · 5.01x ROAS · $2.06 Mean CPC</div>
+        </div>
+
+        <div class="problem-card">
+          <div>
+            <span class="step-badge">PROBLEM 03 · HIGH-VARIANCE OFF-POLICY BID GATING</span>
+            <h3>Naive IPS Explodes When Propensity Weights Skew (`w_max = 26.0`)</h3>
+            <p>
+              Deploying an untested bid-shading policy directly to live auctions risks millions in GMV, yet offline Inverse Propensity Scoring (IPS) suffers severe variance (`0.1661` RMSE, CI width `0.698`) whenever candidate bid multipliers diverge from historical logging propensities (`N_eff = 168.6 / 1,200`).
+            </p>
+          </div>
+          <div class="problem-stat">📉 Variance Risk: 0.1661 Naive IPS RMSE vs 0.0564 Doubly-Robust (-66.03% RMSE)</div>
+        </div>
+      </div>
+
+      <div class="worked-example-card">
+        <span class="step-badge">CONCRETE END-TO-END WORKED EXAMPLE · ONE SHOPPER AUCTION AT 19:00 PRIME PEAK</span>
+        <h3 style="font-size:1.14rem; font-weight:800; margin-bottom:0.45rem;">Tracing <code>"wireless anc running earbuds"</code> (Cap: <code>$160</code> · Hour: <code>19:00</code> · Daily Budget: <code>$28</code>)</h3>
+        <p style="font-size:0.92rem; color:var(--ink-muted); line-height:1.68;">
+          Follow the exact deterministic trace inside <code>adpulse/</code> when a marathon runner searches for sweatproof ANC earbuds under `$160` during the `19:00` Prime evening peak (`1.78x` hourly CVR multiplier):
+        </p>
+        <div class="worked-stages">
+          <div class="worked-stage">
+            <strong class="stage-head">Stage 1 · Hard Eligibility Gate (0.08 ms)</strong>
+            Inverted index retrieves candidate audio SKUs from the `520`-SKU catalog and immediately blocks `31` invalid listings <em>before</em> scoring: `15` out-of-stock FBA SKUs (including `SKU-0169` at `$4.04` bid &amp; `SKU-F105-OOS` at `$3.85`), `13` above the `$160` cap, and `3` missing Spektr schema attributes.
+          </div>
+          <div class="worked-stage">
+            <strong class="stage-head">Stage 2 · Empirical-Bayes Ranker (0.266 ms)</strong>
+            The `17` eligible SKUs are reranked using Beta-Binomial shrunk `pCTR` and hourly `pCVR` (`1.78x` peak lift). `SKU-F101` (Auralis AeroFit Pro, `$119.99`, `4.8★`) scores `7.49%` pCTR and `28.98%` pCVR, lifting catalog NDCG@3 from `0.2020 → 0.8331` (`+312.4%`).
+          </div>
+          <div class="worked-stage">
+            <strong class="stage-head">Stage 3 · PID Shader + GSP Clearing</strong>
+            Because Lagrangian PID multiplier `λ_t = 0.673` shaded morning clicks, `CMP-002` still has budget at `19:00`. Its `$2.15` base bid shades to `$1.45` and clears GSP Slot `#1` at truthful 2nd-price CPC **`$1.01`** (`53.1%` below raw bid, `$75.46` eCPM, `34.49x` expected ROAS).
+          </div>
+          <div class="worked-stage">
+            <strong class="stage-head">Stage 4 · DR OPE Gate &amp; Spektr Copilot</strong>
+            Before shipping `adaptive_pid`, Doubly-Robust OPE verifies `$2.319` value (`95% CI [$2.19, $2.46]`) against `$2.314` oracle truth (`SAFE_TO_DEPLOY`). Meanwhile, Bedrock Nova diagnoses seller loss modes while enforcing `recommended_bid <= max_acos_cpc` (`100.0%` compliance).
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================================================================== -->
+  <!-- §02 · SYSTEM ARCHITECTURE                                           -->
+  <!-- =================================================================== -->
+  <section id="architecture" class="section" data-spy-section="architecture">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-kicker">§02 · System Architecture</span>
+          <h2 class="section-title">Multi-Plane Sponsored Search, GSP Pacer &amp; Doubly-Robust Evaluation Topology</h2>
+          <p class="section-desc">
+            End-to-end serverless architecture across CloudFront (<code>E79KI4V15IVRU</code>) + Private S3 OAC + Python 3.12 Lambda, Two-Stage Catalog Ranking, 24h Lagrangian PID Pacing, Doubly-Robust OPE, and Bedrock Nova Spektr Diagnostics. <strong>Click any component node below to inspect its module, equations, and SLA invariants.</strong>
           </p>
         </div>
-        <div class="card walkthrough-card">
-          <span class="step-badge">STEP 02</span>
-          <h3>Empirical-Bayes Ranker &amp; GSP</h3>
-          <p>
-            Shrinks noisy cold-start CTR/CVR toward category priors and clears 3 Sponsored Slots via Generalized Second-Price (GSP) minimum-to-beat pricing plus organic baseline comparison.
+      </div>
+
+      <div class="excalidraw-toolbar">
+        <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+          <span class="mono" style="font-size:0.72rem; font-weight:700;">SYSTEM ARCHITECTURE · CLICK ANY COMPONENT TO INSPECT</span>
+          <span class="tag tag-soft" id="archZoomLabel">Zoom: 100%</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:0.45rem; flex-wrap:wrap;">
+          <button type="button" class="btn btn-accent" id="zoom100Btn" style="padding:0.32rem 0.65rem; font-size:0.76rem;">100%</button>
+          <button type="button" class="btn btn-secondary" id="zoom125Btn" style="padding:0.32rem 0.65rem; font-size:0.76rem;">125%</button>
+          <button type="button" class="btn btn-secondary" id="zoomResetBtn" style="padding:0.32rem 0.65rem; font-size:0.76rem;">↺ Reset</button>
+          <button type="button" class="btn btn-secondary" id="downloadArchSvgBtn" style="padding:0.32rem 0.65rem; font-size:0.76rem;">⬇ Export SVG</button>
+        </div>
+      </div>
+
+      <div class="excalidraw-viewport" id="archViewport">
+        <svg id="apArchSvg" class="excalidraw-svg" viewBox="0 0 1220 715" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AdPulse System Architecture Diagram">
+          <defs>
+            <pattern id="apDotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1" fill="#D4D4D8" />
+            </pattern>
+          </defs>
+          <rect x="0" y="0" width="1220" height="715" fill="#FFFFFF" />
+          <rect x="0" y="0" width="1220" height="715" fill="url(#apDotGrid)" opacity="0.65" />
+
+          <!-- PLANE 1: AWS EDGE DELIVERY -->
+          <path d="M 22,18 Q 610,14 1196,19 Q 1200,92 1195,164 Q 608,168 24,163 Q 19,90 22,18 Z" fill="#FAFAFA" stroke="#71717A" stroke-width="1.6" stroke-dasharray="8 6" />
+          <text x="36" y="40" class="ex-hand" font-size="21" font-weight="700" fill="#9A3412">① AWS Edge Delivery Plane (100% Serverless · 0 EC2 · 0 RDS)</text>
+
+          <g class="ex-node" data-arch-node="ap-browser" tabindex="0">
+            <path d="M 38,56 Q 140,53 242,57 Q 246,98 241,138 Q 139,141 39,137 Q 35,96 38,56 Z" fill="#FFEDD5" />
+            <path class="ex-stroke-main" d="M 38,56 Q 140,53 242,57 Q 246,98 241,138 Q 139,141 39,137 Q 35,96 38,56 Z" fill="none" stroke="#18181B" stroke-width="2.1" stroke-linejoin="round" />
+            <path d="M 41,59 Q 141,56 239,60 Q 242,98 238,135 Q 138,138 42,134 Q 38,96 41,59 Z" fill="none" stroke="#18181B" stroke-width="1.1" opacity="0.65" />
+            <text x="140" y="84" text-anchor="middle" class="ex-hand" font-size="22" font-weight="700" fill="#18181B">Shopper &amp; Seller UI</text>
+            <text x="140" y="105" text-anchor="middle" class="ex-mono" font-size="9.8" font-weight="600" fill="#9A3412">4-Tab Auction &amp; OPE Studio</text>
+            <text x="140" y="123" text-anchor="middle" class="ex-mono" font-size="9.3" fill="#3F3F46">location.hash · stateless URL</text>
+          </g>
+
+          <path d="M 245,97 Q 276,93 306,97" fill="none" stroke="#18181B" stroke-width="2.1" stroke-dasharray="6 4" stroke-linecap="round" />
+          <path d="M 297,91 L 308,97 L 297,103" fill="none" stroke="#18181B" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" />
+          <text x="276" y="86" text-anchor="middle" class="ex-hand" font-size="16" font-weight="700" fill="#18181B">HTTPS</text>
+
+          <g class="ex-node" data-arch-node="ap-cloudfront" tabindex="0">
+            <path d="M 312,56 Q 440,52 568,57 Q 572,98 567,138 Q 439,142 313,137 Q 309,96 312,56 Z" fill="#DBEAFE" />
+            <path class="ex-stroke-main" d="M 312,56 Q 440,52 568,57 Q 572,98 567,138 Q 439,142 313,137 Q 309,96 312,56 Z" fill="none" stroke="#18181B" stroke-width="2.1" stroke-linejoin="round" />
+            <path d="M 315,59 Q 441,55 565,60 Q 568,98 564,135 Q 438,139 316,134 Z" fill="none" stroke="#18181B" stroke-width="1.1" opacity="0.65" />
+            <text x="440" y="84" text-anchor="middle" class="ex-hand" font-size="22" font-weight="700" fill="#18181B">Amazon CloudFront</text>
+            <text x="440" y="105" text-anchor="middle" class="ex-mono" font-size="9.8" font-weight="600" fill="#1E40AF">TLS 1.3 · E79KI4V15IVRU</text>
+            <text x="440" y="123" text-anchor="middle" class="ex-mono" font-size="9.3" fill="#3F3F46">Routes /* static &amp; /api/*</text>
+          </g>
+
+          <path d="M 571,78 Q 606,66 640,66" fill="none" stroke="#18181B" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round" />
+          <path d="M 631,60 L 642,66 L 631,72" fill="none" stroke="#18181B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <text x="604" y="59" text-anchor="middle" class="ex-hand" font-size="15" font-weight="700" fill="#065F46">OAC GET</text>
+
+          <path d="M 571,116 Q 606,128 640,128" fill="none" stroke="#18181B" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round" />
+          <path d="M 631,122 L 642,128 L 631,134" fill="none" stroke="#18181B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <text x="604" y="145" text-anchor="middle" class="ex-hand" font-size="15" font-weight="700" fill="#9A3412">/api/*</text>
+
+          <g class="ex-node" data-arch-node="ap-s3" tabindex="0">
+            <path d="M 646,40 Q 782,37 918,41 Q 921,66 917,90 Q 781,93 647,89 Q 643,65 646,40 Z" fill="#DCFCE7" />
+            <path class="ex-stroke-main" d="M 646,40 Q 782,37 918,41 Q 921,66 917,90 Q 781,93 647,89 Q 643,65 646,40 Z" fill="none" stroke="#18181B" stroke-width="2" />
+            <path d="M 649,43 Q 783,40 915,44 Q 917,66 914,87 Q 780,90 650,86 Z" fill="none" stroke="#18181B" stroke-width="1" opacity="0.6" />
+            <text x="782" y="62" text-anchor="middle" class="ex-hand" font-size="20" font-weight="700" fill="#18181B">Private S3 Bucket (OAC)</text>
+            <text x="782" y="80" text-anchor="middle" class="ex-mono" font-size="9.3" fill="#065F46">adpulse-web-796330847946</text>
+          </g>
+
+          <g class="ex-node" data-arch-node="ap-lambda" tabindex="0">
+            <path d="M 646,100 Q 782,97 918,101 Q 921,127 917,152 Q 781,155 647,151 Q 643,126 646,100 Z" fill="#FFE8D6" />
+            <path class="ex-stroke-main" d="M 646,100 Q 782,97 918,101 Q 921,127 917,152 Q 781,155 647,151 Q 643,126 646,100 Z" fill="none" stroke="#18181B" stroke-width="2" />
+            <path d="M 649,103 Q 783,100 915,104 Q 917,127 914,149 Q 780,152 650,148 Z" fill="none" stroke="#18181B" stroke-width="1" opacity="0.6" />
+            <text x="782" y="123" text-anchor="middle" class="ex-hand" font-size="20" font-weight="700" fill="#18181B">AWS Lambda (Python 3.12)</text>
+            <text x="782" y="141" text-anchor="middle" class="ex-mono" font-size="9.3" fill="#9A3412">adpulse/web_api.py · /api/*</text>
+          </g>
+
+          <!-- Tilted Sticky Note -->
+          <g transform="rotate(-1.6 1060 95)">
+            <path d="M 938,38 L 1182,38 L 1182,136 L 1164,152 L 938,152 Z" fill="#FEF3C7" stroke="#18181B" stroke-width="2" />
+            <path d="M 1164,152 L 1164,136 L 1182,136" fill="#FDE68A" stroke="#18181B" stroke-width="1.6" />
+            <text x="952" y="64" class="ex-hand" font-size="19" font-weight="700" fill="#92400E">📌 Sticky Note: Verified Eval</text>
+            <text x="952" y="86" class="ex-hand" font-size="17" font-weight="600" fill="#18181B">• 0.266ms p50 / 0.43ms p99</text>
+            <text x="952" y="107" class="ex-hand" font-size="17" font-weight="600" fill="#18181B">• +312.4% NDCG · +86.3% ROAS</text>
+            <text x="952" y="129" class="ex-hand" font-size="17" font-weight="700" fill="#065F46">• -66.03% DR RMSE (100% CI)</text>
+          </g>
+
+          <!-- Dashed Arrow: Lambda -> Plane 2 -->
+          <path d="M 782,154 Q 765,176 595,192" fill="none" stroke="#18181B" stroke-width="2.1" stroke-dasharray="7 5" stroke-linecap="round" />
+          <path d="M 605,186 L 593,193 L 606,198" fill="none" stroke="#18181B" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" />
+          <text x="765" y="182" class="ex-hand" font-size="16" font-weight="700" fill="#18181B">Query + Price Cap + Hour</text>
+
+          <!-- PLANE 2: TWO-STAGE CATALOG RETRIEVAL & CALIBRATED RANKER -->
+          <path d="M 22,194 Q 610,190 1196,195 Q 1200,268 1195,340 Q 608,344 24,339 Q 19,267 22,194 Z" fill="#FFF7ED" stroke="#C2410C" stroke-width="1.6" stroke-dasharray="8 6" />
+          <text x="36" y="217" class="ex-hand" font-size="21" font-weight="700" fill="#9A3412">② Two-Stage Catalog Retrieval &amp; Empirical-Bayes Ranker (adpulse/catalog_ranker.py)</text>
+
+          <g class="ex-node selected" data-arch-node="ap-stage1" tabindex="0">
+            <path d="M 38,232 Q 222,228 406,233 Q 410,279 405,324 Q 221,328 39,323 Q 35,278 38,232 Z" fill="#FEE2E2" />
+            <path class="ex-stroke-main" d="M 38,232 Q 222,228 406,233 Q 410,279 405,324 Q 221,328 39,323 Q 35,278 38,232 Z" fill="none" stroke="#18181B" stroke-width="2.1" />
+            <path d="M 41,235 Q 223,231 403,236 Q 406,279 402,321 Q 220,325 42,320 Z" fill="none" stroke="#18181B" stroke-width="1" opacity="0.6" />
+            <text x="222" y="259" text-anchor="middle" class="ex-hand" font-size="20" font-weight="700" fill="#991B1B">Stage-1 Eligibility &amp; OOS Gate</text>
+            <text x="222" y="281" text-anchor="middle" class="ex-mono" font-size="9.3" font-weight="700" fill="#18181B">Inverted Index + Price Cap + FBA Stock</text>
+            <text x="222" y="302" text-anchor="middle" class="ex-mono" font-size="9.1" fill="#DC2626">0.0% OOS (down from 15.28%) · 0.0% Over-Cap</text>
+          </g>
+
+          <path d="M 410,278 L 456,278" fill="none" stroke="#18181B" stroke-width="2.1" stroke-dasharray="6 4" />
+          <path d="M 447,272 L 458,278 L 447,284" fill="none" stroke="#18181B" stroke-width="2.1" />
+
+          <g class="ex-node" data-arch-node="ap-bayes" tabindex="0">
+            <path d="M 462,232 Q 652,228 842,233 Q 846,279 841,324 Q 651,328 463,323 Q 459,278 462,232 Z" fill="#DBEAFE" />
+            <path class="ex-stroke-main" d="M 462,232 Q 652,228 842,233 Q 846,279 841,324 Q 651,328 463,323 Q 459,278 462,232 Z" fill="none" stroke="#18181B" stroke-width="2.1" />
+            <path d="M 465,235 Q 653,231 839,236 Q 842,279 838,321 Q 650,325 466,320 Z" fill="none" stroke="#18181B" stroke-width="1" opacity="0.6" />
+            <text x="652" y="259" text-anchor="middle" class="ex-hand" font-size="20" font-weight="700" fill="#1E40AF">Empirical-Bayes pCTR × pCVR</text>
+            <text x="652" y="281" text-anchor="middle" class="ex-mono" font-size="9.3" font-weight="700" fill="#18181B">Beta-Binomial Shrinkage + Hourly Intent</text>
+            <text x="652" y="302" text-anchor="middle" class="ex-mono" font-size="9.1" fill="#1D4ED8">NDCG@3: 0.2020 → 0.8331 (+312.43%)</text>
+          </g>
+
+          <path d="M 846,278 L 892,278" fill="none" stroke="#18181B" stroke-width="2.1" stroke-dasharray="6 4" />
+          <path d="M 883,272 L 894,278 L 883,284" fill="none" stroke="#18181B" stroke-width="2.1" />
+
+          <g class="ex-node" data-arch-node="ap-conv-unit" tabindex="0">
+            <path d="M 898,232 Q 1038,229 1178,233 Q 1181,279 1177,324 Q 1037,328 899,323 Q 895,278 898,232 Z" fill="#F3E8FF" />
+            <path class="ex-stroke-main" d="M 898,232 Q 1038,229 1178,233 Q 1181,279 1177,324 Q 1037,328 899,323 Q 895,278 898,232 Z" fill="none" stroke="#18181B" stroke-width="2.1" />
+            <path d="M 901,235 Q 1039,232 1175,236 Q 1177,279 1174,321 Q 1036,325 902,320 Z" fill="none" stroke="#18181B" stroke-width="1" opacity="0.6" />
+            <text x="1038" y="259" text-anchor="middle" class="ex-hand" font-size="20" font-weight="700" fill="#5B21B6">Conversational Ad Slot</text>
+            <text x="1038" y="281" text-anchor="middle" class="ex-mono" font-size="9.3" font-weight="700" fill="#18181B">Spec-Verified In-Stock Pick</text>
+            <text x="1038" y="302" text-anchor="middle" class="ex-mono" font-size="9.1" fill="#6D28D9">0.266ms p50 / 0.430ms p99</text>
+          </g>
+
+          <!-- Arrows Plane 2 -> Plane 3 -->
+          <path d="M 652,340 Q 490,364 360,384" fill="none" stroke="#18181B" stroke-width="2.1" stroke-dasharray="6 4" stroke-linecap="round" />
+          <path d="M 370,377 L 358,385 L 371,389" fill="none" stroke="#18181B" stroke-width="2" />
+          <text x="515" y="368" class="ex-hand" font-size="16" font-weight="700" fill="#065F46">Top-40 Stage-2 Candidates</text>
+
+          <!-- PLANE 3: GSP CLEARINGHOUSE & 24H LAGRANGIAN PID PACER -->
+          <path d="M 22,382 Q 610,378 1196,383 Q 1200,452 1195,522 Q 608,526 24,521 Q 19,451 22,382 Z" fill="#F0FDF4" stroke="#065F46" stroke-width="1.6" stroke-dasharray="8 6" />
+          <text x="36" y="405" class="ex-hand" font-size="21" font-weight="700" fill="#065F46">③ Auction &amp; Budget Control Plane — Lagrangian PID Bid Shader (λ_t) + 3-Slot GSP Clearinghouse</text>
+
+          <g class="ex-node" data-arch-node="ap-pid" tabindex="0">
+            <path d="M 40,416 Q 302,412 564,417 Q 568,463 563,508 Q 301,512 41,507 Q 37,462 40,416 Z" fill="#DCFCE7" />
+            <path class="ex-stroke-main" d="M 40,416 Q 302,412 564,417 Q 568,463 563,508 Q 301,512 41,507 Q 37,462 40,416 Z" fill="none" stroke="#18181B" stroke-width="2.2" />
+            <path d="M 43,419 Q 303,416 561,420 Q 564,463 560,505 Q 300,509 44,504 Z" fill="none" stroke="#18181B" stroke-width="1.1" opacity="0.65" />
+            <text x="302" y="442" text-anchor="middle" class="ex-hand" font-size="21" font-weight="700" fill="#065F46">24h Lagrangian PID Bid Shader (λ_t)</text>
+            <text x="302" y="464" text-anchor="middle" class="ex-mono" font-size="9.6" font-weight="700" fill="#18181B">b_eff = b_raw × λ_t · Tracks Hourly Spend Curve</text>
+            <rect x="92" y="475" width="420" height="23" fill="#FFFFFF" stroke="#18181B" stroke-width="1.5" />
+            <text x="302" y="491" text-anchor="middle" class="ex-mono" font-size="9.4" font-weight="700" fill="#059669">✓ 55.0% → 0.0% Early Burnout · +86.3% ROAS (9.33x)</text>
+          </g>
+
+          <path d="M 568,462 L 634,462" fill="none" stroke="#18181B" stroke-width="2.2" stroke-dasharray="6 4" />
+          <path d="M 625,456 L 636,462 L 625,468" fill="none" stroke="#18181B" stroke-width="2.2" />
+          <text x="601" y="451" text-anchor="middle" class="ex-hand" font-size="16" font-weight="700" fill="#9A3412">Shaded</text>
+
+          <g class="ex-node" data-arch-node="ap-gsp" tabindex="0">
+            <path d="M 640,416 Q 910,412 1180,417 Q 1184,463 1179,508 Q 909,512 641,507 Q 637,462 640,416 Z" fill="#FFEDD5" />
+            <path class="ex-stroke-main" d="M 640,416 Q 910,412 1180,417 Q 1184,463 1179,508 Q 909,512 641,507 Q 637,462 640,416 Z" fill="none" stroke="#18181B" stroke-width="2.2" />
+            <path d="M 643,419 Q 911,416 1177,420 Q 1180,463 1176,505 Q 908,509 644,504 Z" fill="none" stroke="#18181B" stroke-width="1.1" opacity="0.65" />
+            <text x="910" y="442" text-anchor="middle" class="ex-hand" font-size="21" font-weight="700" fill="#9A3412">3-Slot Generalized Second-Price (GSP)</text>
+            <text x="910" y="464" text-anchor="middle" class="ex-mono" font-size="9.6" font-weight="700" fill="#18181B">CPC_k = (Score_{k+1} / Quality_k) + $0.01 Floor</text>
+            <rect x="698" y="475" width="424" height="23" fill="#FFFFFF" stroke="#18181B" stroke-width="1.5" />
+            <text x="910" y="491" text-anchor="middle" class="ex-mono" font-size="9.4" font-weight="700" fill="#EA580C">⚡ +68.0% Conversions (75 → 126) · 0 Cap Violations</text>
+          </g>
+
+          <!-- Arrows Plane 3 -> Plane 4 -->
+          <path d="M 790,522 Q 530,548 395,570" fill="none" stroke="#6D28D9" stroke-width="2.1" stroke-dasharray="7 5" stroke-linecap="round" />
+          <path d="M 404,563 L 393,571 L 406,574" fill="none" stroke="#6D28D9" stroke-width="2.1" />
+          <text x="562" y="550" class="ex-hand" font-size="16" font-weight="700" fill="#6D28D9">Propensity Logs (π_0, r)</text>
+
+          <path d="M 940,522 Q 940,548 940,570" fill="none" stroke="#B45309" stroke-width="2.1" stroke-dasharray="7 5" stroke-linecap="round" />
+          <path d="M 934,562 L 940,572 L 946,562" fill="none" stroke="#B45309" stroke-width="2.1" />
+          <text x="1032" y="550" class="ex-hand" font-size="16" font-weight="700" fill="#92400E">Auction Loss Buckets</text>
+
+          <!-- PLANE 4: DOUBLY-ROBUST OPE + BEDROCK NOVA SPEKTR COPILOT -->
+          <g class="ex-node" data-arch-node="ap-ope" tabindex="0">
+            <path d="M 32,574 Q 332,569 632,575 Q 636,634 631,692 Q 331,696 33,691 Q 29,633 32,574 Z" fill="#F3E8FF" />
+            <path class="ex-stroke-main" d="M 32,574 Q 332,569 632,575 Q 636,634 631,692 Q 331,696 33,691 Q 29,633 32,574 Z" fill="none" stroke="#18181B" stroke-width="2.2" />
+            <path d="M 35,577 Q 333,573 629,578 Q 632,634 628,689 Q 330,693 36,688 Z" fill="none" stroke="#18181B" stroke-width="1.1" opacity="0.65" />
+            <text x="332" y="604" text-anchor="middle" class="ex-hand" font-size="22" font-weight="700" fill="#5B21B6">④ Doubly-Robust Off-Policy Evaluator</text>
+            <text x="332" y="627" text-anchor="middle" class="ex-mono" font-size="9.6" font-weight="700" fill="#18181B">adpulse/off_policy_eval.py · Clipped IPS (M=25) + DR</text>
+            <text x="332" y="647" text-anchor="middle" class="ex-mono" font-size="9.3" fill="#4C1D95">240x paired bootstrap 95% CIs across 48,000 auction events</text>
+            <rect x="96" y="659" width="472" height="24" fill="#FFFFFF" stroke="#18181B" stroke-width="1.5" />
+            <text x="332" y="675" text-anchor="middle" class="ex-mono" font-size="9.4" font-weight="700" fill="#6D28D9">✓ -66.03% RMSE (0.1661 → 0.0564) · 100.0% CI Coverage</text>
+          </g>
+
+          <g class="ex-node" data-arch-node="ap-bedrock" tabindex="0">
+            <path d="M 664,574 Q 927,569 1190,575 Q 1194,634 1189,692 Q 926,696 665,691 Q 661,633 664,574 Z" fill="#FEF3C7" />
+            <path class="ex-stroke-main" d="M 664,574 Q 927,569 1190,575 Q 1194,634 1189,692 Q 926,696 665,691 Q 661,633 664,574 Z" fill="none" stroke="#18181B" stroke-width="2.2" />
+            <path d="M 667,577 Q 928,573 1187,578 Q 1190,634 1186,689 Q 925,693 668,688 Z" fill="none" stroke="#18181B" stroke-width="1.1" opacity="0.65" />
+            <text x="927" y="604" text-anchor="middle" class="ex-hand" font-size="22" font-weight="700" fill="#92400E">⑤ Bedrock Nova Spektr Lakehouse Copilot</text>
+            <text x="927" y="627" text-anchor="middle" class="ex-mono" font-size="9.6" font-weight="700" fill="#18181B">us.amazon.nova-lite-v1:0 + Spektr Iceberg SQL</text>
+            <text x="927" y="647" text-anchor="middle" class="ex-mono" font-size="9.3" fill="#78350F">Clamps recommended_bid &lt;= price × pCVR × min(ACoS, margin)</text>
+            <rect x="716" y="659" width="422" height="24" fill="#DCFCE7" stroke="#18181B" stroke-width="1.5" />
+            <text x="927" y="675" text-anchor="middle" class="ex-mono" font-size="9.4" font-weight="700" fill="#065F46">✓ 40/40 Root-Cause Accuracy · 100.0% ACoS Safe</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="arch-inspector" id="archInspector">
+        <div class="arch-node-pills" id="archNodePills">
+          <button type="button" class="arch-node-pill" data-arch-btn="ap-browser">1. Auction Studio UI</button>
+          <button type="button" class="arch-node-pill" data-arch-btn="ap-cloudfront">2. CloudFront Edge</button>
+          <button type="button" class="arch-node-pill" data-arch-btn="ap-s3">3. Private S3 (OAC)</button>
+          <button type="button" class="arch-node-pill" data-arch-btn="ap-lambda">4. Lambda (/api/*)</button>
+          <button type="button" class="arch-node-pill active" data-arch-btn="ap-stage1">5. Stage-1 OOS/Cap Gate</button>
+          <button type="button" class="arch-node-pill" data-arch-btn="ap-bayes">6. Empirical-Bayes Ranker</button>
+          <button type="button" class="arch-node-pill" data-arch-btn="ap-conv-unit">7. Conversational Ad Unit</button>
+          <button type="button" class="arch-node-pill" data-arch-btn="ap-pid">8. 24h PID Bid Shader</button>
+          <button type="button" class="arch-node-pill" data-arch-btn="ap-gsp">9. 3-Slot GSP Clearing</button>
+          <button type="button" class="arch-node-pill" data-arch-btn="ap-ope">10. Doubly-Robust OPE</button>
+          <button type="button" class="arch-node-pill" data-arch-btn="ap-bedrock">11. Bedrock Spektr Copilot</button>
+        </div>
+        <div id="archInspectorDetail"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================================================================== -->
+  <!-- §03 · IMPLEMENTATION                                                -->
+  <!-- =================================================================== -->
+  <section id="implementation" class="section" data-spy-section="implementation">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-kicker">§03 · Implementation</span>
+          <h2 class="section-title">Core Auction, Calibration, Pacing &amp; Counterfactual Modules</h2>
+          <p class="section-desc">
+            Every ranking index, Beta-Binomial shrinkage calibrator, Generalized Second-Price clearing engine, Lagrangian PID feedback controller, and Doubly-Robust bootstrap evaluator in <code>adpulse/</code> is implemented from scratch in zero-dependency Python.
           </p>
         </div>
-        <div class="card walkthrough-card">
-          <span class="step-badge">STEP 03</span>
-          <h3>24-Hour Lagrangian PID Pacer</h3>
+      </div>
+
+      <div class="dual-layer-grid">
+        <div class="intuition-card">
+          <span class="step-badge">PLAIN-ENGLISH INTUITION</span>
+          <h3>How Calibration, Second-Price Auctions &amp; PID Pacing Work Together</h3>
           <p>
-            Continuously updates dual bid-shading multiplier <code>λ_t</code> every auction batch—eliminating 11:00 AM greedy budget burnout (<code>55.0% → 0.0%</code>) and lifting ROAS from <code>5.01x</code> to <code>9.33x</code>.
+            New products with 2 clicks out of 5 views look like they have a 40% click rate—until they flop. AdPulse blends small-sample SKU history toward category averages (<strong>Empirical-Bayes shrinkage</strong>) so noisy cold-start items cannot hijack top ad slots. Next, instead of letting sellers burn their budget at 8:00 AM, a cruise-control loop (<strong>PID bid shading</strong>) gently lowers bids when spend runs ahead of the 24-hour target curve and opens up during the 7:00 PM buying rush—while GSP second-price clearing charges winners only the minimum penny needed to beat the runner-up.
           </p>
         </div>
-        <div class="card walkthrough-card">
-          <span class="step-badge">STEP 04</span>
-          <h3>Doubly-Robust OPE &amp; Spektr Copilot</h3>
+        <div class="hood-card">
+          <span class="step-badge">UNDER THE HOOD · EXACT CODE, MATH &amp; DATA STRUCTURES</span>
+          <h3>Beta-Binomial Posteriors, Dual Multiplier <code>λ_t</code> &amp; Doubly-Robust Centering</h3>
           <p>
-            Combines direct reward regression with propensity-clipped IPS weights (<code>-66.0%</code> RMSE) to gate bid changes, paired with live Bedrock Nova Seller Central &amp; Iceberg SQL diagnostics.
+            In <code>adpulse/catalog_ranker.py</code>, inverted posting lists retrieve candidate SKUs in <code>O(|q|)</code> and compute <code>p̂_CTR = (clicks + α_0) / (imps + α_0 + β_0)</code> in <code>0.266 ms</code> p50 / <code>0.430 ms</code> p99. In <code>auction_pacer.py</code>, <code>b_eff = b_raw · λ_t</code> clears 3 GSP slots at <code>CPC_k = (S_{k+1} / Q_k) + 0.01</code> while updating <code>λ_{t+1} = clip(λ_t - k_p e_t - k_i ∫e - k_d Δe, 0.12, 1.25)</code>. In <code>off_policy_eval.py</code>, DR evaluates <code>V̂_DR = (1/N) ∑ [ μ̂(x_i, π_e) + min(M, π_e/π_0)(r_i - μ̂(x_i, a_i)) ]</code>.
+          </p>
+        </div>
+      </div>
+
+      <div class="module-grid">
+        <div class="module-card">
+          <div class="module-card-head">
+            <span>MODULE 01 · TWO-STAGE RETRIEVAL &amp; RANKING</span>
+            <span style="color:#FDBA74;">adpulse/catalog_ranker.py</span>
+          </div>
+          <div class="module-card-body">
+            <h3>Inverted Posting Index, Hard Guardrails &amp; Empirical-Bayes eCPM</h3>
+            <ul class="module-list">
+              <li><strong>Sub-Millisecond Stage-1 Gate:</strong> Tokenized inverted index retrieves matching SKUs and prunes out-of-stock FBA listings (`15.28% → 0.0%`), shopper price-cap violations (`59.72% → 0.0%`), and incomplete attribute schemas before auction scoring.</li>
+              <li><strong>Empirical-Bayes Calibration:</strong> Shrinks noisy SKU-level CTR and CVR toward category Beta priors modulated by hourly purchase-intent multipliers (`0.52x` morning vs `1.82x` evening).</li>
+              <li><strong>Verified Ranking Lift:</strong> Improves NDCG@3 by <strong>+312.43%</strong> (`0.2020 → 0.8331`) and Top-3 Recall by <strong>+332.89%</strong> (`0.1861 → 0.8056`) in `0.266 ms` p50 / `0.430 ms` p99.</li>
+            </ul>
+            <div style="margin-top:auto; padding-top:0.45rem; display:flex; gap:0.4rem; flex-wrap:wrap;">
+              <span class="tag tag-pass">0.266 ms p50 / 0.430 ms p99</span>
+              <span class="tag tag-accent">+312.4% NDCG@3</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-card-head">
+            <span>MODULE 02 · GSP &amp; 24H LAGRANGIAN PID PACER</span>
+            <span style="color:#86EFAC;">adpulse/auction_pacer.py</span>
+          </div>
+          <div class="module-card-body">
+            <h3>3-Slot Generalized Second-Price Clearing &amp; Dual Multiplier Control</h3>
+            <ul class="module-list">
+              <li><strong>Truthful Minimum-to-Beat GSP Pricing:</strong> Ranks eligible bidders by calibrated expected utility `b_eff × pCTR × Quality` and charges each winning slot the exact second-price CPC floor required to outrank slot `k+1`.</li>
+              <li><strong>Lagrangian PID Feedback Loop (`λ_t`):</strong> Tracks cumulative campaign spend against an intent-weighted 24-hour retail curve across `6,000` sequential auctions and `40` campaigns with `0` budget cap violations.</li>
+              <li><strong>Burnout Elimination &amp; ROAS Lift:</strong> Cuts pre-18:00 campaign depletion from `55.0%` (`22/40`) to **`0.0%` (`0/40`)**, lifting advertiser ROAS from `5.01x` to **`9.33x` (`+86.3%`)** and conversions by **`+68.0%`** (`75 → 126`).</li>
+            </ul>
+            <div style="margin-top:auto; padding-top:0.45rem; display:flex; gap:0.4rem; flex-wrap:wrap;">
+              <span class="tag tag-pass">55.0% → 0.0% Early Burnout</span>
+              <span class="tag tag-accent">+86.3% Advertiser ROAS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-card-head">
+            <span>MODULE 03 · DOUBLY-ROBUST COUNTERFACTUAL OPE</span>
+            <span style="color:#DDD6FE;">adpulse/off_policy_eval.py</span>
+          </div>
+          <div class="module-card-body">
+            <h3>Propensity-Clipped IPS, Doubly-Robust Centering &amp; Paired Bootstrap CIs</h3>
+            <ul class="module-list">
+              <li><strong>Three-Estimator Verification Suite:</strong> Evaluates candidate bid multipliers (`0.55x..1.30x` &amp; `adaptive_pid`) across `40` Monte Carlo trials × `1,200` logged propensity events (`48,000` auctions) against exact oracle rollouts.</li>
+              <li><strong>Variance Reduction under Skew (`w_max = 26.0`):</strong> Clipped IPS (`M=25`) reduces 40-trial RMSE by `26.68%` (`0.1661 → 0.1218`), while Doubly-Robust cuts RMSE by **`66.03%` (`0.1661 → 0.0564`)** and narrows 95% CI width from `0.698 → 0.302`.</li>
+              <li><strong>Deployment Safety Gate:</strong> Computes `240` paired bootstrap resamples (`100.0%` 95% CI oracle coverage) and blocks rollout (`HOLD_REGRESSION_RISK`) whenever the lower 95% bound regresses below logging value.</li>
+            </ul>
+            <div style="margin-top:auto; padding-top:0.45rem; display:flex; gap:0.4rem; flex-wrap:wrap;">
+              <span class="tag tag-pass">-66.03% RMSE Reduction</span>
+              <span class="tag tag-purple">100.0% 95% CI Coverage</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-card-head">
+            <span>MODULE 04 · SPEKTR DIAGNOSTICS &amp; BEDROCK COPILOT</span>
+            <span style="color:#FDE68A;">adpulse/campaign_diagnostics.py · web_api.py</span>
+          </div>
+          <div class="module-card-body">
+            <h3>Deterministic ACoS Guardrail Clamping &amp; Apache Iceberg Lineage SQL</h3>
+            <ul class="module-list">
+              <li><strong>5-Archetype Root-Cause Classifier:</strong> Diagnoses `OUT_OF_STOCK_SUPPRESSED`, `BUDGET_EXHAUSTED_EARLY`, `MISSING_CATALOG_ATTRIBUTES`, `LOW_QUERY_RELEVANCE`, and `BID_BELOW_CLEARING_FLOOR` at **`100.0%` (`40/40`)** accuracy.</li>
+              <li><strong>Hard Mathematical ACoS Ceiling:</strong> Enforces `recommended_bid <= price × pCVR × min(target_acos, gross_margin)` and blocks bid hikes on out-of-stock SKUs (`100.0%` safety compliance) before and after LLM generation.</li>
+              <li><strong>Live Amazon Bedrock (`us.amazon.nova-lite-v1:0`):</strong> Synthesizes seller action memos paired with executable `spektr.ads_lakehouse.*` Apache Iceberg diagnostic SQL.</li>
+            </ul>
+            <div style="margin-top:auto; padding-top:0.45rem; display:flex; gap:0.4rem; flex-wrap:wrap;">
+              <span class="tag tag-pass">40/40 Root-Cause Accuracy</span>
+              <span class="tag tag-accent">100.0% ACoS Cap Safe</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================================================================== -->
+  <!-- §04 · DESIGN TRADE-OFFS                                             -->
+  <!-- =================================================================== -->
+  <section id="tradeoffs" class="section" data-spy-section="tradeoffs">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-kicker">§04 · Design Trade-Offs</span>
+          <h2 class="section-title">Key Economic &amp; Systems Engineering Decisions</h2>
+          <p class="section-desc">
+            Every production ad engine balances short-term clearing revenue against long-term advertiser retention, tail latency against ranking expressiveness, and estimator bias against variance.
+          </p>
+        </div>
+      </div>
+
+      <div class="dual-layer-grid">
+        <div class="intuition-card">
+          <span class="step-badge">PLAIN-ENGLISH INTUITION</span>
+          <h3>Why Trading 7.56% Morning Clearing Revenue Unlocks +86.3% Advertiser ROAS</h3>
+          <p>
+            When AdPulse shades morning bids via `λ_t`, immediate platform CPC revenue dips slightly (`$1,416.14 → $1,309.03`, `-7.56%`) because sellers stop overpaying `$2.06`/click on low-intent 8:00 AM browsers. In exchange, sellers earn **+68.0% more conversions** (`75 → 126`) and **+86.3% higher ROAS** (`5.01x → 9.33x`) at `$1.37` mean CPC—preventing SMB advertiser churn and keeping auction thickness healthy (`40/40` active campaigns) during the evening Prime rush.
+          </p>
+        </div>
+        <div class="hood-card">
+          <span class="step-badge">UNDER THE HOOD · EXACT CODE, MATH &amp; DATA STRUCTURES</span>
+          <h3>Latency Budget Allocation (`0.430 ms` p99) &amp; Doubly-Robust Bias-Variance Math</h3>
+          <p>
+            Scoring all `500` SKUs with a heavy neural cross-encoder breaches sub-millisecond ad-serving budgets; Stage-1 inverted-index pruning + Top-40 Empirical-Bayes reranking achieves `0.8331` NDCG@3 at `0.266 ms` p50 / `0.430 ms` p99 (`+0.18 ms` over lexical baseline). For offline policy gating, DR remains consistent if <em>either</em> `π_0` or `μ̂` is well-specified, cutting bootstrap SE by more than half (`±0.160 → ±0.074`).
+          </p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Architectural Dimension</th>
+              <th>Naive / Single-Layer Alternative</th>
+              <th>Heavyweight / Unbounded Alternative</th>
+              <th class="winner-col">AdPulse Production Choice ★</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Catalog Ad Retrieval &amp; Guardrails</strong></td>
+              <td><code>Lexical × RawBid</code> post-filtering (`15.28%` OOS &amp; `59.72%` price-cap leaks, `0.2020` NDCG@3)</td>
+              <td>Full-catalog cross-encoder scan on every query (`15–40 ms` p99 CPU tail latency)</td>
+              <td class="winner-col"><strong>Inverted Index Stage-1 Hard Pruning + Top-40 Empirical-Bayes eCPM</strong> (`0.0%` leaks, `0.8331` NDCG@3, `0.430 ms` p99)</td>
+            </tr>
+            <tr>
+              <td><strong>24-Hour Budget Control</strong></td>
+              <td>Greedy unpaced bidding (`55.0%` campaigns depleted before 18:00, `5.01x` ROAS)</td>
+              <td>Probabilistic throttling (drops auctions randomly instead of lowering clearing CPC)</td>
+              <td class="winner-col"><strong>Lagrangian PID Bid Shading (`b_eff = b_raw · λ_t`)</strong> (`0.0%` early burnout, `$2.06 → $1.37` CPC, `9.33x` ROAS)</td>
+            </tr>
+            <tr>
+              <td><strong>Counterfactual Policy Gate</strong></td>
+              <td>Naive IPS (`0.1661` RMSE, explodes when `w_max = 26.0`)</td>
+              <td>Direct Reward Regression `μ̂` alone (uncalibrated extrapolation bias on unseen multipliers)</td>
+              <td class="winner-col"><strong>Doubly-Robust Estimator + 240x Paired Bootstrap CIs</strong> (`0.0564` RMSE, `-66.03%` error, `100.0%` CI coverage)</td>
+            </tr>
+            <tr>
+              <td><strong>LLM Seller Recommendations</strong></td>
+              <td>Raw prompt-only LLM bid advice (recommends unprofitable CPCs or hikes OOS SKUs)</td>
+              <td>Static rule templates only (no natural-language Spektr SQL synthesis for sellers)</td>
+              <td class="winner-col"><strong>Deterministic `max_acos_cpc` Clamp + Bedrock Nova Lite</strong> (`40/40` root-cause accuracy, `100.0%` ACoS safety)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="takeaway-grid">
+        <div class="takeaway-card">
+          <span class="tag tag-pass">TAKEAWAY 01 · HARD STAGE-1 PRUNING</span>
+          <h3>Eligibility Is a Hard Constraint, Not a Soft Penalty</h3>
+          <p>
+            Penalizing out-of-stock or over-cap SKUs with soft score weights still lets a `$4.04` stale bid sneak into Slot #3 on sparse queries. Pruning before Stage-2 guarantees `0.0%` OOS and price-cap violations while cutting Stage-2 compute.
+          </p>
+        </div>
+        <div class="takeaway-card">
+          <span class="tag tag-accent">TAKEAWAY 02 · BID SHADING &gt; THROTTLING</span>
+          <h3>Shading Multipliers Lower Clearing CPCs</h3>
+          <p>
+            Unlike coin-flipping auction participation (probabilistic throttling), scaling bids continuously by `λ_t` lets campaigns win cheap surplus clicks in the morning while saving budget for `1.78x–1.82x` CVR evening auctions (`+68.0%` conversions).
+          </p>
+        </div>
+        <div class="takeaway-card">
+          <span class="tag tag-purple">TAKEAWAY 03 · BOUNDED GENAI COPILOTS</span>
+          <h3>Math Computes the Cap; Bedrock Explains the Action</h3>
+          <p>
+            Deterministic Python computes exact `max_acos_cpc` ceilings and loss-bucket root causes first; `us.amazon.nova-lite-v1:0` translates verified telemetry and Iceberg SQL into clear seller workflows with zero hallucinated bid hikes.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 4-Tab Interactive Live Studio -->
-  <main id="live-studio" class="container tabs-wrapper">
+  <!-- =================================================================== -->
+  <!-- §05 · INTERACTIVE STUDIO                                            -->
+  <!-- =================================================================== -->
+  <main id="live-studio" class="container tabs-wrapper" data-spy-section="live-studio">
+    <div class="section-header" style="margin-bottom:1rem;">
+      <div>
+        <span class="section-kicker">§05 · Interactive Studio</span>
+        <h2 class="section-title">Four Live Auction, Pacing, Counterfactual OPE &amp; Bedrock Sandboxes</h2>
+        <p class="section-desc">
+          Connected live to CloudFront <code>/api/*</code> + Python 3.12 Lambda + Amazon Bedrock (<code>us.amazon.nova-lite-v1:0</code>). Switch tabs below to test real-time GSP clearing, 24h PID budget curves, Doubly-Robust bootstrap CIs, and Spektr campaign diagnostics.
+        </p>
+      </div>
+    </div>
+
     <div class="tab-bar" role="tablist" aria-label="AdPulse Interactive Live Sandboxes">
       <button type="button" class="tab-btn active" role="tab" aria-selected="true" data-tab="storefront-gsp" onclick="switchTab('storefront-gsp')">
         <span class="tab-btn-eyebrow">Sandbox 01 · Retrieval + GSP</span>
         <span class="tab-btn-title">1. Sponsored Storefront &amp; GSP Clearing</span>
-        <span class="tab-btn-metric">520 SKUs · 0.27ms p50 · 0% OOS Leaks</span>
+        <span class="tab-btn-metric">520 SKUs · 0.266ms p50 · 0% OOS Leaks</span>
       </button>
       <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="pid-pacer" onclick="switchTab('pid-pacer')">
         <span class="tab-btn-eyebrow">Sandbox 02 · Lagrangian Control</span>
@@ -910,11 +1832,11 @@
       <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="dr-ope" onclick="switchTab('dr-ope')">
         <span class="tab-btn-eyebrow">Sandbox 03 · Counterfactual Gate</span>
         <span class="tab-btn-title">3. Doubly-Robust Off-Policy Evaluator</span>
-        <span class="tab-btn-metric">IPS vs Direct vs DR · 95% Bootstrap CI</span>
+        <span class="tab-btn-metric">IPS vs Clipped vs DR · 95% Bootstrap CI</span>
       </button>
       <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="spektr-copilot" onclick="switchTab('spektr-copilot')">
         <span class="tab-btn-eyebrow">Sandbox 04 · Bedrock Nova Lite</span>
-        <span class="tab-btn-title">4. Spektr Campaign Copilot &amp; Benchmarks</span>
+        <span class="tab-btn-title">4. Spektr Campaign Copilot</span>
         <span class="tab-btn-metric">ACoS-Safe Bid Cap · Iceberg SQL</span>
       </button>
     </div>
@@ -923,9 +1845,15 @@
     <!-- TAB 1: SPONSORED SEARCH STOREFRONT & GSP CLEARINGHOUSE             -->
     <!-- ================================================================== -->
     <section id="panel-storefront-gsp" class="tab-panel active" role="tabpanel">
+      <div class="sandbox-guide-banner">
+        <strong class="guide-title">🧭 How to Try This Sandbox (What to Click &amp; What Happens)</strong>
+        <strong>1.</strong> Click any shopper query chip (or type your own) and pick a <strong>Shopper Price Ceiling</strong> to run <code>POST /api/storefront/search</code> across all 520 SKUs.
+        <strong>2.</strong> Drag the <strong>Hour of Day Scrubber</strong> to <code>19:00–20:00</code> Prime Peak and toggle <strong>PID Paced (λ_t)</strong> vs <strong>Greedy Unpaced</strong>: watch early-burned-out campaigns disappear under Greedy while PID Paced clears 3 high-ROAS GSP slots and logs every blocked OOS/over-cap SKU on the right.
+      </div>
+
       <div class="sim-header">
         <div>
-          <h2 class="sim-title">Sponsored Search Storefront, Two-Tower Retrieval &amp; GSP Clearinghouse</h2>
+          <h2 class="sim-title">Sponsored Search Storefront, Two-Stage Retrieval &amp; GSP Clearinghouse</h2>
           <p class="sim-desc">
             Run live shopper queries across the 520-SKU catalog via <code>POST /api/storefront/search</code>. Toggle <code>PID Paced (λ_t)</code> vs <code>Greedy Unpaced</code> at <code>19:00</code> Prime peak to watch early-depleted campaigns drop out or win GSP slots.
           </p>
@@ -973,7 +1901,7 @@
           <div>
             <div class="control-label">
               <span>Hour of Day Scrubber (<code>00:00..23:00</code>)</span>
-              <span class="mono tag tag-accent" id="sfHourBadge">19:00 · PRIME PEAK (1.82x CVR)</span>
+              <span class="mono tag tag-accent" id="sfHourBadge">19:00 · PRIME PEAK (1.78x CVR)</span>
             </div>
             <input type="range" id="sfHourSlider" min="0" max="23" step="1" value="19" style="margin-bottom:0;" />
           </div>
@@ -1049,11 +1977,17 @@
     <!-- TAB 2: 24-HOUR PID LAGRANGIAN PACER VS 11:00 AM GREEDY BURNOUT     -->
     <!-- ================================================================== -->
     <section id="panel-pid-pacer" class="tab-panel" role="tabpanel">
+      <div class="sandbox-guide-banner">
+        <strong class="guide-title">🧭 How to Try This Sandbox (What to Click &amp; What Happens)</strong>
+        <strong>1.</strong> Click <strong>🔥 Jump to 20:00 Prime Peak ($24 Budget)</strong> or adjust the <strong>Mean SMB Daily Campaign Budget</strong> slider and press <strong>⚡ Simulate 24h Stream</strong>.
+        <strong>2.</strong> Compare the Crimson curve (Greedy Unpaced burning out <code>22/40</code> campaigns before 18:00) against the Emerald curve (Lagrangian PID <code>λ_t</code> keeping <code>40/40</code> campaigns active into the evening Prime surge for <code>+86.3%</code> ROAS and <code>+68.0%</code> conversions).
+      </div>
+
       <div class="sim-header">
         <div>
           <h2 class="sim-title">24-Hour PID Lagrangian Budget Pacer vs. 11:00 AM Greedy Burnout</h2>
           <p class="sim-desc">
-            Simulate 6,000 sequential auctions across 40 campaigns via <code>POST /api/pacing/simulate</code>. Watch unpaced greedy bidding exhaust 55% of SMB budgets before afternoon while Lagrangian PID bid-shading preserves spend for the 18:00–22:00 Prime conversion surge.
+            Simulate 6,000 sequential auctions across 40 campaigns via <code>POST /api/pacing/simulate</code>. Watch unpaced greedy bidding exhaust 55.0% of SMB budgets before afternoon while Lagrangian PID bid-shading preserves spend for the 18:00–22:00 Prime conversion surge.
           </p>
         </div>
         <button type="button" class="btn btn-accent" id="btnBurnoutDemo">
@@ -1106,14 +2040,20 @@
     <!-- TAB 3: DOUBLY-ROBUST (DR) OFF-POLICY COUNTERFACTUAL BID EVALUATOR  -->
     <!-- ================================================================== -->
     <section id="panel-dr-ope" class="tab-panel" role="tabpanel">
+      <div class="sandbox-guide-banner">
+        <strong class="guide-title">🧭 How to Try This Sandbox (What to Click &amp; What Happens)</strong>
+        <strong>1.</strong> Click between <strong>Adaptive PID ★</strong> (<code>SAFE_TO_DEPLOY</code>) and aggressive/deep fixed multipliers like <strong>0.55x Deep Shade</strong> or <strong>1.30x Overbid</strong>.
+        <strong>2.</strong> Inspect the 95% paired bootstrap forest plot and estimator table: notice how <code>Naive IPS</code> produces wide, noisy intervals under high importance weights (<code>w_max = 26.0</code>), whereas <code>Doubly-Robust (DR)</code> tightly brackets the orange Oracle line (<code>-66.03%</code> 40-trial RMSE reduction) and blocks regressive policies before rollout.
+      </div>
+
       <div class="sim-header">
         <div>
           <h2 class="sim-title">Doubly-Robust (DR) Off-Policy Counterfactual Bid Evaluator</h2>
           <p class="sim-desc">
-            Gate candidate bid-shading policies offline across 1,200 logged propensity traces before risking live revenue. Compare Naive IPS, Direct Reward Regression, Clipped IPS (<code>M=25</code>), and Doubly-Robust 95% paired bootstrap confidence intervals.
+            Gate candidate bid-shading policies offline across 1,200 logged propensity traces before risking live revenue. Compare Naive IPS, Clipped IPS (<code>M=25</code>), and Doubly-Robust 95% paired bootstrap confidence intervals against exact oracle rollouts.
           </p>
         </div>
-        <span class="tag tag-pass">-66.0% RMSE Reduction · 100% 95% CI Coverage</span>
+        <span class="tag tag-pass">-66.03% RMSE Reduction · 100.0% 95% CI Coverage</span>
       </div>
 
       <div class="card" style="margin-bottom:1.2rem;">
@@ -1140,14 +2080,14 @@
             <span class="mono" style="font-size:0.69rem;" id="opeEssBadge"></span>
           </div>
           <div class="svg-frame" id="opeForestPlotSvg"></div>
-          <div style="margin-top:0.85rem; background:var(--bg-subtle); border:1.5px solid var(--border); padding:0.75rem 0.9rem; font-size:0.82rem;">
-            <strong>Why Doubly-Robust Wins:</strong> Naive IPS explodes in variance when target action probabilities diverge from historical logging propensities (<code>w_max = 26.0</code>), while Direct Method suffers from reward-model bias. Doubly-Robust centers IPS residuals around <code>μ̂(x, a)</code>—cutting 40-trial RMSE by <strong>66.03%</strong> (<code>0.1661 → 0.0564</code>).
+          <div style="margin-top:0.85rem; background:var(--bg-subtle); border:1.5px solid var(--border); padding:0.75rem 0.9rem; font-size:0.84rem; line-height:1.65;">
+            <strong>Why Doubly-Robust Wins:</strong> Naive IPS explodes in variance when target action probabilities diverge from historical logging propensities (<code>w_max = 26.0</code>), while Clipped IPS (<code>M=25</code>) introduces truncation bias (<code>-26.68%</code> RMSE). Doubly-Robust centers IPS residuals around <code>μ̂(x, a)</code>—cutting 40-trial RMSE by <strong>66.03%</strong> (<code>0.1661 → 0.0564</code>) with <strong>100.0%</strong> 95% CI coverage.
           </div>
         </div>
 
         <div class="card">
           <div class="control-label">
-            <span>Counterfactual Estimator Breakdown (IPS vs Direct vs Doubly-Robust)</span>
+            <span>Counterfactual Estimator Breakdown (Naive IPS vs Clipped IPS vs DR)</span>
             <span class="tag tag-purple">1,200 Logged Auctions</span>
           </div>
           <div class="table-wrap" style="margin-top:0.45rem;" id="opeEstimatorTableWrap"></div>
@@ -1156,9 +2096,15 @@
     </section>
 
     <!-- ================================================================== -->
-    <!-- TAB 4: LIVE AWS BEDROCK NOVA SPEKTR COPILOT & BENCHMARKS           -->
+    <!-- TAB 4: LIVE AWS BEDROCK NOVA SPEKTR COPILOT                        -->
     <!-- ================================================================== -->
     <section id="panel-spektr-copilot" class="tab-panel" role="tabpanel">
+      <div class="sandbox-guide-banner">
+        <strong class="guide-title">🧭 How to Try This Sandbox (What to Click &amp; What Happens)</strong>
+        <strong>1.</strong> Pick any of the <strong>5 Seller Central Loss Scenarios</strong> on the left (Early Burnout, Out-of-Stock Suppressed, Missing Spektr Attributes, Low Relevance, or Below Clearing Floor).
+        <strong>2.</strong> Slide the <strong>Target ACoS Profitability Ceiling</strong> and click <strong>⚡ Run Bedrock Spektr Copilot</strong>: live <code>us.amazon.nova-lite-v1:0</code> synthesizes a grounded action memo and Apache Iceberg lineage SQL while deterministic Python clamps <code>recommended_bid &lt;= max_acos_cpc</code> (<code>100.0%</code> compliance).
+      </div>
+
       <div class="sim-header">
         <div>
           <h2 class="sim-title">Live AWS Bedrock Nova (<code>us.amazon.nova-lite-v1:0</code>) Spektr Campaign Copilot</h2>
@@ -1169,7 +2115,7 @@
         <span class="tag tag-accent">100.0% ACoS &amp; OOS Safety Compliance</span>
       </div>
 
-      <div class="grid-2" style="margin-bottom:1.6rem;">
+      <div class="grid-2" style="margin-bottom:0.8rem;">
         <div class="card">
           <div class="control-label">
             <span>Select Seller Central Campaign Scenario (5 Loss Modes)</span>
@@ -1204,7 +2150,7 @@
 
           <div id="campaignTelemetryGrid" style="display:grid; grid-template-columns:repeat(2, 1fr); gap:0.65rem; margin-bottom:0.95rem;"></div>
 
-          <div style="border:2px solid var(--border); background:var(--bg-paper); padding:0.9rem 1rem; font-size:0.86rem; line-height:1.55; margin-bottom:0.95rem;" id="copilotMemoHtmlBox"></div>
+          <div style="border:2px solid var(--border); background:var(--bg-paper); padding:0.9rem 1rem; font-size:0.86rem; line-height:1.65; margin-bottom:0.95rem;" id="copilotMemoHtmlBox"></div>
 
           <div class="code-header">
             <span id="spektrTableHeader">spektr.ads_lakehouse.hourly_budget_pacing_v2</span>
@@ -1213,19 +2159,43 @@
           <pre class="code-box" id="spektrSqlBox" style="max-height:170px;"></pre>
         </div>
       </div>
+    </section>
+  </main>
 
-      <!-- Measured Benchmark Table -->
-      <div id="benchmarks" class="card">
-        <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:1rem; flex-wrap:wrap; margin-bottom:0.95rem;">
-          <div>
-            <h3 style="font-size:1.25rem; font-weight:800;">Verified AdPulse Subsystem Benchmark Suite (<code>benchmarks/latest_results.json</code>)</h3>
-            <p class="serif" style="font-size:1.02rem; color:var(--ink-muted);">
-              Deterministic seed=42 evaluation across 500+20 SKUs, 120 structured shopper queries, 6,000 sequential GSP auctions, 40 Monte Carlo OPE trials (48,000 events), and 40 Seller Central diagnostic scenarios.
-            </p>
-          </div>
-          <span class="tag tag-pass">Zero External Runtime Dependencies · Verified</span>
+  <!-- =================================================================== -->
+  <!-- §06 · BENCHMARKS                                                    -->
+  <!-- =================================================================== -->
+  <section id="benchmarks" class="section" data-spy-section="benchmarks">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-kicker">§06 · Benchmarks</span>
+          <h2 class="section-title">Executed Evaluation Suite (<code>benchmarks/latest_results.json</code>)</h2>
+          <p class="section-desc">
+            Every metric below is generated directly by <code>PYTHONPATH=. python3 benchmarks/run_benchmarks.py</code> (deterministic <code>seed=42</code>, <code>2,497.87 ms</code> total suite wall time across 500 SKUs, 120 queries, 6,000 sequential auctions, 48,000 OPE events, and 40 Seller Central diagnostics).
+          </p>
         </div>
+        <span class="tag tag-pass">100% Verified JSON Ground Truth</span>
+      </div>
 
+      <div class="dual-layer-grid">
+        <div class="intuition-card">
+          <span class="step-badge">PLAIN-ENGLISH INTUITION</span>
+          <h3>What These Numbers Mean for Shoppers, Sellers &amp; Platform Reliability</h3>
+          <p>
+            Shoppers see dramatically more relevant, in-stock products under their price ceiling (`0.8331` vs `0.2020` NDCG@3, `0.0%` OOS/price-cap violations) in **0.266 ms** median time. Small sellers stop running out of budget before noon (`55.0% → 0.0%` early burnout) and nearly double return on ad spend (`5.01x → 9.33x` ROAS, `75 → 126` conversions). And ML engineers can gate new bidding policies offline with **66.03% lower estimation error** (`0.1661 → 0.0564` RMSE) and **100.0%** 95% confidence interval coverage.
+          </p>
+        </div>
+        <div class="hood-card">
+          <span class="step-badge">UNDER THE HOOD · EXACT CODE, MATH &amp; DATA STRUCTURES</span>
+          <h3>Reproducible Harness &amp; Exact Subsystem Breakdowns</h3>
+          <p>
+            <code>run_ranker_benchmark(seed=42)</code> evaluates `500` catalog SKUs × `120` queries (`20.53` vs `1.90` expected conversions / 1k queries, `+980.53%`). <code>run_pacing_benchmark()</code> steps `40` campaigns through `6,000` GSP opportunities (`$12,215.79` vs `$7,093.41` attributed sales, `89.01%` budget utilization, `0` cap violations). <code>run_ope_benchmark()</code> runs `40` Monte Carlo trials × `1,200` logged events (`M=25.0` clip, `240` bootstrap resamples).
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
         <div class="table-wrap">
           <table>
             <thead>
@@ -1242,8 +2212,15 @@
                 <td><strong>Catalog Retrieval &amp; Ranking (NDCG@3)</strong></td>
                 <td class="mono">0.2020 (Lexical × RawBid)</td>
                 <td class="mono" style="color:var(--pass); font-weight:700;">0.8331 (Two-Stage eCPM)</td>
-                <td class="mono" style="color:var(--pass);">+312.4% NDCG@3 (+332.9% Recall)</td>
+                <td class="mono" style="color:var(--pass);">+312.43% NDCG@3 (+332.89% Recall)</td>
                 <td><span class="tag tag-pass">0.266ms p50 · 0.430ms p99</span></td>
+              </tr>
+              <tr>
+                <td><strong>Expected Conversions per 1k Queries</strong></td>
+                <td class="mono">1.90 conv / 1k queries (0.1861 Recall@3)</td>
+                <td class="mono" style="color:var(--pass); font-weight:700;">20.53 conv / 1k queries (0.8056 Recall@3)</td>
+                <td class="mono" style="color:var(--pass);">+980.53% Expected Conversions</td>
+                <td><span class="tag tag-pass">0.328ms p95 LATENCY</span></td>
               </tr>
               <tr>
                 <td><strong>Out-of-Stock &amp; Price-Cap Violations</strong></td>
@@ -1254,43 +2231,43 @@
               </tr>
               <tr>
                 <td><strong>24h Auction Pacer (ROAS &amp; Burnout)</strong></td>
-                <td class="mono" style="color:var(--fail);">5.01x ROAS · 55.0% Depleted Early</td>
-                <td class="mono" style="color:var(--pass); font-weight:700;">9.33x ROAS · 0.0% Depleted Early</td>
-                <td class="mono" style="color:var(--pass);">+86.3% ROAS · +68.0% Conv</td>
+                <td class="mono" style="color:var(--fail);">5.01x ROAS · 55.0% (22/40) Early Burnout</td>
+                <td class="mono" style="color:var(--pass); font-weight:700;">9.33x ROAS · 0.0% (0/40) Early Burnout</td>
+                <td class="mono" style="color:var(--pass);">+86.3% ROAS · +68.0% Conv (75 → 126)</td>
                 <td><span class="tag tag-pass">0 BUDGET CAP VIOLATIONS</span></td>
               </tr>
               <tr>
                 <td><strong>Off-Policy Bid Evaluation (40-Trial RMSE)</strong></td>
-                <td class="mono">0.1661 (Naive IPS) · 0.1218 (Clipped)</td>
+                <td class="mono">0.1661 (Naive IPS) · 0.1218 (Clipped M=25)</td>
                 <td class="mono" style="color:var(--pass); font-weight:700;">0.0564 (Doubly-Robust DR)</td>
-                <td class="mono" style="color:var(--pass);">-66.03% RMSE (-64.1% MSE)</td>
+                <td class="mono" style="color:var(--pass);">-66.03% RMSE vs Naive IPS (-26.68% Clipped)</td>
                 <td><span class="tag tag-pass">100.0% 95% CI COVERAGE</span></td>
               </tr>
               <tr style="background:var(--pass-soft); font-weight:700;">
                 <td><strong>Spektr Seller Diagnostics &amp; Bedrock Copilot</strong></td>
                 <td class="mono">Unbounded Heuristic Bid Advice</td>
-                <td class="mono" style="color:var(--pass);">40/40 Root-Cause Accuracy</td>
-                <td class="mono" style="color:var(--pass);">100.0% ACoS Cap &amp; OOS Safe</td>
+                <td class="mono" style="color:var(--pass);">40/40 (100.0%) Root-Cause Accuracy</td>
+                <td class="mono" style="color:var(--pass);">100.0% ACoS Cap &amp; 100.0% OOS Hold Safe</td>
                 <td><span class="tag tag-pass">RECOMMENDED &lt;= MAX_ACOS_CPC ★</span></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-    </section>
 
-    <footer class="footer">
-      <div>
-        <strong>AdPulse v1.0</strong> — Sponsored Search Auction Engine, 24h PID Budget Pacer &amp; Doubly-Robust OPE · Deployed on AWS CloudFront + S3 (OAC) + Lambda Python 3.12 + Bedrock Nova
-      </div>
-      <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
-        <a href="architecture.svg" target="_blank" rel="noopener" style="color:var(--ink); font-weight:700;">Architecture SVG ↗</a>
-        <a href="https://d14kv31n2lrkoa.cloudfront.net" target="_blank" rel="noopener" style="color:var(--ink); font-weight:700;">VeriRAG ↗</a>
-        <a href="https://d2x9ti2h7j9apb.cloudfront.net" target="_blank" rel="noopener" style="color:var(--ink); font-weight:700;">RouteLedger ↗</a>
-        <a href="https://github.com/ritwikareddykancharla/adpulse-engine" target="_blank" rel="noopener" style="color:var(--ink); font-weight:700;">GitHub ↗</a>
-      </div>
-    </footer>
-  </main>
+      <footer class="footer">
+        <div>
+          <strong>AdPulse v1.0</strong> — Sponsored Search Auction Engine, 24h PID Budget Pacer &amp; Doubly-Robust OPE · Deployed on AWS CloudFront + S3 (OAC) + Lambda Python 3.12 + Bedrock Nova
+        </div>
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <a href="#architecture" style="color:var(--ink); font-weight:700;">System Architecture ↑</a>
+          <a href="https://d14kv31n2lrkoa.cloudfront.net" target="_blank" rel="noopener" style="color:var(--ink); font-weight:700;">VeriRAG ↗</a>
+          <a href="https://d2x9ti2h7j9apb.cloudfront.net" target="_blank" rel="noopener" style="color:var(--ink); font-weight:700;">RouteLedger ↗</a>
+          <a href="https://github.com/ritwikareddykancharla/adpulse-engine" target="_blank" rel="noopener" style="color:var(--ink); font-weight:700;">GitHub ↗</a>
+        </div>
+      </footer>
+    </div>
+  </section>
 
   <script>
     (function() {
@@ -1412,7 +2389,6 @@
 
       document.getElementById("navBenchmarksLink").addEventListener("click", function(e) {
         e.preventDefault();
-        window.switchTab("spektr-copilot");
         const target = document.getElementById("benchmarks");
         if (target) target.scrollIntoView({ behavior: "smooth" });
       });
@@ -1866,16 +2842,10 @@
         document.getElementById("opeEssBadge").textContent =
           "N_eff = " + Number(ev.effective_sample_size || 168.6).toFixed(1) + " / " + (ev.sample_size || 1200) + " · w_max = " + Number(ev.max_importance_weight || 26.0).toFixed(1);
 
-        // Compute Direct Method value (centered model estimate)
-        const directEst = Number(((ev.doubly_robust.estimate * 0.82) + (ope.logging_baseline_value * 0.18) - 0.028).toFixed(3));
-        const directLow = Number((directEst - 0.052).toFixed(3));
-        const directHigh = Number((directEst + 0.052).toFixed(3));
-
         const rows = [
           { name: "Naive IPS", est: ev.naive_ips.estimate, low: ev.naive_ips.ci_95_low, high: ev.naive_ips.ci_95_high, std: ev.naive_ips.bootstrap_std, rmse: "0.1661 (Baseline)", color: "#DC2626" },
-          { name: "Direct Method μ̂", est: directEst, low: directLow, high: directHigh, std: 0.0265, rmse: "0.1140 (Model Bias)", color: "#D97706" },
-          { name: "Clipped IPS (M=25)", est: ev.clipped_ips.estimate, low: ev.clipped_ips.ci_95_low, high: ev.clipped_ips.ci_95_high, std: ev.clipped_ips.bootstrap_std, rmse: "0.1218 (-26.7%)", color: "#1D4ED8" },
-          { name: "Doubly-Robust (DR)", est: ev.doubly_robust.estimate, low: ev.doubly_robust.ci_95_low, high: ev.doubly_robust.ci_95_high, std: ev.doubly_robust.bootstrap_std, rmse: "0.0564 (-66.0% ★)", color: "#059669" }
+          { name: "Clipped IPS (M=25)", est: ev.clipped_ips.estimate, low: ev.clipped_ips.ci_95_low, high: ev.clipped_ips.ci_95_high, std: ev.clipped_ips.bootstrap_std, rmse: "0.1218 (-26.68%)", color: "#1D4ED8" },
+          { name: "Doubly-Robust (DR)", est: ev.doubly_robust.estimate, low: ev.doubly_robust.ci_95_low, high: ev.doubly_robust.ci_95_high, std: ev.doubly_robust.bootstrap_std, rmse: "0.0564 (-66.03% ★)", color: "#059669" }
         ];
 
         const isDark = state.activeTheme === "dark";
@@ -1885,7 +2855,7 @@
         );
         const minV = Math.max(0.5, Math.min.apply(null, allVals) - 0.14);
         const maxV = Math.max.apply(null, allVals) + 0.14;
-        const FW = 540, FH = 165, fL = 148, fR = 20;
+        const FW = 540, FH = 148, fL = 148, fR = 20;
         const xMap = function(v) { return fL + ((v - minV) / Math.max(0.05, maxV - minV)) * (FW - fL - fR); };
 
         document.getElementById("opeForestPlotSvg").innerHTML =
@@ -1895,7 +2865,7 @@
             '<line x1="' + xMap(ope.oracle_ground_truth).toFixed(1) + '" y1="14" x2="' + xMap(ope.oracle_ground_truth).toFixed(1) + '" y2="' + (FH - 22) + '" stroke="#EA580C" stroke-width="2.2"/>' +
             '<text x="' + xMap(ope.oracle_ground_truth).toFixed(1) + '" y="11" text-anchor="middle" font-family="Martian Mono, monospace" font-size="8.5" font-weight="700" fill="#EA580C">Oracle ($' + Number(ope.oracle_ground_truth).toFixed(2) + ')</text>' +
             rows.map(function(r, idx) {
-              const y = 34 + idx * 31;
+              const y = 36 + idx * 34;
               return '<text x="' + (fL - 10) + '" y="' + (y + 4) + '" text-anchor="end" font-family="Martian Mono, monospace" font-size="9.5" font-weight="700" fill="' + textInk + '">' + esc(r.name) + '</text>' +
                 '<line x1="' + xMap(r.low).toFixed(1) + '" y1="' + y + '" x2="' + xMap(r.high).toFixed(1) + '" y2="' + y + '" stroke="' + r.color + '" stroke-width="4" stroke-linecap="round"/>' +
                 '<circle cx="' + xMap(r.est).toFixed(1) + '" cy="' + y + '" r="5.5" fill="' + r.color + '" stroke="' + textInk + '" stroke-width="1.5"/>';
@@ -1907,7 +2877,7 @@
             '<thead><tr><th>OPE Estimator</th><th>Counterfactual Value</th><th>95% Bootstrap CI</th><th>Bootstrap SE</th><th>40-Trial RMSE</th></tr></thead>' +
             '<tbody>' +
               rows.map(function(r, idx) {
-                const isDr = idx === 3;
+                const isDr = idx === 2;
                 return '<tr style="' + (isDr ? "background:var(--pass-soft); font-weight:700;" : "") + '">' +
                   '<td>' + esc(r.name) + '</td>' +
                   '<td class="mono">$' + Number(r.est).toFixed(3) + ' / auction</td>' +
@@ -2052,6 +3022,182 @@
         } catch (_) {
           // Embedded seed already active
         }
+      }
+
+      // =====================================================================
+      // §02 ARCHITECTURE INTERACTIVE ZOOM, EXPORT & NODE INSPECTOR
+      // =====================================================================
+      const ARCH_NODE_DETAILS = {
+        "ap-browser": {
+          plane: "Plane ① · AWS Edge Delivery",
+          title: "Shopper Storefront & Seller Auction Studio UI",
+          module: "web/index.html (Self-Contained Neo-Brutalist Single-Page Studio)",
+          summary: "Renders the 520-SKU Sponsored Storefront, GSP second-price ladder, 24-hour PID cumulative spend & conversion curves, Doubly-Robust bootstrap forest plots, and Spektr Copilot with stateless URL persistence via location.hash.",
+          metric: "0 External JS Deps · location.hash State Sync"
+        },
+        "ap-cloudfront": {
+          plane: "Plane ① · AWS Edge Delivery",
+          title: "Amazon CloudFront Global Edge Distribution (E79KI4V15IVRU)",
+          module: "infra/deploy_cloudfront.sh · HTTPS TLS 1.3 + Origin Access Control",
+          summary: "Terminates HTTPS at the AWS edge, serves static storefront assets from private S3 via SigV4 Origin Access Control, and routes /api/* live auction & pacing requests to the Python 3.12 Lambda origin in us-west-2.",
+          metric: "Distribution E79KI4V15IVRU · 100% HTTPS + OAC"
+        },
+        "ap-s3": {
+          plane: "Plane ① · AWS Edge Delivery",
+          title: "Private Amazon S3 Bucket with Origin Access Control (OAC)",
+          module: "s3://adpulse-web-796330847946-us-west-2/index.html",
+          summary: "Stores static UI assets with S3 BlockPublicAccess enabled on all 4 flags—only CloudFront distribution E79KI4V15IVRU can fetch objects via IAM service-principal policy.",
+          metric: "0 Public S3 ACLs · $0 Idle Compute Cost"
+        },
+        "ap-lambda": {
+          plane: "Plane ① · AWS Edge Delivery",
+          title: "Python 3.12 Serverless Auction & Pacing API Router",
+          module: "adpulse/web_api.py · adpulse/aws_lambda_handler.py (/api/storefront/search · /api/pacing/simulate · /api/copilot/recommend)",
+          summary: "Executes sub-millisecond two-stage catalog ranking, 6,000-auction PID pacing simulations, 240x paired bootstrap Doubly-Robust OPE, and live Amazon Bedrock Nova Spektr diagnostics.",
+          metric: "Python 3.12 Serverless · 0 EC2 / 0 RDS Instances"
+        },
+        "ap-stage1": {
+          plane: "Plane ② · Two-Stage Catalog Retrieval & Calibration",
+          title: "Stage-1 Inverted Posting Index & Hard Eligibility Gate",
+          module: "adpulse/catalog_ranker.py :: TwoStageAdRanker",
+          summary: "Retrieves matching SKUs from an inverted token index and deterministically prunes out-of-stock FBA listings, shopper price-ceiling violations, and incomplete Spektr catalog attributes before auction scoring.",
+          metric: "0.0% OOS (down from 15.28%) · 0.0% Over-Cap (down from 59.72%)"
+        },
+        "ap-bayes": {
+          plane: "Plane ② · Two-Stage Catalog Retrieval & Calibration",
+          title: "Empirical-Bayes Beta-Binomial pCTR × pCVR Ranker",
+          module: "adpulse/catalog_ranker.py :: _calibrated_rate() & rank_query()",
+          summary: "Shrinks noisy cold-start click and conversion counts toward category Beta priors modulated by hourly shopper purchase-intent multipliers (0.52x morning browse vs 1.82x Prime evening peak).",
+          metric: "NDCG@3: 0.2020 → 0.8331 (+312.43%) · 0.266ms p50 / 0.430ms p99"
+        },
+        "ap-conv-unit": {
+          plane: "Plane ② · Two-Stage Catalog Retrieval & Calibration",
+          title: "Grounded Conversational Shopping Sponsored Unit",
+          module: "adpulse/web_api.py :: conversational_shopping_preview",
+          summary: "Selects the top spec-verified, in-stock GSP winner under the shopper's price ceiling and synthesizes a transparent conversational product recommendation with exact 2nd-price CPC and ROAS attribution.",
+          metric: "+980.53% Expected Conversions (1.90 → 20.53 / 1k queries)"
+        },
+        "ap-pid": {
+          plane: "Plane ③ · GSP Clearinghouse & 24h Lagrangian PID Pacer",
+          title: "24-Hour Dual Lagrangian PID Bid-Shading Controller (λ_t)",
+          module: "adpulse/auction_pacer.py :: BudgetPacedAuctionEngine",
+          summary: "Updates per-campaign bid-shading multiplier λ_t via proportional-integral-derivative spend-curve feedback across 6,000 sequential auctions so SMB budgets survive low-CVR morning browse traffic and capture 18:00–22:00 Prime peak.",
+          metric: "55.0% → 0.0% Early Burnout · +86.3% ROAS (5.01x → 9.33x)"
+        },
+        "ap-gsp": {
+          plane: "Plane ③ · GSP Clearinghouse & 24h Lagrangian PID Pacer",
+          title: "3-Slot Generalized Second-Price (GSP) Clearinghouse",
+          module: "adpulse/auction_pacer.py & catalog_ranker.py :: GSP Minimum-to-Beat",
+          summary: "Ranks shaded bidders by calibrated eCPM utility and charges each winning slot the exact minimum CPC required to outrank slot k+1 plus $0.01—cutting mean clearing CPC from $2.06 to $1.37.",
+          metric: "+68.0% Attributed Conversions (75 → 126) · 0 Cap Violations"
+        },
+        "ap-ope": {
+          plane: "Plane ④ · Counterfactual Gate & Bedrock Spektr Copilot",
+          title: "Clipped IPS & Doubly-Robust Off-Policy Evaluator",
+          module: "adpulse/off_policy_eval.py :: OffPolicyBidEvaluator",
+          summary: "Combines direct reward regression μ̂(x,a) with propensity-clipped importance weights min(M=25, π_e/π_0) and 240x paired bootstrap 95% confidence intervals across 40 trials × 1,200 logged auctions.",
+          metric: "-66.03% RMSE (0.1661 → 0.0564) · 100.0% 95% CI Coverage"
+        },
+        "ap-bedrock": {
+          plane: "Plane ⑤ · Counterfactual Gate & Bedrock Spektr Copilot",
+          title: "Amazon Bedrock Nova Seller Diagnostics & Spektr Iceberg SQL",
+          module: "adpulse/campaign_diagnostics.py · us.amazon.nova-lite-v1:0",
+          summary: "Classifies lost impression share across 5 Seller Central failure archetypes, clamps recommended_bid <= price × pCVR × min(target_acos, gross_margin), and generates Spektr Apache Iceberg lineage SQL.",
+          metric: "40/40 (100.0%) Root-Cause Accuracy · 100.0% ACoS Cap Safe"
+        }
+      };
+
+      const archSvg = document.getElementById("apArchSvg");
+      const archViewport = document.getElementById("archViewport");
+      const zoom100Btn = document.getElementById("zoom100Btn");
+      const zoom125Btn = document.getElementById("zoom125Btn");
+      const zoomResetBtn = document.getElementById("zoomResetBtn");
+      const archZoomLabel = document.getElementById("archZoomLabel");
+
+      function selectArchNode(nodeId) {
+        const info = ARCH_NODE_DETAILS[nodeId] || ARCH_NODE_DETAILS["ap-stage1"];
+        document.querySelectorAll("#apArchSvg .ex-node").forEach(function(el) {
+          el.classList.toggle("selected", el.getAttribute("data-arch-node") === nodeId);
+        });
+        document.querySelectorAll("#archNodePills [data-arch-btn]").forEach(function(btn) {
+          btn.classList.toggle("active", btn.getAttribute("data-arch-btn") === nodeId);
+        });
+        const detailBox = document.getElementById("archInspectorDetail");
+        if (detailBox) {
+          detailBox.innerHTML =
+            '<div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.45rem;">' +
+              '<div>' +
+                '<span class="tag tag-accent" style="margin-bottom:0.35rem;">' + esc(info.plane) + '</span>' +
+                '<h3 style="font-size:1.06rem; font-weight:800;">' + esc(info.title) + '</h3>' +
+              '</div>' +
+              '<span class="tag tag-pass">' + esc(info.metric) + '</span>' +
+            '</div>' +
+            '<div class="mono" style="font-size:0.73rem; color:var(--accent-deep); margin-bottom:0.45rem;">Module / Resource: <code>' + esc(info.module) + '</code></div>' +
+            '<p style="font-size:0.9rem; color:var(--ink-muted); line-height:1.65;">' + esc(info.summary) + '</p>';
+        }
+      }
+
+      document.querySelectorAll("#apArchSvg .ex-node").forEach(function(el) {
+        el.addEventListener("click", function() { selectArchNode(el.getAttribute("data-arch-node")); });
+        el.addEventListener("keydown", function(e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            selectArchNode(el.getAttribute("data-arch-node"));
+          }
+        });
+      });
+      document.querySelectorAll("#archNodePills [data-arch-btn]").forEach(function(btn) {
+        btn.addEventListener("click", function() { selectArchNode(btn.getAttribute("data-arch-btn")); });
+      });
+
+      function setArchZoom(mode) {
+        if (!archSvg) return;
+        const is125 = mode === "125";
+        archSvg.classList.toggle("zoom-125", is125);
+        if (archZoomLabel) archZoomLabel.textContent = is125 ? "Zoom: 125%" : "Zoom: 100%";
+        if (zoom100Btn) zoom100Btn.className = is125 ? "btn btn-secondary" : "btn btn-accent";
+        if (zoom125Btn) zoom125Btn.className = is125 ? "btn btn-accent" : "btn btn-secondary";
+        if (mode === "reset" && archViewport) {
+          archViewport.scrollTo({ left: 0, behavior: "smooth" });
+          selectArchNode("ap-stage1");
+        }
+      }
+      if (zoom100Btn) zoom100Btn.addEventListener("click", function() { setArchZoom("100"); });
+      if (zoom125Btn) zoom125Btn.addEventListener("click", function() { setArchZoom("125"); });
+      if (zoomResetBtn) zoomResetBtn.addEventListener("click", function() { setArchZoom("reset"); });
+
+      const dlSvgBtn = document.getElementById("downloadArchSvgBtn");
+      if (dlSvgBtn && archSvg) {
+        dlSvgBtn.addEventListener("click", function() {
+          const xml = '<?xml version="1.0" encoding="UTF-8"?>\n' + archSvg.outerHTML;
+          const blob = new Blob([xml], { type: "image/svg+xml;charset=utf-8" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "adpulse-architecture.svg";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+        });
+      }
+      selectArchNode("ap-stage1");
+
+      if ("IntersectionObserver" in window) {
+        const spyObs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              const id = entry.target.getAttribute("data-spy-section");
+              document.querySelectorAll("[data-toc-link]").forEach(function(el) {
+                el.classList.toggle("active", el.getAttribute("data-toc-link") === id);
+              });
+              document.querySelectorAll("[data-nav-sec]").forEach(function(el) {
+                el.classList.toggle("active", el.getAttribute("data-nav-sec") === id);
+              });
+            }
+          });
+        }, { rootMargin: "-140px 0px -60% 0px" });
+        document.querySelectorAll("[data-spy-section]").forEach(function(sec) { spyObs.observe(sec); });
       }
 
       // Initialize immediately with embedded deterministic seed
