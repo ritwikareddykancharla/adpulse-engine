@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 520" width="1120" height="520" font-family="'Schibsted Grotesk', -apple-system, BlinkMacSystemFont, sans-serif">
+  <!-- Blueprint dotted paper background -->
+  <defs>
+    <pattern id="bp-dots" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#c3cfe2"/>
+    </pattern>
+    <marker id="arr-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0e1a2b"/>
+    </marker>
+    <marker id="arr-acc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#d9480f"/>
+    </marker>
+  </defs>
+  <rect width="1120" height="520" fill="#f2f5fa"/>
+  <rect width="1120" height="520" fill="url(#bp-dots)"/>
+  <rect x="1" y="1" width="1118" height="518" fill="none" stroke="#0e1a2b" stroke-width="1.5"/>
+
+  <!-- Header Strip -->
+  <rect x="1" y="1" width="1118" height="62" fill="#0e1a2b"/>
+  <rect x="24" y="18" width="96" height="26" fill="#d9480f"/>
+  <text x="72" y="35" text-anchor="middle" font-family="'Martian Mono', monospace" font-size="10.5" font-weight="500" fill="#ffffff" letter-spacing="1.2">ADPULSE</text>
+  <text x="136" y="37" font-size="17" font-weight="800" fill="#ffffff" letter-spacing="-0.3">CloudFront + Private S3 (OAC) + Sponsored GSP Auction + 24h PID Pacer + Bedrock Nova</text>
+
+  <!-- Node 01: Browser Client -->
+  <rect x="28" y="138" width="168" height="248" fill="#ffffff" stroke="#0e1a2b" stroke-width="1.5"/>
+  <text x="42" y="162" font-family="'Martian Mono', monospace" font-size="9.5" fill="#35527e" letter-spacing="1">01 · VIEWER</text>
+  <text x="42" y="184" font-size="16" font-weight="800" fill="#0e1a2b">Storefront &amp; Studio</text>
+  <text x="42" y="208" font-family="'Martian Mono', monospace" font-size="10.5" fill="#33425a">• Shopper Search Bar</text>
+  <text x="42" y="228" font-family="'Martian Mono', monospace" font-size="10.5" fill="#33425a">• Slot #1/#2/#3 Cards</text>
+  <text x="42" y="248" font-family="'Martian Mono', monospace" font-size="10.5" fill="#33425a">• &lt;0.5ms Prune Drawer</text>
+  <text x="42" y="268" font-family="'Martian Mono', monospace" font-size="10.5" fill="#33425a">• 24h PID Spend Curve</text>
+  <text x="42" y="288" font-family="'Martian Mono', monospace" font-size="10.5" fill="#33425a">• DR Bid Simulator</text>
+  <rect x="42" y="314" width="140" height="52" fill="#fff3ee" stroke="#d9480f" stroke-width="1.2"/>
+  <text x="112" y="335" text-anchor="middle" font-family="'Martian Mono', monospace" font-size="10" font-weight="500" fill="#d9480f">HTTPS / HTTP3</text>
+  <text x="112" y="353" text-anchor="middle" font-family="'Martian Mono', monospace" font-size="9.5" fill="#0e1a2b">d1g4bbd5r2rls1.cf</text>
+
+  <!-- Node 02: CloudFront Edge -->
+  <rect x="238" y="114" width="214" height="296" fill="#ffffff" stroke="#35527e" stroke-width="2"/>
+  <text x="254" y="138" font-family="'Martian Mono', monospace" font-size="9.5" fill="#35527e" letter-spacing="1">02 · EDGE CDN</text>
+  <text x="254" y="160" font-size="16.5" font-weight="800" fill="#0e1a2b">Amazon CloudFront</text>
+  <text x="254" y="178" font-family="'Martian Mono', monospace" font-size="10" fill="#6b7a92">Single Origin · Zero CORS</text>
+
+  <rect x="254" y="196" width="182" height="90" fill="#f2f5fa" stroke="#0e1a2b" stroke-width="1.2"/>
+  <text x="266" y="216" font-family="'Martian Mono', monospace" font-size="10" font-weight="500" fill="#0e1a2b">DEFAULT (*) -&gt; S3 OAC</text>
+  <text x="266" y="236" font-size="12" fill="#33425a">Blueprint HTML/CSS/JS</text>
+  <text x="266" y="256" font-family="'Martian Mono', monospace" font-size="10" fill="#0c8a4d">SigV4 Origin Access Ctrl</text>
+
+  <rect x="254" y="302" width="182" height="92" fill="#f2f5fa" stroke="#0e1a2b" stroke-width="1.2"/>
+  <text x="266" y="322" font-family="'Martian Mono', monospace" font-size="10" font-weight="500" fill="#0e1a2b">PATH (/api/*) -&gt; LAMBDA</text>
+  <text x="266" y="342" font-size="12" fill="#33425a">Auction, PID &amp; Copilot</text>
+  <text x="266" y="362" font-family="'Martian Mono', monospace" font-size="10" fill="#d9480f">CachingDisabled · Dynamic</text>
+
+  <!-- Node 03A: Private S3 -->
+  <rect x="502" y="88" width="298" height="96" fill="#ffffff" stroke="#0e1a2b" stroke-width="1.5"/>
+  <text x="518" y="111" font-family="'Martian Mono', monospace" font-size="9.5" fill="#0c8a4d" letter-spacing="1">03A · PRIVATE STATIC ORIGIN</text>
+  <text x="518" y="132" font-size="15.5" font-weight="800" fill="#0e1a2b">Amazon S3 (BlockPublicAccess=True)</text>
+  <text x="518" y="152" font-family="'Martian Mono', monospace" font-size="10" fill="#33425a">adpulse-web-796330847946-us-west-2</text>
+  <text x="518" y="170" font-family="'Martian Mono', monospace" font-size="10" fill="#6b7a92">IAM Condition: AWS:SourceArn == E79KI4V15IVRU</text>
+
+  <!-- Node 03B: AdPulse Core Engine -->
+  <rect x="502" y="204" width="298" height="290" fill="#ffffff" stroke="#0e1a2b" stroke-width="1.5"/>
+  <text x="518" y="227" font-family="'Martian Mono', monospace" font-size="9.5" fill="#d9480f" letter-spacing="1">03B · COMPUTE ORIGIN (US-WEST-2)</text>
+  <text x="518" y="248" font-size="16" font-weight="800" fill="#0e1a2b">adpulse-api-origin (Python 3.12)</text>
+
+  <rect x="518" y="264" width="266" height="64" fill="#f2f5fa" stroke="#35527e" stroke-width="1.2"/>
+  <text x="530" y="283" font-family="'Martian Mono', monospace" font-size="10" font-weight="500" fill="#35527e">STAGE 1+2 CATALOG RANKER (520 SKUs)</text>
+  <text x="530" y="301" font-size="11.5" fill="#33425a">OOS &amp; Price Gate (&lt;0.5ms) + Empirical-Bayes</text>
+  <text x="530" y="317" font-family="'Martian Mono', monospace" font-size="10" fill="#0c8a4d">+332.9% Top-3 Recall · 0.43ms p99</text>
+
+  <rect x="518" y="340" width="266" height="64" fill="#fff3ee" stroke="#d9480f" stroke-width="1.2"/>
+  <text x="530" y="359" font-family="'Martian Mono', monospace" font-size="10" font-weight="500" fill="#d9480f">GSP AUCTION &amp; 24H PID BID PACER</text>
+  <text x="530" y="377" font-size="11.5" fill="#33425a">2nd-Price Clearing + Hourly λ_t Shading</text>
+  <text x="530" y="393" font-family="'Martian Mono', monospace" font-size="10" fill="#0e1a2b">9.33x ROAS (+86.3%) · 0 Early Depletions</text>
+
+  <rect x="518" y="416" width="266" height="64" fill="#f2f5fa" stroke="#0e1a2b" stroke-width="1.2"/>
+  <text x="530" y="435" font-family="'Martian Mono', monospace" font-size="10" font-weight="500" fill="#0e1a2b">DOUBLY-ROBUST OPE &amp; ACOS GUARDRAIL</text>
+  <text x="530" y="453" font-size="11.5" fill="#33425a">240x Paired Bootstrap CIs · SQLite Loss DB</text>
+  <text x="530" y="469" font-family="'Martian Mono', monospace" font-size="10" fill="#0c8a4d">-66.03% RMSE vs IPS · 100% ACOS Safe</text>
+
+  <!-- Node 04: Bedrock Nova + Spektr -->
+  <rect x="846" y="136" width="246" height="164" fill="#0e1a2b" stroke="#0e1a2b" stroke-width="1.5"/>
+  <text x="862" y="160" font-family="'Martian Mono', monospace" font-size="9.5" fill="#ff8a5c" letter-spacing="1">04 · FOUNDATION MODEL</text>
+  <text x="862" y="182" font-size="16.5" font-weight="800" fill="#ffffff">Amazon Bedrock</text>
+  <text x="862" y="201" font-family="'Martian Mono', monospace" font-size="10.5" fill="#8fb0e6">us.amazon.nova-lite-v1:0</text>
+  <text x="862" y="226" font-family="'Martian Mono', monospace" font-size="10" fill="#d6e0f5">• Seller Bid &amp; Pacing Memo</text>
+  <text x="862" y="246" font-family="'Martian Mono', monospace" font-size="10" fill="#d6e0f5">• Negative Keyword Rules</text>
+  <text x="862" y="266" font-family="'Martian Mono', monospace" font-size="10" fill="#d6e0f5">• Hard ACOS Cap Enforced</text>
+
+  <rect x="846" y="324" width="246" height="150" fill="#ffffff" stroke="#35527e" stroke-width="1.5"/>
+  <text x="862" y="348" font-family="'Martian Mono', monospace" font-size="9.5" fill="#35527e" letter-spacing="1">05 · LAKEHOUSE LINEAGE</text>
+  <text x="862" y="370" font-size="15.5" font-weight="800" fill="#0e1a2b">Spektr Iceberg &amp; Logs</text>
+  <text x="862" y="394" font-family="'Martian Mono', monospace" font-size="10" fill="#33425a">• 6,000 24h Auction Events</text>
+  <text x="862" y="414" font-family="'Martian Mono', monospace" font-size="10" fill="#33425a">• 1,200 Propensity Traces</text>
+  <text x="862" y="434" font-family="'Martian Mono', monospace" font-size="10" fill="#33425a">• Spektr Iceberg SQL Queries</text>
+  <text x="862" y="454" font-family="'Martian Mono', monospace" font-size="10" fill="#0c8a4d">100% Deterministic Replay</text>
+
+  <!-- Connectors -->
+  <line x1="196" y1="262" x2="236" y2="262" stroke="#0e1a2b" stroke-width="1.8" marker-end="url(#arr-ink)"/>
+  <path d="M 452 240 L 478 240 L 478 136 L 500 136" fill="none" stroke="#0e1a2b" stroke-width="1.8" marker-end="url(#arr-ink)"/>
+  <line x1="452" y1="348" x2="500" y2="348" stroke="#d9480f" stroke-width="2" marker-end="url(#arr-acc)"/>
+  <path d="M 800 310 L 824 310 L 824 218 L 844 218" fill="none" stroke="#d9480f" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arr-acc)"/>
+  <line x1="800" y1="400" x2="844" y2="400" stroke="#0e1a2b" stroke-width="1.8" marker-end="url(#arr-ink)"/>
+</svg>

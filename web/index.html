@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AdPulse: Two-stage sponsored catalog ranker, truthful GSP second-price auction, 24-hour Lagrangian PID budget pacer, Doubly-Robust off-policy evaluator, and Amazon Bedrock Nova seller copilot.">
+  <meta name="theme-color" content="#f2f5fa">
+  <title>AdPulse — Sponsored Search, GSP Auction &amp; 24h Budget Pacer | Ritwika Kancharla</title>
+  <script>
+    (function () {
+      var h = location.hash || "";
+      var t = h.indexOf("theme=dark") !== -1 ? "dark" : (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Schibsted+Grotesk:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+<header class="site"><div class="bar">
+  <a class="brand" href="https://ritwikareddykancharla.github.io"><span class="mark">RK</span><span class="name">Ritwika Kancharla</span></a>
+  <nav aria-label="Site">
+    <a href="#live-system" class="on">Live studio</a>
+    <a href="#problem">Problem</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#results">Benchmarks</a>
+    <a href="https://github.com/ritwikareddykancharla/adpulse-engine" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+  <button class="theme" type="button" aria-label="Switch between light and dark theme">
+    <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+  </button>
+  <a class="btn contact" href="https://github.com/ritwikareddykancharla/adpulse-engine" target="_blank" rel="noopener">Source &rarr;</a>
+</div></header>
+
+<main><article class="demo" style="--accent:#d9480f"><div class="wrap">
+  <a class="crumb" href="https://ritwikareddykancharla.github.io/#projects">&larr; All projects</a>
+  <header class="post-head">
+    <p class="eyebrow">AdPulse · Sponsored Search, GSP Auction &amp; 24-Hour PID Budget Pacer</p>
+    <h1 class="post-title">Calibrated Ad Ranking, Truthful Second-Price Clearing, and Hourly PID Bid Shading</h1>
+    <p class="meta">
+      <span>Ritwika Kancharla</span>
+      <span>Amazon CloudFront + Private S3 (OAC) + <code>/api/*</code></span>
+      <span>Amazon Bedrock (<code>us.amazon.nova-lite-v1:0</code>)</span>
+      <span><a href="https://github.com/ritwikareddykancharla/adpulse-engine" target="_blank" rel="noopener">ritwikareddykancharla/adpulse-engine</a></span>
+    </p>
+    <div class="stats">
+      <div><b>+332.9%</b><span>Top-3 recall lift (<code>0.186 &rarr; 0.806</code>) at <code>0.43 ms</code> p99 with <code>0.0%</code> out-of-stock leaks</span></div>
+      <div><b>+86.3% ROAS</b><span>Lagrangian PID bid shading (<code>5.01x &rarr; 9.33x</code>) with <code>0 / 40</code> pre-18:00 budget depletions</span></div>
+      <div><b>-66.0% RMSE</b><span>Doubly-Robust off-policy evaluation vs. Naive IPS across <code>1,200</code> propensity traces</span></div>
+      <div><b>100.0%</b><span>Seller root-cause accuracy &amp; hard ACOS cap safety (<code>bid &le; price &times; pCVR &times; target_ACOS</code>)</span></div>
+    </div>
+  </header>
+
+  <div class="post-grid">
+    <aside class="side" aria-label="Contents"><div class="side-in">
+      <p class="side-k"><span>Contents</span><span class="side-pct" aria-hidden="true">0%</span></p>
+      <div class="side-bar" aria-hidden="true"><i></i></div>
+      <ol class="side-list">
+        <i class="side-ind" aria-hidden="true"></i>
+        <li><a href="#live-system" class="on"><span class="sn">01</span><span>Live interactive system</span></a></li>
+        <li><a href="#problem"><span class="sn">02</span><span>Problem &amp; Ads alignment</span></a></li>
+        <li><a href="#architecture"><span class="sn">03</span><span>System architecture</span></a></li>
+        <li><a href="#results"><span class="sn">04</span><span>Measured benchmarks</span></a></li>
+      </ol>
+      <a class="side-top" href="#top">Back to top</a>
+    </div></aside>
+
+    <div class="post-body">
+      <div class="tldr">
+        <p class="tk">Abstract</p>
+        <p>Ranking sponsored products by raw keyword overlap and CPC bid leaks out-of-stock SKUs (<strong>15.28%</strong> of baseline impressions) and burns <strong>55.0%</strong> of SMB daily budgets during low-intent morning browsing before the <code>18:00–22:00</code> Prime conversion peak. <strong>AdPulse</strong> pairs a sub-millisecond Stage-1 catalog &amp; budget eligibility gate with Empirical-Bayes calibrated eCPM reranking, truthful Generalized Second-Price (GSP) clearing, a 24-hour Lagrangian PID bid-shading controller, Doubly-Robust off-policy evaluation, and an ACOS-bounded <strong>Amazon Bedrock Nova</strong> seller copilot.</p>
+      </div>
+
+      <h2 id="live-system"><span class="num">01</span>Live interactive system</h2>
+      <p>Search the 520-SKU retail catalog below, drag the <strong>Hour of Day</strong> and <strong>Daily Budget Cap</strong> sliders, or click <strong>Compare 20:00 Greedy Burnout vs. PID Recovery</strong> to watch live Stage-1 pruning, GSP second-price slot clearing, 24-hour spend pacing, counterfactual Doubly-Robust bid evaluation, and live Amazon Bedrock Nova seller diagnostics.</p>
+
+      <figure class="fig wide">
+        <div class="plate">
+          <!-- Top Studio Bar -->
+          <div class="studio-subbar">
+            <div>
+              <span class="mono-kicker">LIVE AMAZON STOREFRONT &amp; CONVERSATIONAL AD AUCTION</span>
+            </div>
+            <button type="button" id="guidedBurnoutDemoBtn" class="btn primary">
+              ⚡ Compare 20:00 Greedy Burnout vs. PID Recovery
+            </button>
+          </div>
+
+          <!-- Search Command Bar -->
+          <form id="storefrontSearchForm" class="search-command-row" autocomplete="off">
+            <span class="search-cat-tag" id="searchCategoryPill">electronics audio</span>
+            <input
+              type="text"
+              id="shopperQueryInput"
+              value="wireless anc running earbuds"
+              placeholder="Search shopper query (e.g. wireless anc running earbuds, 4k usb-c monitor macbook)..."
+              aria-label="Shopper search query"
+            >
+            <button type="submit">Clear GSP Auction &rarr;</button>
+          </form>
+
+          <!-- 1-Click Shopper Queries -->
+          <div class="query-preset-row">
+            <span class="mono-kicker">1-Click Shopper Queries:</span>
+            <div id="featuredQueryChips" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+          </div>
+
+          <!-- Live Sliders & Pacing Toggle -->
+          <div class="controls-grid">
+            <div class="ctrl-cell">
+              <div class="ctrl-head">
+                <label for="hourSlider">Hour of Day</label>
+                <span id="hourReadout" class="ctrl-val peak">19:00 · Prime Peak (1.78x CVR)</span>
+              </div>
+              <input type="range" id="hourSlider" min="0" max="23" step="1" value="19">
+              <div class="ctrl-ticks">
+                <span>00:00</span>
+                <span>08:00 Browse</span>
+                <span>18:00–22:00 Prime Peak</span>
+              </div>
+            </div>
+
+            <div class="ctrl-cell">
+              <div class="ctrl-head">
+                <label for="budgetSlider">Daily Campaign Budget</label>
+                <span id="budgetReadout" class="ctrl-val">$28 / day</span>
+              </div>
+              <input type="range" id="budgetSlider" min="12" max="90" step="2" value="28">
+              <div class="ctrl-ticks">
+                <span>$12 SMB</span>
+                <span>$40 Mid</span>
+                <span>$90 Ent</span>
+              </div>
+            </div>
+
+            <div class="ctrl-cell">
+              <div class="ctrl-head">
+                <span>Pacing Controller</span>
+                <span id="lambdaReadout" class="ctrl-val">&lambda;_t = 0.89</span>
+              </div>
+              <div class="mode-pair" role="group" aria-label="Budget pacing mode">
+                <button type="button" id="btnModePid" class="mode-btn active" data-mode="pid_paced">PID-Paced (&lambda;_t)</button>
+                <button type="button" id="btnModeGreedy" class="mode-btn" data-mode="unpaced_greedy">Unpaced Greedy</button>
+              </div>
+            </div>
+
+            <div class="ctrl-cell">
+              <div class="ctrl-head">
+                <label for="priceCapSelect">Price Ceiling</label>
+              </div>
+              <select id="priceCapSelect" class="bp-select">
+                <option value="160" selected>Under $160</option>
+                <option value="260">Under $260</option>
+                <option value="340">Under $340</option>
+                <option value="none">No Cap</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Funnel Telemetry -->
+          <div id="auctionFunnelStrip" class="funnel-bar"></div>
+
+          <!-- 3 Winning Sponsored Product Cards -->
+          <div id="winningAdsGrid" class="sp-grid"></div>
+
+          <!-- Conversational Shopping Slot + Filtered Out Before Auction Drawer -->
+          <div class="split-2">
+            <div id="conversationalAdBox" class="bp-box"></div>
+            <div class="bp-box">
+              <div class="bp-box-head">
+                <div>
+                  <span class="tag bad">&lt; 0.5ms STAGE-1 ELIGIBILITY GATE</span>
+                  <h4 style="margin-top:6px;">Filtered Out Before Auction — Pruned SKUs</h4>
+                </div>
+                <div id="filteredReasonPills" style="display:flex;flex-wrap:wrap;gap:5px;"></div>
+              </div>
+              <div id="filteredDrawerList" class="prune-list"></div>
+            </div>
+          </div>
+
+          <!-- SUB-STUDIO B: 24-Hour PID Budget Pacing Curve & Doubly-Robust Simulator -->
+          <div class="studio-divider">
+            <div>
+              <span class="mono-kicker">24-HOUR LAGRANGIAN PID CONTROLLER &amp; DOUBLY-ROBUST OFF-POLICY LAB</span>
+              <h3>24-Hour Cumulative Spend Curve vs. Counterfactual Bid Simulator</h3>
+            </div>
+            <div id="pacingSummaryChips"></div>
+          </div>
+
+          <div class="pacing-grid">
+            <div class="bp-box">
+              <div class="bp-box-head">
+                <h4>Unpaced Greedy Burnout (13:00) vs. PID-Paced Delivery (<code>6,000</code> Auctions)</h4>
+                <span class="mono-kicker">Dashed Red = Greedy · Solid Green = PID</span>
+              </div>
+              <div id="pacingSvgContainer" class="svg-frame"></div>
+              <div id="pacingComparisonCards" class="metric-pair"></div>
+            </div>
+
+            <div class="bp-box">
+              <div class="bp-box-head">
+                <h4>Doubly-Robust Off-Policy Evaluator (<code>-66.0%</code> RMSE)</h4>
+                <span class="tag cobalt">240x Bootstrap 95% CI</span>
+              </div>
+              <div class="mono-kicker">Select Counterfactual Bid Multiplier:</div>
+              <div id="opeMultiplierButtons" class="mult-strip"></div>
+              <div id="opeVerdictBanner" style="margin-bottom:10px;font:500 11px var(--mono);padding:8px 10px;border:1px solid var(--ink);"></div>
+              <div id="opeForestSvgContainer" class="svg-frame" style="margin-bottom:10px;"></div>
+              <div id="opeEstimatorTable"></div>
+            </div>
+          </div>
+
+          <!-- SUB-STUDIO C: Amazon Bedrock Nova Seller Campaign & Spektr Copilot -->
+          <div class="studio-divider">
+            <div>
+              <span class="mono-kicker">LIVE AMAZON BEDROCK (<code>us.amazon.nova-lite-v1:0</code>) · SQLITE + SPEKTR ICEBERG</span>
+              <h3>Seller Campaign &amp; Spektr Lakehouse Copilot (Hard ACOS Cap Guardrail)</h3>
+            </div>
+            <span class="tag ok">bid &le; price &times; pCVR &times; min(ACOS, margin)</span>
+          </div>
+
+          <div class="copilot-grid">
+            <div>
+              <div class="mono-kicker" style="margin-bottom:8px;">1. Select Seller Campaign Loss Mode:</div>
+              <div id="sellerCampaignList" class="cmp-stack"></div>
+            </div>
+            <div>
+              <div id="selectedCampaignTelemetry" class="controls-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:10px;"></div>
+              <form id="copilotAskForm" class="copilot-bar">
+                <select id="targetAcosInput" class="bp-select" aria-label="Target ACOS ceiling">
+                  <option value="">Default ACOS Cap</option>
+                  <option value="0.18">18% Strict ACOS</option>
+                  <option value="0.24">24% Balanced ACOS</option>
+                  <option value="0.30">30% Growth ACOS</option>
+                </select>
+                <input
+                  type="text"
+                  id="copilotQuestionInput"
+                  placeholder="Ask Amazon Bedrock Nova for ACOS-safe bid, negative keyword &amp; Spektr SQL actions..."
+                >
+                <button type="submit" id="runCopilotBtn" class="btn accent">Run Bedrock Nova &rarr;</button>
+              </form>
+              <div id="copilotOutputPanel" class="memo-card"></div>
+            </div>
+          </div>
+        </div>
+        <figcaption><b>Figure 1.</b> Live AdPulse storefront auction, 24-hour Lagrangian PID spend controller, Doubly-Robust off-policy bid evaluator, and Amazon Bedrock Nova (<code>us.amazon.nova-lite-v1:0</code>) seller copilot executing against the <code>/api/*</code> origin in <code>us-west-2</code>.</figcaption>
+      </figure>
+
+      <h2 id="problem"><span class="num">02</span>Problem &amp; Amazon Ads engineering alignment</h2>
+      <p>Sponsored search marketplaces balance three competing constraints on every query: <strong>shopper utility</strong> (never surfacing out-of-stock or price-violating SKUs), <strong>advertiser unit economics</strong> (preventing morning browse traffic from exhausting SMB budgets before high-CVR evening shopping, and keeping CPC bids below profitable ACOS ceilings), and <strong>platform clearing efficiency</strong> under sub-millisecond tail latency.</p>
+
+      <div class="tablewrap wide"><table>
+        <thead><tr><th>Amazon Ads L5 Focus Area</th><th>Production Failure Mode Addressed</th><th>AdPulse Mechanism</th></tr></thead>
+        <tbody>
+          <tr><td>ML Ranking &amp; Ad Response Prediction (<code>10595562</code>)</td><td>Raw lexical &times; CPC bid leaks <code>15.28%</code> out-of-stock SKUs and <code>59.72%</code> price-cap violations</td><td>Inverted-index Stage-1 gate (<code>&lt;0.5 ms</code>) + Empirical-Bayes Beta-smoothed <code>bid &times; pCTR &times; pCVR</code> reranker</td></tr>
+          <tr><td>Sponsored Conversational Shopping (<code>10593929</code>)</td><td>Conversational assistants recommend unverified or out-of-stock sponsored items</td><td>Structured attribute alignment + truthful 3-slot GSP clearing with verbatim spec grounding</td></tr>
+          <tr><td>Ads AI Core Infra / Spektr Lakehouse (<code>10607407</code>)</td><td>55% of SMB campaigns burn 100% of daily budget before <code>18:00</code>; naive IPS has <code>120x</code> weight variance</td><td>Lagrangian PID bid-shading pacer (<code>+86.3%</code> ROAS) + Doubly-Robust OPE (<code>-66.03%</code> RMSE) + Spektr Iceberg lineage</td></tr>
+          <tr><td>GenAI &amp; Agentic Campaign Recommendations (<code>10608286</code>)</td><td>Unbounded LLM bid hike advice pushes sellers above profitable target ACOS</td><td>Deterministic SQLite guardrail (<code>max_acos_cpc</code>) + grounded Amazon Bedrock Nova seller action memos</td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="architecture"><span class="num">03</span>System architecture</h2>
+      <p>Static blueprint assets are served from a private Amazon S3 bucket (<code>BlockPublicAccess=True</code>) signed via CloudFront SigV4 Origin Access Control (OAC), while dynamic auction, pacing, off-policy evaluation, and Amazon Bedrock Converse requests route through CloudFront behavior <code>/api/*</code> to <code>adpulse-api-origin</code> on AWS Lambda (Python 3.12, <code>us-west-2</code>) with zero cross-origin overhead.</p>
+
+      <figure class="fig wide">
+        <div class="plate paper"><img src="architecture.svg" alt="AdPulse CloudFront + Private S3 OAC + /api/* + Amazon Bedrock Nova architecture diagram"></div>
+        <figcaption><b>Figure 2.</b> Production single-domain deployment on Amazon CloudFront (<code>E79KI4V15IVRU</code>) uniting private S3 OAC static delivery, sub-millisecond two-stage ranking + GSP/PID pacing, and live Amazon Bedrock Nova (<code>us.amazon.nova-lite-v1:0</code>).</figcaption>
+      </figure>
+
+      <h2 id="results"><span class="num">04</span>Measured benchmarks</h2>
+      <p>All subsystem benchmarks are deterministic (<code>seed=42</code>, zero external dependencies) and reproducible via <code>python3 benchmarks/run_benchmarks.py</code>.</p>
+
+      <div class="tablewrap wide"><table>
+        <thead><tr><th>Subsystem &amp; Metric</th><th class="r">Baseline</th><th class="r">AdPulse</th><th>Measured Impact</th></tr></thead>
+        <tbody>
+          <tr class="best"><td>Catalog Ranker — Top-3 Recall (<code>500</code> SKUs, <code>120</code> queries)</td><td class="r">0.1861</td><td class="r">0.8056</td><td><strong>+332.89%</strong> recall lift; <strong>+312.43%</strong> nDCG@3 (<code>0.2020 &rarr; 0.8331</code>)</td></tr>
+          <tr><td>Catalog Ranker — OOS &amp; Price-Cap Violation Rate</td><td class="r">15.28% / 59.72%</td><td class="r">0.00% / 0.00%</td><td>100% elimination of out-of-stock &amp; shopper price-cap leaks at <code>0.430 ms</code> p99</td></tr>
+          <tr class="best"><td>24h Auction Pacer — Pre-18:00 Budget Depletion (<code>40</code> campaigns)</td><td class="r">55.00% (22/40)</td><td class="r">0.00% (0/40)</td><td><strong>-100.0%</strong> early depletion; <strong>+86.30%</strong> ROAS (<code>5.01x &rarr; 9.33x</code>) &amp; <strong>+68.0%</strong> conversions</td></tr>
+          <tr><td>Off-Policy Evaluator — Policy Value RMSE (<code>40 &times; 1,200</code> traces)</td><td class="r">0.16606 (IPS)</td><td class="r">0.05641 (DR)</td><td><strong>-66.03%</strong> RMSE vs. Naive IPS (<code>0.12175</code> Clipped IPS <code>M=25</code>); 100% CI coverage</td></tr>
+          <tr><td>Seller Diagnostics — Root-Cause &amp; ACOS Ceiling Compliance</td><td class="r">Unbounded CPC</td><td class="r">100.0% / 100.0%</td><td><code>40 / 40</code> loss modes classified; 0 unprofitable or OOS bid-hike recommendations</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</div></article></main>
+
+<footer class="site-foot"><div class="wrap">
+  <span>Ritwika Kancharla · AdPulse (CloudFront + S3 OAC + Bedrock Nova)</span>
+  <span><a href="https://ritwikareddykancharla.github.io">Portfolio</a> &nbsp;·&nbsp; <a href="https://github.com/ritwikareddykancharla/adpulse-engine">GitHub</a></span>
+</div></footer>
+
+<a class="totop" href="#top" aria-label="Back to top">
+  <svg viewBox="0 0 48 48" aria-hidden="true"><circle class="ring-bg" cx="24" cy="24" r="21"/><circle class="ring" cx="24" cy="24" r="21"/><path d="M24 31V18M18 23.5l6-6 6 6"/></svg>
+</a>
+
+<script src="app.js"></script>
+</body>
+</html>

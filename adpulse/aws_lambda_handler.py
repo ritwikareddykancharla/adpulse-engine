@@ -27,6 +27,7 @@ from .cli import SUPPORTED_MODES, execute_cli_mode
 
 
 DOCS_INDEX_CANDIDATES = (
+    Path(__file__).resolve().parent.parent / "web" / "index.html",
     Path(__file__).resolve().parent.parent / "docs" / "index.html",
     Path(__file__).resolve().parent / "docs" / "index.html",
 )
