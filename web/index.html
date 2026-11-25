@@ -2628,34 +2628,34 @@ compare battery life and wind mic on the best options</textarea>
       function productIconSvg(productType, category) {
         const p = String(productType || "").toLowerCase();
         if (p.includes("earbud") || p.includes("headphone")) {
-          return '<svg width="46" height="46" viewBox="0 0 64 64" fill="none">' +
+          return '<svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 64 64" fill="none">' +
             '<rect x="11" y="27" width="14" height="24" rx="6" fill="#18181B" stroke="#EA580C" stroke-width="2.5"/>' +
             '<rect x="39" y="27" width="14" height="24" rx="6" fill="#18181B" stroke="#EA580C" stroke-width="2.5"/>' +
             '<path d="M16 28C16 16 23 11 32 11C41 11 48 16 48 28" stroke="#EA580C" stroke-width="4.5" stroke-linecap="round"/>' +
           '</svg>';
         }
         if (p.includes("monitor")) {
-          return '<svg width="46" height="46" viewBox="0 0 64 64" fill="none">' +
+          return '<svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 64 64" fill="none">' +
             '<rect x="8" y="12" width="48" height="32" rx="3" fill="#18181B" stroke="#EA580C" stroke-width="2.5"/>' +
             '<path d="M13 36L25 23L35 30L46 19L52 26V39H13V36Z" fill="#EA580C"/>' +
             '<rect x="22" y="48" width="20" height="4" fill="#18181B"/>' +
           '</svg>';
         }
         if (p.includes("chair") || p.includes("keyboard")) {
-          return '<svg width="46" height="46" viewBox="0 0 64 64" fill="none">' +
+          return '<svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 64 64" fill="none">' +
             '<rect x="18" y="10" width="28" height="26" rx="4" fill="#18181B" stroke="#EA580C" stroke-width="2.5"/>' +
             '<rect x="14" y="38" width="36" height="7" rx="3" fill="#EA580C"/>' +
             '<line x1="32" y1="45" x2="32" y2="55" stroke="#18181B" stroke-width="4"/>' +
           '</svg>';
         }
         if (p.includes("espresso") || String(category || "").includes("kitchen")) {
-          return '<svg width="46" height="46" viewBox="0 0 64 64" fill="none">' +
+          return '<svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 64 64" fill="none">' +
             '<path d="M19 10H45L40 23H24L19 10Z" fill="#EA580C"/>' +
             '<rect x="20" y="23" width="24" height="29" rx="3" fill="#18181B"/>' +
             '<circle cx="32" cy="34" r="5" fill="#FB923C"/>' +
           '</svg>';
         }
-        return '<svg width="46" height="46" viewBox="0 0 64 64" fill="none">' +
+        return '<svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 64 64" fill="none">' +
           '<rect x="14" y="14" width="36" height="36" rx="6" fill="#18181B" stroke="#EA580C" stroke-width="2.5"/>' +
           '<circle cx="32" cy="32" r="9" fill="#EA580C"/>' +
         '</svg>';
@@ -2930,7 +2930,7 @@ compare battery life and wind mic on the best options</textarea>
         const curPt = hrs[state.hour] || hrs[19];
 
         document.getElementById("pacingCumSpendSvg").innerHTML =
-          '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="24-Hour Cumulative Budget Spend">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="24-Hour Cumulative Budget Spend">' +
             yLines +
             '<rect x="' + peakX1.toFixed(1) + '" y="' + padT + '" width="' + (peakX2 - peakX1).toFixed(1) + '" height="' + plotH + '" fill="' + peakFill + '"/>' +
             '<text x="' + ((peakX1 + peakX2) / 2).toFixed(1) + '" y="' + (padT + 12) + '" text-anchor="middle" font-family="Martian Mono, monospace" font-size="9" font-weight="700" fill="#EA580C">PRIME PEAK (1.82x CVR)</text>' +
@@ -2961,7 +2961,7 @@ compare battery life and wind mic on the best options</textarea>
         }).join("");
 
         document.getElementById("pacingHourlyConvSvg").innerHTML =
-          '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Hourly Attributed Conversions">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Hourly Attributed Conversions">' +
             convGrid +
             '<rect x="' + peakX1.toFixed(1) + '" y="' + padT + '" width="' + (peakX2 - peakX1).toFixed(1) + '" height="' + plotH + '" fill="' + peakFill + '"/>' +
             barsSvg +
@@ -3079,7 +3079,7 @@ compare battery life and wind mic on the best options</textarea>
         const xMap = function(v) { return fL + ((v - minV) / Math.max(0.05, maxV - minV)) * (FW - fL - fR); };
 
         document.getElementById("opeForestPlotSvg").innerHTML =
-          '<svg viewBox="0 0 ' + FW + ' ' + FH + '" role="img" aria-label="95% Bootstrap Confidence Intervals">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + FW + ' ' + FH + '" role="img" aria-label="95% Bootstrap Confidence Intervals">' +
             '<line x1="' + xMap(ope.logging_baseline_value).toFixed(1) + '" y1="14" x2="' + xMap(ope.logging_baseline_value).toFixed(1) + '" y2="' + (FH - 22) + '" stroke="#DC2626" stroke-width="1.8" stroke-dasharray="4 3"/>' +
             '<text x="' + xMap(ope.logging_baseline_value).toFixed(1) + '" y="' + (FH - 7) + '" text-anchor="middle" font-family="Martian Mono, monospace" font-size="8.5" fill="#DC2626">Logging ($' + Number(ope.logging_baseline_value).toFixed(2) + ')</text>' +
             '<line x1="' + xMap(ope.oracle_ground_truth).toFixed(1) + '" y1="14" x2="' + xMap(ope.oracle_ground_truth).toFixed(1) + '" y2="' + (FH - 22) + '" stroke="#EA580C" stroke-width="2.2"/>' +
@@ -3467,7 +3467,7 @@ compare battery life and wind mic on the best options</textarea>
             return arr.map(function(b) { return xAt(b.mean_predicted_pct).toFixed(1) + "," + yAt(b.empirical_ctr_pct).toFixed(1); }).join(" ");
           };
           svgEl.innerHTML =
-            '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="PAL Reliability Calibration Curve">' +
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="PAL Reliability Calibration Curve">' +
               '<line x1="' + pL + '" y1="' + yAt(0).toFixed(1) + '" x2="' + xAt(maxPct).toFixed(1) + '" y2="' + yAt(maxPct).toFixed(1) + '" stroke="' + gridStroke + '" stroke-width="2" stroke-dasharray="4 4"/>' +
               '<polyline fill="none" stroke="#DC2626" stroke-width="2.6" stroke-dasharray="5 3" points="' + polyPts(cN) + '"/>' +
               '<polyline fill="none" stroke="#059669" stroke-width="3.2" points="' + polyPts(cI) + '"/>' +
